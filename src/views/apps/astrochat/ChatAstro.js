@@ -47,7 +47,7 @@ class ChatApp extends React.Component {
     axiosConfig
       .get(`/user/astrogetRoomid/${astroId}`)
       .then((response) => {
-        console.log("@@!!!", response?.data?.data);
+        // console.log("@@!!!", response?.data?.data);
         if (response.data.status === true) {
           this.setState({
             userChatList: response?.data?.data,
