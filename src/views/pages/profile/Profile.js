@@ -11,8 +11,8 @@ import {
 } from "reactstrap";
 import swal from "sweetalert";
 import { Check } from "react-feather";
-// import { Route } from "react-router-dom";
-import axios from "axios";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 import axiosConfig from "../../../axiosConfig";
 import "../../../assets/scss/pages/users-profile.scss";
 import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
@@ -25,8 +25,6 @@ class Profile extends React.Component {
       fullname: "",
       email: "",
       mobile: "",
-      // resetpassword: "",
-      // password: "",
       img: "",
       selectedName: "",
       selectedFile: null,
@@ -55,17 +53,16 @@ class Profile extends React.Component {
           email: response.data.data.email,
           mobile: response.data.data.mobile,
           img: response.data.data.img,
-          password: response.data.data.password,
         });
       })
       .catch((error) => {
-        console.log(error.response);
+        // swal("Error!", "You clicked the button!", "error");
+        console.log(error);
       });
   };
   componentDidMount() {
     this.getData();
   }
-
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -76,10 +73,8 @@ class Profile extends React.Component {
     data.append("fullname", this.state.fullname);
     data.append("email", this.state.email);
     data.append("mobile", this.state.mobile);
-    // data.append("password", this.state.password);
-    // data.append("resetpassword", this.state.resetpassword);
     if (this.state.selectedFile !== null) {
-      data.append("img", this.state.selectedFile, this.state.selectedName);
+      data.append("img", this.state.selectedFile);
     }
 
     let astroId = localStorage.getItem("astroId");
@@ -93,7 +88,7 @@ class Profile extends React.Component {
           email: response.data.data.email,
           mobile: response.data.data.mobile,
           img: response.data.data.img,
-          password: response.data.data.password,
+          // password: response.data.data.password,
         });
         this.getData();
         swal("Success!", "Edited SuccessFull!", "success");
@@ -124,15 +119,15 @@ class Profile extends React.Component {
                   />
                   <ul className="lst-1">
                     <li className="lst-2">
-                      Name:{" "}
+                      Name:
                       <span className="lst-3">{this.state.data.fullname}</span>
                     </li>
                     <li className="lst-2">
-                      Mobile:{" "}
+                      Mobile:
                       <span className="lst-3">{this.state.data.mobile}</span>
                     </li>
                     <li className="lst-2">
-                      Email:{" "}
+                      Email:
                       <span className="lst-3">{this.state.data.email}</span>
                     </li>
                   </ul>
@@ -155,64 +150,66 @@ class Profile extends React.Component {
                     </CardTitle>
                     <Row className="m-0">
                       <Col sm="12" className="p-0">
-                        <Form action="/">
-                          <Label>Name</Label>
-                          <Input
-                            type="text"
-                            name="fullname"
-                            placeholder="Name"
-                            value={this.state.fullname}
-                            onChange={this.changeHandler}
-                          />
-                          <br></br>
-                          <Label>Email</Label>
-                          <Input
-                            type="email"
-                            name="email"
-                            placeholder="email"
-                            value={this.state.email}
-                            onChange={this.changeHandler}
-                          />
-                          <br></br>
-                          <Label>Mobile No.</Label>
-                          <Input
+                        <Label>Name</Label>
+                        <Input
+                          type="text"
+                          name="fullname"
+                          placeholder="Name"
+                          value={this.state.fullname}
+                          onChange={this.changeHandler}
+                        />
+                        <br></br>
+                        <Label>Email</Label>
+                        <Input
+                          type="email"
+                          name="email"
+                          placeholder="email"
+                          disabled
+                          value={this.state.email}
+                          onChange={this.changeHandler}
+                        />
+                        <br></br>
+                        <Label>Mobile No.</Label>
+
+                        <div className="form-group mtb-10">
+                          <PhoneInput
+                            countryCodeEditable={false}
+                            className="mob-int"
                             disabled
-                            type="number"
-                            name="mobile"
-                            placeholder="Mobile No."
-                            value={this.state.mobile}
-                            onChange={this.changeHandler}
+                            country={"in"}
+                            value={(this.state?.mobile).toString()}
+                            onChange={(mobile) => {
+                              this.setState({ mobile: mobile });
+                            }}
                           />
-                          <br></br>
-                          {/* <Label>Password</Label>
-                          <Input
-                            type="password"
-                            name="password"
-                            placeholder="Reset password"
-                            value={this.state.password}
-                            onChange={this.changeHandler}
-                          /> */}
-                          <Label>User Image</Label>
-                          <Input
-                            className="form-control"
-                            type="file"
-                            name="img"
-                            onChange={this.onChangeHandler}
-                          />
-                          <br></br>
-                          <CheckBoxesVuexy
-                            color="primary"
-                            icon={<Check className="vx-icon" size={16} />}
-                            label=" I accept the terms & conditions."
-                            defaultChecked={true}
-                          />
-                          <br></br>
-                          <div className="d-flex justify-content-between">
-                            <Button.Ripple color="primary" type="submit">
-                              Submit
-                            </Button.Ripple>
-                          </div>
-                        </Form>
+                          {this.state.mobileError !== "" ? (
+                            <span style={{ color: "red" }}>
+                              {this.state.mobileError}
+                            </span>
+                          ) : null}
+                        </div>
+                        <br></br>
+                        <Label>User Image</Label>
+                        <Input
+                          className="form-control"
+                          type="file"
+                          name="img"
+                          onChange={this.onChangeHandler}
+                        />
+                        <br></br>
+                        <CheckBoxesVuexy
+                          color="primary"
+                          icon={<Check className="vx-icon" size={16} />}
+                          label=" I accept the terms & conditions."
+                          defaultChecked={true}
+                        />
+                        <br></br>
+                        <div className="d-flex justify-content-between">
+                          <Button.Ripple color="primary" type="submit">
+                            Submit
+                          </Button.Ripple>
+                        </div>
+                        {/* </Form> */}
                       </Col>
                     </Row>
                   </div>

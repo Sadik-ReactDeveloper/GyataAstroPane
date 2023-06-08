@@ -12,7 +12,7 @@ import {
 import { Phone } from "react-feather";
 import { loginWithJWT } from "../../../../redux/actions/auth/loginActions";
 import { connect } from "react-redux";
-// import axios from "axios";
+
 import { Route } from "react-router-dom";
 import swal from "sweetalert";
 // import { history } from "../../../../history";
@@ -100,6 +100,7 @@ class LoginJWT extends React.Component {
                   name="otp"
                   required
                   placeholder="Enter OTP"
+                  maxLength={6}
                   value={this.state.otp}
                   onChange={this.handlechange}
                   // required
@@ -122,25 +123,11 @@ class LoginJWT extends React.Component {
         ) : (
           <CardBody className="pt-1">
             <Form onSubmit={this.handleLogin}>
-              {/* <FormGroup className="form-label-group position-relative has-icon-left">
-                <Input
-                  type="number"
-                  maxLength={10}
-                  name="mobile"
-                  placeholder="Enter here your  valid Mobile Number"
-                  value={this.state.mobile}
-                  onChange={this.handlechange}
-                />
-                <div className="form-control-position">
-                  <Phone size={15} />
-                </div>
-                <Label>Phone</Label>
-              </FormGroup> */}
-              {/* <Col md="6"> */}
               <FormGroup className="form-label-group position-relative has-icon-left">
                 <div className="form-group mtb-10">
                   <Label>Mobile Number*</Label>
                   <PhoneInput
+                    countryCodeEditable={false}
                     className="mob-int"
                     country={"in"}
                     value={this.state.mobile}

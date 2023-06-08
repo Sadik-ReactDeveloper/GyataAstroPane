@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 import { history } from "../../../../history";
 import "../../../../assets/scss/pages/app-ecommerce-shop.scss";
-import axios from "axios";
+import axiosConfig from "../../../../axiosConfig";
 class ViewBank extends React.Component {
   constructor(props) {
     super(props);
@@ -21,14 +21,14 @@ class ViewBank extends React.Component {
 
   componentDidMount() {
     let { id } = this.props.match.params;
-    axios
-      .get(`http://3.108.185.7/nodejs/api/dealer/getonebank/${id}`)
-      .then(response => {
+    axiosConfig
+      .get(`/nodejs/api/dealer/getonebank/${id}`)
+      .then((response) => {
         // console.log(response.data);
         console.log(response.data.data);
         this.setState({ data: response.data.data });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }
@@ -62,7 +62,8 @@ class ViewBank extends React.Component {
               <Col>
                 <Button
                   className=" btn btn-danger float-right"
-                  onClick={() => history.push("/app/setting/bank/bankList")}>
+                  onClick={() => history.push("/app/setting/bank/bankList")}
+                >
                   Back
                 </Button>
               </Col>

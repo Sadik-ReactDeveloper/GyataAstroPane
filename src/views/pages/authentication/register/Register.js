@@ -59,13 +59,10 @@ class Register extends React.Component {
       Sunday: "",
       password: "",
       cnfmPassword: "",
-      // userId: "",
       approvedstatus: "false",
       otpverify: "true",
       selectedName: "",
       selectedFile: {},
-
-      // __v: 0,
     };
   }
   //Image Submit Handler
@@ -264,7 +261,7 @@ class Register extends React.Component {
 
                       <Col md="6">
                         <div className="form-group mtb-10">
-                          <Label>Email address*</Label>
+                          <Label>Email Address*</Label>
                           <Input
                             type="email"
                             name="email"
@@ -279,6 +276,7 @@ class Register extends React.Component {
                         <div className="form-group mtb-10">
                           <Label>Mobile Number*</Label>
                           <PhoneInput
+                            countryCodeEditable={false}
                             className="mob-int"
                             country={"in"}
                             value={this.state.mobile}
@@ -421,7 +419,8 @@ class Register extends React.Component {
                         <div className="form-group mtb-10">
                           <Label>Experience in years*</Label>
                           <Input
-                            type="text"
+                            type="number"
+                            placeholder="Experience years"
                             name="exp_in_years"
                             required
                             value={this.state.exp_in_years}
@@ -435,7 +434,8 @@ class Register extends React.Component {
                             How many hours you can contribute daily?*
                           </Label>
                           <Input
-                            type="text"
+                            type="number"
+                            placeholder="Daily Hours"
                             name="conrubute_hrs"
                             required
                             value={this.state.conrubute_hrs}
@@ -532,7 +532,7 @@ class Register extends React.Component {
                         <div className="form-group mtb-10">
                           <Label>Call Charge</Label>
                           <Input
-                            type="text"
+                            type="number"
                             required
                             name="callCharge"
                             value={this.state.callCharge}

@@ -30,6 +30,8 @@ const ConversationList = lazy(() =>
 );
 
 const InTakeList = lazy(() => import("./views/apps/conversation/InTakeList"));
+const BirthChart = lazy(() => import("./views/apps/conversation/BirthChart"));
+
 const chatlist = lazy(() => import("./views/apps/userchat/ChatList"));
 const chat = lazy(() => import("./views/apps/chat/Chat"));
 const chatLog = lazy(() => import("./views/apps/chat/ChatLog"));
@@ -453,7 +455,6 @@ class AppRouter extends React.Component {
       <Router history={history}>
         <HashRouter>
           <Switch>
-            {/*<AppRoute exact={true} path="/" component={home} fullLayout /> */}
             <AppRoute exact={true} path="/" component={analyticsDashboard} />
             <AppRoute
               exact={true}
@@ -470,6 +471,10 @@ class AppRouter extends React.Component {
             <AppRoute
               path="/app/conversation/intakelist"
               component={InTakeList}
+            />
+            <AppRoute
+              path="/app/conversation/birthchart/:id"
+              component={BirthChart}
             />
             <AppRoute path="/app/user/viewUser" component={ViewUser} />
             <AppRoute path="/chat" component={chat} />
