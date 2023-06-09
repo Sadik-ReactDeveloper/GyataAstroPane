@@ -6,6 +6,7 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bs-stepper/dist/css/bs-stepper.min.css";
+import { Route } from "react-router-dom";
 import { Container, Row, Col, Input, Form, Button, Label } from "reactstrap";
 import "../../../../assets/scss/pages/users.scss";
 class Register extends React.Component {
@@ -68,8 +69,7 @@ class Register extends React.Component {
   //Image Submit Handler
   onChangeHandler = (event) => {
     this.setState({ selectedFile: event.target.files[0] });
-    this.setState({ selectedName: event.target.files[0].name });
-    console.log(event.target.files[0]);
+    // this.setState({ selectedName: event.target.files[0].name });
   };
 
   componentDidMount() {
@@ -79,6 +79,9 @@ class Register extends React.Component {
     });
   }
 
+  handleBackToLogin = (e) => {
+    window.location.replace("/#/pages/login");
+  };
   handlechange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -292,13 +295,27 @@ class Register extends React.Component {
                         </div>
                       </Col>
                     </Row>
-                    <button
-                      className="btn btn-primary"
-                      onClick={() => this.stepperFirst()}
-                    >
-                      Next
-                    </button>
+                    <div className="d-flex justify-content-between">
+                      <button
+                        className="btn btn-primary"
+                        onClick={() => this.stepperFirst()}
+                      >
+                        Next
+                      </button>
+                      <Route
+                        render={({ history }) => (
+                          <div
+                            className="ml-1"
+                            style={{ color: "blue", cursor: "pointer" }}
+                            onClick={this.handleBackToLogin}
+                          >
+                            Back To Login
+                          </div>
+                        )}
+                      />
+                    </div>
                   </div>
+
                   <div id="test-otp" className="content">
                     <Row>
                       <Col md="6">

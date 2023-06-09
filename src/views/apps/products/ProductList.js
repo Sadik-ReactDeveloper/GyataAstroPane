@@ -12,7 +12,6 @@ import {
   DropdownToggle,
 } from "reactstrap";
 import axiosConfig from "../../../axiosConfig";
-import axios from "axios";
 import { ContextLayout } from "../../../utility/context/Layout";
 import { AgGridReact } from "ag-grid-react";
 import { Eye, Edit, Trash2, ChevronDown } from "react-feather";
@@ -21,7 +20,7 @@ import "../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../assets/scss/pages/users.scss";
 import { Route } from "react-router-dom";
 import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
-
+import demo from "../../../assets/img/boy-img.png";
 class ProductList extends React.Component {
   state = {
     rowData: [],
@@ -54,7 +53,11 @@ class ProductList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.product?.productname}</span>
+              <span>
+                {params.data.product?.productname
+                  ? params.data.product?.productname
+                  : "No Data Available"}
+              </span>
             </div>
           );
         },
@@ -69,7 +72,11 @@ class ProductList extends React.Component {
           return (
             <div>
               <img
-                src={params.data.product?.image[0]}
+                src={
+                  params.data.product?.image[0]
+                    ? params.data.product?.image[0]
+                    : demo
+                }
                 alt="img"
                 className="w-50 h-50 rounded-0"
               />
@@ -238,14 +245,14 @@ class ProductList extends React.Component {
                             {this.gridApi
                               ? this.state.currenPageSize
                               : "" * this.state.getPageSize -
-                              (this.state.getPageSize - 1)}{" "}
+                                (this.state.getPageSize - 1)}{" "}
                             -{" "}
                             {this.state.rowData.length -
                               this.state.currenPageSize *
-                              this.state.getPageSize >
-                              0
+                                this.state.getPageSize >
+                            0
                               ? this.state.currenPageSize *
-                              this.state.getPageSize
+                                this.state.getPageSize
                               : this.state.rowData.length}{" "}
                             of {this.state.rowData.length}
                             <ChevronDown className="ml-50" size={15} />

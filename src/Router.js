@@ -70,8 +70,6 @@ const WalletManagement = lazy(() =>
   import("./views/apps/wallet/WalletManagement")
 );
 
-// payrequest
-
 //Transaction history//
 const TransactionHistory = lazy(() =>
   import("./views/apps/transaction/TransactionHistory")

@@ -251,20 +251,20 @@ class OrderHisList extends React.Component {
                     All Orders
                   </h1>
                 </Col>
-                <Col>
+                {/* <Col>
                   <Route
                     render={({ history }) => (
                       <Button
                         className=" btn btn-success float-right"
                         onClick={() =>
-                          history.push("/app/prediction/addprediction")
+                          history.push("/app/orderhistory/addOrder")
                         }
                       >
                         Add New
                       </Button>
                     )}
                   />
-                </Col>
+                </Col> */}
               </Row>
               <CardBody>
                 {this.state.rowData === null ? null : (

@@ -8,7 +8,6 @@ import {
   Input,
   Label,
   Button,
-
 } from "reactstrap";
 //import axios from "axios";
 import axiosConfig from "../../../axiosConfig";
@@ -17,8 +16,6 @@ import axiosConfig from "../../../axiosConfig";
 import "react-toastify/dist/ReactToastify.css";
 import { Route } from "react-router-dom";
 import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
-
-
 
 export class PayoutAddRequest extends Component {
   constructor(props) {
@@ -30,7 +27,6 @@ export class PayoutAddRequest extends Component {
       transactionId: "",
       status: "",
     };
-
   }
   changeHandler1 = (e) => {
     this.setState({ status: e.target.value });
@@ -56,15 +52,15 @@ export class PayoutAddRequest extends Component {
     return (
       <div>
         <Breadcrumbs
-          breadCrumbTitle="Add Payout Request"
+          breadCrumbTitle="Payout Request"
           breadCrumbParent="Home"
-          breadCrumbActive="Add Payout Request "
+          breadCrumbActive="Payout Request "
         />
         <Card>
           <Row className="m-2">
             <Col>
               <h1 col-sm-6 className="float-left">
-                Add Payout Request
+                Payout Request
               </h1>
             </Col>
             <Col>
@@ -72,9 +68,7 @@ export class PayoutAddRequest extends Component {
                 render={({ history }) => (
                   <Button
                     className=" btn btn-danger float-right"
-                    onClick={() =>
-                      history.push("/app/report/payoutReport")
-                    }
+                    onClick={() => history.push("/app/report/payoutReport")}
                   >
                     Back
                   </Button>

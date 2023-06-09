@@ -23,14 +23,13 @@ export default class AddCustomer extends Component {
       mobile_no: "",
       selectedFile: null,
       status: "",
+      dob: "",
+      doregister: "",
+      password: "",
+      cnfrmpassword: "",
     };
   }
 
-  onChangeHandler = (event) => {
-    this.setState({ selectedFile: event.target.files[0] });
-    this.setState({ selectedName: event.target.files[0].name });
-    console.log(event.target.files[0]);
-  };
   changeHandler1 = (e) => {
     this.setState({ status: e.target.value });
   };
@@ -43,7 +42,7 @@ export default class AddCustomer extends Component {
     axiosConfig
       .post(`/api/user/customersignup`, this.state)
       .then((response) => {
-        // console.log(response);
+        console.log(response);
         alert("Customer Added Successful");
         this.props.history.push("/app/customer/customerList");
       })
@@ -75,7 +74,6 @@ export default class AddCustomer extends Component {
                     className=" btn btn-danger float-right"
                     onClick={() => history.push("/app/userride/userRideList")}
                   >
-                    {" "}
                     Back
                   </Button>
                 )}
@@ -86,7 +84,7 @@ export default class AddCustomer extends Component {
             <Form className="m-1" onSubmit={this.submitHandler}>
               <Row>
                 <Col lg="6" md="6" sm="6" className="mb-2">
-                  <Label>first Name</Label>
+                  <Label>First Name</Label>
                   <Input
                     required
                     type="text"
@@ -108,12 +106,12 @@ export default class AddCustomer extends Component {
                   ></Input>
                 </Col>
                 <Col lg="6" md="6" sm="6" className="mb-2">
-                  <Label> Email</Label>
+                  <Label>Email</Label>
                   <Input
                     required
                     type="email"
                     name="customer_email"
-                    placeholder="Email"
+                    placeholder="Enter Email"
                     value={this.state.customer_email}
                     onChange={this.changeHandler}
                   ></Input>
@@ -123,9 +121,11 @@ export default class AddCustomer extends Component {
                   <Label>Mobile No.</Label>
                   <Input
                     required
-                    type="number"
+                    type="tel"
                     name="mobile_no"
                     placeholder="Mobile No."
+                    // maxLength={10}
+                    maxlength="10"
                     value={this.state.mobile_no}
                     onChange={this.changeHandler}
                   ></Input>
@@ -135,8 +135,7 @@ export default class AddCustomer extends Component {
                   <Input
                     required
                     type="date"
-                    name="sortorder"
-                    placeholder="Enter Confirm  Password"
+                    name="dob"
                     value={this.state.sortorder}
                     onChange={this.changeHandler}
                   ></Input>
@@ -146,9 +145,8 @@ export default class AddCustomer extends Component {
                   <Input
                     required
                     type="date"
-                    name="sortorder"
-                    placeholder="Enter Confirm  Password"
-                    value={this.state.sortorder}
+                    name="doregister"
+                    value={this.state.doregister}
                     onChange={this.changeHandler}
                   ></Input>
                 </Col>
@@ -158,10 +156,10 @@ export default class AddCustomer extends Component {
                   <Label>Password </Label>
                   <Input
                     required
-                    type="text"
-                    name="sortorder"
+                    type="password"
+                    name="password"
                     placeholder="Enter Password"
-                    value={this.state.sortorder}
+                    value={this.state.password}
                     onChange={this.changeHandler}
                   ></Input>
                 </Col>
@@ -169,10 +167,10 @@ export default class AddCustomer extends Component {
                   <Label>Confirm Password </Label>
                   <Input
                     required
-                    type="text"
-                    name="sortorder"
+                    type="password"
+                    name="cnfrmpassword"
                     placeholder="Enter Confirm  Password"
-                    value={this.state.sortorder}
+                    value={this.state.cnfrmpassword}
                     onChange={this.changeHandler}
                   ></Input>
                 </Col>
