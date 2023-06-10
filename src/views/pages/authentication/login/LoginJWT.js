@@ -33,7 +33,6 @@ class LoginJWT extends React.Component {
   };
   handleSignUp = (e) => {
     window.location.replace("/#/pages/register");
-    // this.props.history.push("/pages/register");
   };
   handleLogin = (e) => {
     e.preventDefault();

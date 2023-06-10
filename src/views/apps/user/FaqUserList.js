@@ -11,12 +11,11 @@ import {
   DropdownItem,
   DropdownToggle,
 } from "reactstrap";
-import axiosConfig from "../../../axiosConfig";
-import axios from "axios";
 import { ContextLayout } from "../../../utility/context/Layout";
 import { AgGridReact } from "ag-grid-react";
 import { Eye, Edit, Trash2, ChevronDown } from "react-feather";
-//import classnames from "classnames";
+
+import axiosConfig from "../../../axiosConfig";
 import "../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../assets/scss/pages/users.scss";
 import { Route } from "react-router-dom";
@@ -54,9 +53,7 @@ class FaqUserList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>
-                {params.data.firstname} {params.data.lastname}
-              </span>
+              <span>{params.data?.userid?.fullname}</span>
             </div>
           );
         },
@@ -70,7 +67,7 @@ class FaqUserList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data.email}</span>
+              <span>{params.data?.userid?.email}</span>
             </div>
           );
         },
@@ -83,7 +80,7 @@ class FaqUserList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data.email}</span>
+              <span>{params.data?.userid?.mobile}</span>
             </div>
           );
         },
@@ -96,7 +93,7 @@ class FaqUserList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.mobile}</span>
+              <span>{params.data?.question}</span>
             </div>
           );
         },
@@ -125,6 +122,19 @@ class FaqUserList extends React.Component {
           return (
             <div>
               <span>{params.data.mobile}</span>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Created on",
+        field: "dateofregister",
+        filter: true,
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div>
+              <span>{params.data?.createdAt}</span>
             </div>
           );
         },
@@ -178,31 +188,29 @@ class FaqUserList extends React.Component {
     ],
   };
   async componentDidMount() {
-    let { id } = this.props.match.params;
+    // let { id } = this.props.match.params;
+    let astroId = localStorage.getItem("astroId");
 
-    await axiosConfig.get(`/user/view_onecust/${id}`).then((response) => {
-      let rowData = response.data.data;
-      this.setState({ rowData });
-    });
-
-    await axiosConfig.get(`/admin/allcustomer`).then((response) => {
-      let rowData = response.data.data;
-      console.log(rowData);
-      this.setState({ rowData });
-    });
+    await axiosConfig
+      .get(`/user/astro_ques_list/${astroId}`)
+      .then((response) => {
+        let rowData = response.data.data;
+        console.log(rowData);
+        this.setState({ rowData });
+      });
   }
 
-  async runthisfunction(id) {
-    console.log(id);
-    await axiosConfig.get(`/admin/delcustomer/${id}`).then(
-      (response) => {
-        console.log(response);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
+  // async runthisfunction(id) {
+  //   console.log(id);
+  //   await axios.get(`http://3.108.185.7:4000/admin/delcustomer/${id}`).then(
+  //     (response) => {
+  //       console.log(response);
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //     }
+  //   );
+  // }
   onGridReady = (params) => {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -243,7 +251,7 @@ class FaqUserList extends React.Component {
                 <Row className="m-2">
                   <Col>
                     <h1 sm="6" className="float-left">
-                      Users Faq List
+                      Users FAQ List
                     </h1>
                   </Col>
                   {/* <Col>

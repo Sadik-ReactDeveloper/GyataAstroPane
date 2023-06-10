@@ -215,11 +215,6 @@ class CallHistory extends React.Component {
         console.log(rowData);
         this.setState({ rowData: rowData });
       });
-    // await axiosConfig.get(`/user/view_onecust/${id}`).then((response) => {
-    //   let rowData = response.data.data;
-    //   console.log(rowData);
-    //   this.setState({ rowData });
-    // });
 
     await axiosConfig.get("/admin/allcustomer").then((response) => {
       let rowData = response.data.data;
