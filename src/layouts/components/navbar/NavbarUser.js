@@ -12,7 +12,7 @@ import {
 } from "reactstrap";
 
 import * as Icon from "react-feather";
-import { Route } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 import axiosConfig from "../../../axiosConfig";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { Bell } from "react-feather";
@@ -32,19 +32,21 @@ const NavbarUser = () => {
   const [viewnotify, setViewnotify] = useState("");
   const [countnotify, setCountnotify] = useState("");
 
+  const VideoCallNotificationData = async function videoCallnotification() {
+    try {
+      const astroId = localStorage.getItem("astroId");
+      const resp = await axiosConfig.get(`/user/VdolinkList/${astroId}`);
+      console.log(resp.data.data);
+      setVideonotification(resp.data.data);
+      setCountnotify(resp.data.count);
+    } catch (error) {
+      console.log("SomeThing Wrong");
+    }
+  };
   useEffect(() => {
-    // const astroId = localStorage.getItem("astroId");
-    // const getOneUser = () => {
-    //   axios
-    //     .get(`http://13.235.180.192:8000/admin/getoneAstro/${astroId}`)
-    //     .then((response) => {
-    //       console.log(response.data);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // };
-
+    VideoCallNotificationData();
+  }, [videonotification]);
+  useEffect(() => {
     async function getOneUser() {
       try {
         const astroId = localStorage.getItem("astroId");
@@ -67,21 +69,9 @@ const NavbarUser = () => {
         console.log("SomeThing Wrong");
       }
     }
-    async function videoCallnotification() {
-      try {
-        const astroId = localStorage.getItem("astroId");
-        const resp = await axiosConfig.get(`/user/VdolinkList/${astroId}`);
-
-        setVideonotification(resp.data.data);
-        setCountnotify(resp.data.count);
-      } catch (error) {
-        console.log("SomeThing Wrong");
-      }
-    }
 
     getOneUser();
     getAllnotification();
-    videoCallnotification();
   }, []);
 
   return (
@@ -175,12 +165,15 @@ const NavbarUser = () => {
                         <p className="mb-0">
                           Request for:
                           <span>
-                            {/* {data.type} */}
-                            typeeppp
+                            {data.type}
+                            {/* typeeppp */}
                           </span>
                         </p>
                       </small>
                       <div className="bottom-tag">
+                        <a target="_blank" href={data?.videoLink}>
+                          <Button color="success">Join Video Call</Button>
+                        </a>
                         <Button className="success media-heading gt-1">
                           Accept
                         </Button>

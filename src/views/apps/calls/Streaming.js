@@ -60,7 +60,7 @@ import * as React from "react";
 import { getastroID } from "../../pages/authentication/login/LoginJWT";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 import "../../../assets/scss/pages/live-streaming.scss";
-// import Streaming from "./Streaming";
+
 function randomID(len) {
   let result = "";
   if (result) return result;
@@ -127,7 +127,6 @@ export default function App() {
     serverSecret,
     roomID,
     randomID(5),
-    // randomID(5),
     userName
 
     // astrodetails

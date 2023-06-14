@@ -205,7 +205,6 @@ class CallHistory extends React.Component {
     ],
   };
   async componentDidMount() {
-    let { id } = this.props.match.params;
     let astroId = localStorage.getItem("astroId");
     console.log("astroId", astroId);
     await axiosConfig
@@ -272,12 +271,10 @@ class CallHistory extends React.Component {
             <Col sm="12">
               <Card>
                 <Row className="m-2">
-                  <Col>
-                    <h1 sm="6" className="float-left">
-                      Call Histroy
-                    </h1>
+                  <Col lg="6" sm="12">
+                    <h1 className="float-left">Call Histroy</h1>
                   </Col>
-                  <Col>
+                  <Col lg="6" sm="12">
                     <Route
                       render={({ history }) => (
                         <Button
