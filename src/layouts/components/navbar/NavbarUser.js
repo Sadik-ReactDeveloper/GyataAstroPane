@@ -32,7 +32,7 @@ const NavbarUser = () => {
   const [viewnotify, setViewnotify] = useState("");
   const [countnotify, setCountnotify] = useState("");
 
-  const VideoCallNotificationData = async function videoCallnotification() {
+  async function videoCallnotification() {
     try {
       const astroId = localStorage.getItem("astroId");
       const resp = await axiosConfig.get(`/user/VdolinkList/${astroId}`);
@@ -42,10 +42,10 @@ const NavbarUser = () => {
     } catch (error) {
       console.log("SomeThing Wrong");
     }
-  };
+  }
   useEffect(() => {
-    VideoCallNotificationData();
-  }, [videonotification]);
+    videoCallnotification();
+  }, []);
   useEffect(() => {
     async function getOneUser() {
       try {

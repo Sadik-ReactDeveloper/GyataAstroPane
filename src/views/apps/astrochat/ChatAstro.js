@@ -16,6 +16,7 @@ class ChatApp extends React.Component {
     super(props);
     this.state = {
       userChatList: [],
+      Users: {},
       userId: "",
       astroId: "",
       msg: "",
@@ -103,8 +104,10 @@ class ChatApp extends React.Component {
 
   getChatRoomId = async (user, i) => {
     console.log("wwww", user);
-    // let astroId = localStorage.getItem('astroId')
+    this.setState({ Users: user });
+    sessionStorage.setItem("AstroRoomID", user?.roomid);
     let userIds = [user?.userid?._id];
+    // this.getAstroMessage();
     this.setState({
       userId: user?.userid?._id,
       roomId: user?.roomid,
@@ -116,7 +119,7 @@ class ChatApp extends React.Component {
       .then((response) => {
         console.log(response?.data?.data);
         if (response.data.status === true) {
-          console.log("sdfjhsdfjsghjfk", response?.data.data);
+          console.log("AstroChat", response?.data.data);
 
           let filteredArray = response?.data?.data.filter(function (item) {
             return (
@@ -131,7 +134,35 @@ class ChatApp extends React.Component {
         console.log(error);
       });
   };
+  // getAstroMessage = () => {
+  //   let AstroRoomID = sessionStorage.getItem("AstroRoomID");
+  //   // console.log("AstroRoomID", AstroRoomID);
+  //   setInterval(() => {
+  //     console.log("AstroRoomID", AstroRoomID);
 
+  //     axiosConfig
+  //       .get(`/user/allchatwithAstro/${AstroRoomID}`)
+  //       .then((response) => {
+  //         console.log(response.data);
+  //         if (response.data.status === true) {
+  //           console.log("AstroChat", response?.data.data);
+
+  //           // let filteredArray = response?.data?.data.filter(function (item) {
+  //           //   return (
+  //           //     this.state.Users?.indexOf(
+  //           //       item?.userid?._id || item?.reciver?._id
+  //           //     ) > -1
+  //           //   );
+  //           // });
+
+  //           // this.setState({ roomChatData: filteredArray });
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.log(error.response.data);
+  //       });
+  //   }, 10000);
+  // };
   submitHandler = async (e) => {
     e.preventDefault();
 
@@ -160,6 +191,7 @@ class ChatApp extends React.Component {
                       -1
                     );
                   });
+
                   this.setState({ roomChatData: filteredArray });
                 }
               })
