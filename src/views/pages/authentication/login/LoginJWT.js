@@ -154,16 +154,16 @@ class LoginJWT extends React.Component {
               </div>
             </Form>
 
-            <div className="d-flex mt-2">
+            <div className="d-flex mt-2 justify-content-between">
               <div>New On Our PlatForm </div>
               <Route
                 render={({ history }) => (
                   <div
-                    className="ml-1"
+                    className=""
                     style={{ color: "blue", cursor: "pointer" }}
                     onClick={this.handleSignUp}
                   >
-                    Sign up
+                    SignUp
                   </div>
                 )}
               />
@@ -188,8 +188,3 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, { loginWithJWT })(LoginJWT);
-// export function getastroID() {
-//   const name = JSON.parse(localStorage.getItem("astroData"));
-//   const astroname = name.fullname;
-//   return astroname;
-// }

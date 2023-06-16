@@ -69,7 +69,7 @@ class Register extends React.Component {
   //Image Submit Handler
   onChangeHandler = (event) => {
     this.setState({ selectedFile: event.target.files[0] });
-    // this.setState({ selectedName: event.target.files[0].name });
+    this.setState({ selectedName: event.target.files[0].name });
   };
 
   componentDidMount() {
@@ -87,74 +87,77 @@ class Register extends React.Component {
   };
 
   changeHandler = (e) => {
-    console.log("value", e.target.value);
     this.setState({ [e.target.name]: e.target.value });
   };
 
   submitHandler = (e) => {
     e.preventDefault();
-    let astroId = localStorage.getItem("astroId");
-    console.log("astroId", astroId);
-    const data = new FormData();
-    data.append("_id", astroId);
-    data.append("gender", this.state.gender);
-    data.append("dob", this.state.dob);
-    data.append("primary_skills", this.state.primary_skills);
-    data.append("language", this.state.language);
-    data.append("all_skills", this.state.all_skills);
-    data.append("exp_in_years", this.state.exp_in_years);
-    data.append("conrubute_hrs", this.state.conrubute_hrs);
-    data.append("hear_abt_astrology", this.state.hear_abt_astrology);
-    data.append("other_online_platform", this.state.other_online_platform);
-    data.append("why_onboard_you", this.state.why_onboard_you);
-    data.append("suitable_tym_interview", this.state.suitable_tym_interview);
-    data.append("crnt_city", this.state.crnt_city);
-    data.append("income_src", this.state.income_src);
-    data.append("highest_qualification", this.state.highest_qualification);
-    data.append("degree_deploma", this.state.degree_deploma);
-    data.append("clg_scl_name", this.state.clg_scl_name);
-    data.append("lrn_abt_astrology", this.state.lrn_abt_astrology);
-    data.append("insta_link", this.state.insta_link);
-    data.append("fb_link", this.state.fb_link);
-    data.append("linkedln_link", this.state.linkedln_link);
-    data.append("youtube_link", this.state.youtube_link);
-    data.append("website_link", this.state.website_link);
-    data.append("anybody_prefer", this.state.anybody_prefer);
-    data.append("min_earning_expe", this.state.min_earning_expe);
-    data.append("max_earning_expe", this.state.max_earning_expe);
-    data.append("long_bio", this.state.long_bio);
-    data.append("status", this.state.status);
-    data.append("callCharge", this.state.callCharge);
-    data.append("fullname", this.state.fullname);
-    // data.append("availability", this.state.availability);
-    data.append("max_amount", this.state.max_amount);
-    data.append("min_amount", this.state.min_amount);
-    data.append("password", this.state.password);
-    data.append("cnfmPassword", this.state.cnfmPassword);
-    // data.append("sunday", this.state.Sunday);
-    // data.append("monday", this.state.Monday);
-    // data.append("tuesday", this.state.Tuesday);
-    // data.append("wednesday", this.state.Wednesday);
-    // data.append("thursday", this.state.Thursday);
-    // data.append("friday", this.state.Friday);
-    // data.append("saturday", this.state.Saturday);
+    if (this.state.password === this.state.cnfmPassword) {
+      let astroId = localStorage.getItem("astroId");
+      console.log("astroId", astroId);
+      const data = new FormData();
+      data.append("_id", astroId);
+      data.append("gender", this.state.gender);
+      data.append("dob", this.state.dob);
+      data.append("primary_skills", this.state.primary_skills);
+      data.append("language", this.state.language);
+      data.append("all_skills", this.state.all_skills);
+      data.append("exp_in_years", this.state.exp_in_years);
+      data.append("conrubute_hrs", this.state.conrubute_hrs);
+      data.append("hear_abt_astrology", this.state.hear_abt_astrology);
+      data.append("other_online_platform", this.state.other_online_platform);
+      data.append("why_onboard_you", this.state.why_onboard_you);
+      data.append("suitable_tym_interview", this.state.suitable_tym_interview);
+      data.append("crnt_city", this.state.crnt_city);
+      data.append("income_src", this.state.income_src);
+      data.append("highest_qualification", this.state.highest_qualification);
+      data.append("degree_deploma", this.state.degree_deploma);
+      data.append("clg_scl_name", this.state.clg_scl_name);
+      data.append("lrn_abt_astrology", this.state.lrn_abt_astrology);
+      data.append("insta_link", this.state.insta_link);
+      data.append("fb_link", this.state.fb_link);
+      data.append("linkedln_link", this.state.linkedln_link);
+      data.append("youtube_link", this.state.youtube_link);
+      data.append("website_link", this.state.website_link);
+      data.append("anybody_prefer", this.state.anybody_prefer);
+      data.append("min_earning_expe", this.state.min_earning_expe);
+      data.append("max_earning_expe", this.state.max_earning_expe);
+      data.append("long_bio", this.state.long_bio);
+      data.append("status", this.state.status);
+      data.append("callCharge", this.state.callCharge);
+      data.append("fullname", this.state.fullname);
+      // data.append("availability", this.state.availability);
+      data.append("max_amount", this.state.max_amount);
+      data.append("min_amount", this.state.min_amount);
+      data.append("password", this.state.password);
+      data.append("cnfmPassword", this.state.cnfmPassword);
+      // data.append("sunday", this.state.Sunday);
+      // data.append("monday", this.state.Monday);
+      // data.append("tuesday", this.state.Tuesday);
+      // data.append("wednesday", this.state.Wednesday);
+      // data.append("thursday", this.state.Thursday);
+      // data.append("friday", this.state.Friday);
+      // data.append("saturday", this.state.Saturday);
 
-    // data.append("email", this.state.email);
-    // data.append("mobile", this.state.mobile);
-    if (this.state.selectedFile !== null) {
-      data.append("img", this.state.selectedFile);
+      // data.append("email", this.state.email);
+      // data.append("mobile", this.state.mobile);
+      if (this.state.selectedFile !== null) {
+        data.append("img", this.state.selectedFile);
+      }
+      axiosConfig
+        .post(`/user/editAstroDetails/${this.state.userId}`, data)
+        .then((response) => {
+          console.log(response.data);
+          swal("Success!", "Submitted SuccessFull!", "success");
+          this.props.history.push("/");
+        })
+        .catch((error) => {
+          swal("Error!", "You clicked the button!", "error");
+          console.log(error.response);
+        });
+    } else {
+      swal("Error!", "Password Did Not Match", "error");
     }
-    axiosConfig
-      .post(`/user/editAstroDetails/${this.state.userId}`, data)
-      .then((response) => {
-        console.log(response.data);
-        swal("Success!", "Submitted SuccessFull!", "success");
-        this.props.history.push("/");
-      })
-      .catch((error) => {
-        swal("Error!", "You clicked the button!", "error");
-        console.log(error.response);
-      });
   };
 
   stepperFirst = () => {
@@ -400,7 +403,8 @@ class Register extends React.Component {
                           <Input
                             placeholder="Enter Amount"
                             name="min_amount"
-                            type="text"
+                            required
+                            type="number"
                             value={this.state.min_amount}
                             onChange={this.changeHandler}
                           />
@@ -414,7 +418,7 @@ class Register extends React.Component {
                             required
                             placeholder="Enter Amount"
                             name="max_amount"
-                            type="text"
+                            type="number"
                             value={this.state.max_amount}
                             onChange={this.changeHandler}
                           />
@@ -467,6 +471,7 @@ class Register extends React.Component {
                             required
                             type="text"
                             name="hear_abt_astrology"
+                            placeholder="Where did you hear about Astrotalk"
                             value={this.state.hear_abt_astrology}
                             onChange={this.changeHandler}
                           />
@@ -483,6 +488,7 @@ class Register extends React.Component {
                               <Input
                                 type="text"
                                 required
+                                placeholder="Name of platform"
                                 name="other_online_platform"
                                 value={this.state.other_online_platform}
                                 onChange={this.changeHandler}
@@ -516,6 +522,7 @@ class Register extends React.Component {
                             type="text"
                             required
                             name="why_onboard_you"
+                            placeholder="Why do you think we should onboard you"
                             value={this.state.why_onboard_you}
                             onChange={this.changeHandler}
                           />
@@ -527,6 +534,7 @@ class Register extends React.Component {
                           <Input
                             type="text"
                             required
+                            placeholder="What is a suitable time for interview"
                             name="suitable_tym_interview"
                             value={this.state.suitable_tym_interview}
                             onChange={this.changeHandler}
@@ -540,6 +548,7 @@ class Register extends React.Component {
                             type="text"
                             required
                             name="crnt_city"
+                            placeholder="Which city do you currently live in"
                             value={this.state.crnt_city}
                             onChange={this.changeHandler}
                           />
@@ -552,6 +561,7 @@ class Register extends React.Component {
                             type="number"
                             required
                             name="callCharge"
+                            placeholder="Call Charge"
                             value={this.state.callCharge}
                             onChange={this.changeHandler}
                           />
@@ -602,6 +612,7 @@ class Register extends React.Component {
                             type="text"
                             name="clg_scl_name"
                             required
+                            placeholder="College/School/University"
                             value={this.state.clg_scl_name}
                             onChange={this.changeHandler}
                           />
@@ -614,6 +625,7 @@ class Register extends React.Component {
                             type="text"
                             name="lrn_abt_astrology"
                             required
+                            placeholder="From where did you learn Astrology"
                             value={this.state.lrn_abt_astrology}
                             onChange={this.changeHandler}
                           />
@@ -624,6 +636,7 @@ class Register extends React.Component {
                         <Input
                           className="form-control"
                           type="file"
+                          required
                           name="img"
                           onChange={this.onChangeHandler}
                         />
@@ -635,6 +648,7 @@ class Register extends React.Component {
                             type="text"
                             name="insta_link"
                             required
+                            placeholder="Instagram profile link"
                             value={this.state.insta_link}
                             onChange={this.changeHandler}
                           />
@@ -642,11 +656,12 @@ class Register extends React.Component {
                       </Col>
                       <Col md="6">
                         <div className="form-group mtb-10">
-                          <Label>Facebook profile link</Label>
+                          <Label>Facebook Profile Link</Label>
                           <Input
                             type="text"
                             name="fb_link"
                             required
+                            placeholder="Facebook Profile Link"
                             value={this.state.fb_link}
                             onChange={this.changeHandler}
                           />
@@ -654,11 +669,12 @@ class Register extends React.Component {
                       </Col>
                       <Col md="6">
                         <div className="form-group mtb-10">
-                          <Label>LinkedIn profile link</Label>
+                          <Label>LinkedIn Profile Link</Label>
                           <Input
                             type="text"
                             name="linkedln_link"
                             required
+                            placeholder="LinkedIn Profile Link"
                             value={this.state.linkedln_link}
                             onChange={this.changeHandler}
                           />
@@ -666,12 +682,26 @@ class Register extends React.Component {
                       </Col>
                       <Col md="6">
                         <div className="form-group mtb-10">
-                          <Label>Youtube channel link</Label>
+                          <Label>Youtube Channel Link</Label>
                           <Input
                             type="text"
                             name="youtube_link"
                             required
+                            placeholder="Youtube Channel Link"
                             value={this.state.youtube_link}
+                            onChange={this.changeHandler}
+                          />
+                        </div>
+                      </Col>
+                      <Col md="6">
+                        <div className="form-group mtb-10">
+                          <Label>Website Profile Link</Label>
+                          <Input
+                            type="text"
+                            name="website_link"
+                            required
+                            placeholder="Website Profile Link"
+                            value={this.state.website_link}
                             onChange={this.changeHandler}
                           />
                         </div>
@@ -683,6 +713,7 @@ class Register extends React.Component {
                             type="text"
                             name="anybody_prefer"
                             required
+                            placeholder="Name of the person who referred you"
                             value={this.state.anybody_prefer}
                             onChange={this.changeHandler}
                           />
@@ -697,6 +728,7 @@ class Register extends React.Component {
                             type="number"
                             name="min_earning_expe"
                             required
+                            placeholder="Minimum Earning Expectation from Astrogyata"
                             value={this.state.min_earning_expe}
                             onChange={this.changeHandler}
                           />
@@ -711,30 +743,20 @@ class Register extends React.Component {
                             type="number"
                             name="max_earning_expe"
                             required
+                            placeholder="Maximum Earning Expectation from Astrogyata"
                             value={this.state.max_earning_expe}
                             onChange={this.changeHandler}
                           />
                         </div>
                       </Col>
-                      <Col md="6">
-                        <div className="form-group mtb-10">
-                          <Label>Website profile link</Label>
-                          <Input
-                            type="text"
-                            name="website_link"
-                            required
-                            value={this.state.website_link}
-                            onChange={this.changeHandler}
-                          />
-                        </div>
-                      </Col>
+
                       <Col md="6">
                         <div className="form-group mtb-10">
                           <Label>Password</Label>
                           <Input
                             type="password"
                             name="password"
-                            placeholder=" Password"
+                            placeholder="Password"
                             required
                             value={this.state.password}
                             onChange={this.changeHandler}
@@ -777,7 +799,7 @@ class Register extends React.Component {
                     {/* <button className="btn btn-primary" onClick={() => this.s}>
                       Submit
                     </button> */}
-                    <Button type="submit" className="btn btn-primary mt-5">
+                    <Button type="submit" className="btn  mt-5" color="primary">
                       Submit
                     </Button>
                   </div>

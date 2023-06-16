@@ -1,6 +1,6 @@
 /*** User pages ***/
 .stp-1 {
-  width: 70%;
+  width: 100%;
   background: #fff;
   margin: auto;
   padding: 20px;
@@ -9,6 +9,9 @@
   height: 90vh;
   overflow-x: hidden;
   overflow-y: auto;
+}
+.mtb-10 {
+  margin-top: 5px;
 }
 /* width */
 .stp-1::-webkit-scrollbar {

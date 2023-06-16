@@ -150,74 +150,79 @@ class AnalyticsDashboard extends React.Component {
         {/* user Counetr start */}
 
         <Card>
-            <CardTitle className="ast-3">Dashboard</CardTitle>
-             <hr></hr>
-             <CardBody>
-                <Row className="match-height">
-                  <Col md="4">
-                      <div  className="bg-t">
-                           <span className="ast-1">
-                              <Icon.Users size={40} className="mr-50" />
-                           </span>
-                           <h2 className="ast-2">Total Request Users
-                               <span className="ast-4">50</span>
-                           </h2>
-                      </div>
-                  </Col>
-                  <Col md="4">
-                    <div  className="bg-s">
-                           <span className="ast-1">
-                              <Icon.PhoneCall size={40} className="mr-50" />
-                           </span>
-                           <h2 className="ast-2">Total Call History
-                               <span className="ast-4">67</span>
-                           </h2>
-                      </div>
-                  </Col>
-                  <Col md="4">
-                      <div  className="bg-p">
-                           <span className="ast-1">
-                              <Icon.DollarSign size={40} className="mr-50" />
-                           </span>
-                           <h2 className="ast-2"> Total Earning
-                                <span className="ast-4">70</span>
-                           </h2>
-                      </div>
-                  </Col>
-                  <Col md="4">
-                      <div  className="bg-t mtb-20">
-                           <span className="ast-1">
-                              <Icon.BarChart2 size={40} className="mr-50" />
-                           </span>
-                           <h2 className="ast-2">Total Daily Prediction
-                               <span className="ast-4">50</span>
-                           </h2>
-                      </div>
-                  </Col>
-                  <br></br>
-                  <Col md="4">
-                    <div  className="bg-s mb-20">
-                           <span className="ast-1">
-                              <Icon.BarChart2 size={40} className="mr-50" />
-                           </span>
-                           <h2 className="ast-2">Total Weekly Prediction
-                               <span className="ast-4">67</span>
-                           </h2>
-                      </div>
-                  </Col>
-                  <br></br>
-                  <Col md="4">
-                      <div  className="bg-p mb-20">
-                           <span className="ast-1">
-                              <Icon.BarChart2 size={40} className="mr-50" />
-                           </span>
-                           <h2 className="ast-2"> Total Monthly Prediction
-                                <span className="ast-4">70</span>
-                           </h2>
-                      </div>
-                  </Col>
-                </Row>
-             </CardBody>
+          <CardTitle className="ast-3">Dashboard</CardTitle>
+          <hr></hr>
+          <CardBody>
+            <Row className="match-height">
+              <Col md="4">
+                <div className="bg-t">
+                  <span className="ast-1">
+                    <Icon.Users size={40} className="mr-50" />
+                  </span>
+                  <h2 className="ast-2">
+                    Total Request Users
+                    <span className="ast-4">50</span>
+                  </h2>
+                </div>
+              </Col>
+              <Col md="4">
+                <div className="bg-s">
+                  <span className="ast-1">
+                    <Icon.PhoneCall size={40} className="mr-50" />
+                  </span>
+                  <h2 className="ast-2">
+                    Total Call History
+                    <span className="ast-4">67</span>
+                  </h2>
+                </div>
+              </Col>
+              <Col md="4">
+                <div className="bg-p">
+                  <span className="ast-1" style={{ fontSize: "40px" }}></span>
+                  <h2 className="ast-2">
+                    Total Earning
+                    <span className="ast-4">70</span>
+                  </h2>
+                </div>
+              </Col>
+              <Col md="4">
+                <div className="bg-t mtb-20">
+                  <span className="ast-1">
+                    <Icon.BarChart2 size={40} className="mr-50" />
+                  </span>
+                  <h2 className="ast-2">
+                    Total Daily Prediction
+                    <span className="ast-4">50</span>
+                  </h2>
+                </div>
+              </Col>
+              <br></br>
+              <Col md="4">
+                <div className="bg-s mb-20">
+                  <span className="ast-1">
+                    <Icon.BarChart2 size={40} className="mr-50" />
+                  </span>
+                  <h2 className="ast-2">
+                    Total Weekly Prediction
+                    <span className="ast-4">67</span>
+                  </h2>
+                </div>
+              </Col>
+              <br></br>
+              <Col md="4">
+                <div className="bg-p mb-20">
+                  <span className="ast-1">
+                    <Icon.BarChart2 size={40} className="mr-50" />
+                  </span>
+                  <h2 className="ast-2">
+                    {" "}
+                    Total Monthly Prediction
+                    <span className="ast-4">70</span>
+                  </h2>
+                </div>
+              </Col>
+            </Row>
+          </CardBody>
         </Card>
 
         {/* astrologer count */}
@@ -274,11 +279,10 @@ class AnalyticsDashboard extends React.Component {
              </CardBody>
         </Card> */}
 
-
         {/* call management counter */}
-{/*  */}
+        {/*  */}
 
-         {/* <Card>
+        {/* <Card>
             <CardTitle className="ast-3">Call Management</CardTitle>
              <hr></hr>
              <CardBody>
@@ -321,9 +325,9 @@ class AnalyticsDashboard extends React.Component {
              </CardBody>
         </Card> */}
 
-          {/* Earning management counter */}
+        {/* Earning management counter */}
 
-         {/* <Card>
+        {/* <Card>
             <CardTitle className="ast-3">Earning</CardTitle>
              <hr></hr>
              <CardBody>
@@ -366,9 +370,9 @@ class AnalyticsDashboard extends React.Component {
              </CardBody>
         </Card> */}
 
-          {/* package counter */}
+        {/* package counter */}
 
-            {/* <Card>
+        {/* <Card>
             <CardTitle className="ast-3">Package</CardTitle>
              <hr></hr>
              <CardBody>
