@@ -86,7 +86,7 @@ class TransactionHistory extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data?.productid.price}</span>
+              {/* <span>{params.data?.productid.price}</span> */}
             </div>
           );
         },

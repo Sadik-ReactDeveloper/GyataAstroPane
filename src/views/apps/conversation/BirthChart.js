@@ -41,9 +41,9 @@ class BirthChart extends React.Component {
       document.getElementById("canvas").parentElement.offsetWidth;
     console.log(canvasParentWidth);
     document.getElementById("canvas").style.width =
-      canvasParentWidth - 10 + "px";
+      canvasParentWidth - 150 + "px";
     document.getElementById("canvas").style.height =
-      canvasParentWidth - 10 + "px";
+      canvasParentWidth - 650 + "px";
     //var canvas = document.getElementById('canvas');
     if (canvas.getContext) {
       // var canvas = document.getElementById("canvas");
@@ -118,8 +118,8 @@ class BirthChart extends React.Component {
     context.fillStyle = "red";
     context.fillText(
       maintext,
-      (x * canvas.width) / 100,
-      (y * canvas.width) / 100
+      (x * canvas.width) / 80,
+      (y * canvas.width) / 80
     );
     //context.fillStyle = "gray";
     //context.fillText(subtext, (x-20) * canvas.width / 100, y * canvas.width / 100);

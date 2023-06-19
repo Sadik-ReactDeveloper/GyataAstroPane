@@ -21,10 +21,10 @@ export default class AddCustomer extends Component {
       last_name: "",
       customer_email: "",
       mobile_no: "",
-      selectedFile: null,
+      // selectedFile: null,
       status: "",
       dob: "",
-      doregister: "",
+      // doregister: "",
       password: "",
       cnfrmpassword: "",
     };
@@ -40,7 +40,7 @@ export default class AddCustomer extends Component {
     e.preventDefault();
 
     axiosConfig
-      .post(`/api/user/customersignup`, this.state)
+      .post(`/user/customersignup`, this.state)
       .then((response) => {
         console.log(response);
         alert("Customer Added Successful");
@@ -124,7 +124,6 @@ export default class AddCustomer extends Component {
                     type="tel"
                     name="mobile_no"
                     placeholder="Mobile No."
-                    // maxLength={10}
                     maxlength="10"
                     value={this.state.mobile_no}
                     onChange={this.changeHandler}
@@ -140,7 +139,7 @@ export default class AddCustomer extends Component {
                     onChange={this.changeHandler}
                   ></Input>
                 </Col>
-                <Col lg="6" md="6" sm="6" className="mb-2">
+                {/* <Col lg="6" md="6" sm="6" className="mb-2">
                   <Label>Date Of Register</Label>
                   <Input
                     required
@@ -149,7 +148,7 @@ export default class AddCustomer extends Component {
                     value={this.state.doregister}
                     onChange={this.changeHandler}
                   ></Input>
-                </Col>
+                </Col> */}
               </Row>
               <Row>
                 <Col lg="6" md="6" sm="6" className="mb-2">

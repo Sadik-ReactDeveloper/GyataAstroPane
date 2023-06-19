@@ -215,8 +215,13 @@ const navigationConfig = [
     id: "transactionHistory",
     title: "Transaction History",
     type: "item",
-    // icon: <Icon.DollarSign size={20} />,
-    icon: <span style={{ fontSize: "20px", marginRight: "10px" }}>₹</span>,
+    icon: (
+      <span
+        style={{ fontSize: "20px", marginRight: "10px", fontWeight: "600" }}
+      >
+        ₹
+      </span>
+    ),
     permissions: ["admin", "editor"],
     navLink: "/app/transaction/transactionHistory",
   },
@@ -225,8 +230,13 @@ const navigationConfig = [
     id: "payoutrequest",
     title: "Payout Request",
     type: "item",
-    // icon: <Icon.DollarSign size={20} />,
-    icon: <span style={{ fontSize: "20px", marginRight: "10px" }}>₹</span>,
+    icon: (
+      <span
+        style={{ fontSize: "20px", marginRight: "10px", fontWeight: "600" }}
+      >
+        ₹
+      </span>
+    ),
     permissions: ["admin", "editor"],
     navLink: "/app/report/payoutreport",
   },

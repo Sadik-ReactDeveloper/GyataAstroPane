@@ -274,7 +274,7 @@ class CallHistory extends React.Component {
                   <Col lg="6" sm="12">
                     <h1 className="float-left">Call Histroy</h1>
                   </Col>
-                  <Col lg="6" sm="12">
+                  {/* <Col lg="6" sm="12">
                     <Route
                       render={({ history }) => (
                         <Button
@@ -285,7 +285,7 @@ class CallHistory extends React.Component {
                         </Button>
                       )}
                     />
-                  </Col>
+                  </Col> */}
                 </Row>
                 <CardBody>
                   {this.state.rowData === null ? null : (

@@ -94,7 +94,7 @@ export class AddProduct extends Component {
                 Add Product
               </h1>
             </Col>
-            <Col>
+            {/* <Col>
               <Route
                 render={({ history }) => (
                   <Button
@@ -105,7 +105,7 @@ export class AddProduct extends Component {
                   </Button>
                 )}
               />
-            </Col>
+            </Col> */}
           </Row>
           <CardBody>
             <Form className="m-1" onSubmit={this.submitHandler}>
