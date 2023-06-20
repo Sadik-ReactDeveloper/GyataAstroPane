@@ -149,48 +149,54 @@ const NavbarUser = () => {
                 ))}
               </div>
               <div className="">
-                {videonotification.map((data, i) => (
-                  <Media className="dddddfd">
-                    <Media left href="#">
-                      {/* <PlusSquare className="font-medium-5 primary" size={21} /> */}
-                      <Bell size={21} />
-                    </Media>
-                    <Media body>
-                      <Media heading className="success media-heading" tag="h6">
-                        <smaill className="notification-text ml-1">
-                          ({data?.videoLink})
-                        </smaill>
+                {videonotification
+                  .map((data, i) => (
+                    <Media className="dddddfd">
+                      <Media left href="#">
+                        {/* <PlusSquare className="font-medium-5 primary" size={21} /> */}
+                        <Bell size={21} />
                       </Media>
-                      <small className="notification-text">
-                        <p className="mb-0">
-                          Request for:
-                          <span>
-                            {data.type}
-                            {/* typeeppp */}
-                          </span>
-                        </p>
-                      </small>
-                      <div className="bottom-tag">
-                        <a target="_blank" href={data?.videoLink}>
-                          <Button color="success">Join Video Call</Button>
-                        </a>
+                      <Media body>
+                        <Media
+                          heading
+                          className="success media-heading"
+                          tag="h6"
+                        >
+                          <smaill className="notification-text ml-1">
+                            ({data?.videoLink})
+                          </smaill>
+                        </Media>
+                        <small className="notification-text">
+                          <p className="mb-0">
+                            Request for:
+                            <span>
+                              {data.type}
+                              {/* typeeppp */}
+                            </span>
+                          </p>
+                        </small>
+                        <div className="bottom-tag">
+                          <a target="_blank" href={data?.videoLink}>
+                            <Button color="success">Join Video Call</Button>
+                          </a>
 
-                        <Button className="ml-1 denger media-heading gt-2">
-                          Reject
-                        </Button>
-                      </div>
+                          <Button className="ml-1 denger media-heading gt-2">
+                            Reject
+                          </Button>
+                        </div>
+                      </Media>
+                      <small>
+                        <time
+                          className="media-meta"
+                          dateTime="2015-06-11T18:29:20+08:00"
+                        >
+                          {/* {data.createdAt} */}
+                          {moment(data.createdAt).format("ll")}
+                        </time>
+                      </small>
                     </Media>
-                    <small>
-                      <time
-                        className="media-meta"
-                        dateTime="2015-06-11T18:29:20+08:00"
-                      >
-                        {/* {data.createdAt} */}
-                        {moment(data.createdAt).format("ll")}
-                      </time>
-                    </small>
-                  </Media>
-                ))}
+                  ))
+                  .reverse()}
               </div>
             </PerfectScrollbar>
             <li className="dropdown-menu-footer">
