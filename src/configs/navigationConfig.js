@@ -27,7 +27,7 @@ const navigationConfig = [
     id: "callhistory",
     title: "Call History",
     type: "item",
-    icon: <Icon.Phone size={20} />,
+    icon: <Icon.Phone size={20} color="green" />,
     permissions: ["admin", "editor"],
     navLink: "/app/historycall/callhistory",
   },
@@ -36,7 +36,7 @@ const navigationConfig = [
     id: "conversationList",
     title: "Conversation List",
     type: "item",
-    icon: <Icon.MessageCircle size={20} />,
+    icon: <Icon.List size={20} />,
     permissions: ["admin", "editor"],
     navLink: "/app/conversation/conversationList",
   },
@@ -45,7 +45,7 @@ const navigationConfig = [
     id: "conversationintakeList",
     title: "Conversation Intake List",
     type: "item",
-    icon: <Icon.MessageCircle size={20} />,
+    icon: <Icon.List size={20} />,
     permissions: ["admin", "editor"],
     navLink: "/app/conversation/intakelist",
   },
@@ -118,7 +118,7 @@ const navigationConfig = [
         id: "productlist",
         title: "Product List",
         type: "item",
-        icon: <Icon.Circle size={12} />,
+        icon: <Icon.List size={20} />,
         permissions: ["admin", "editor"],
         navLink: "/app/products/productlist",
       },
@@ -134,12 +134,12 @@ const navigationConfig = [
     navLink: "/app/askquestion/useraskqueslist",
   },
   {
-    id: "waitqueue",
+    id: "waitqueuelist",
     title: "Wait Queue List",
     type: "item",
-    icon: <Icon.HelpCircle size={20} />,
+    icon: <Icon.List size={20} />,
     permissions: ["admin", "editor"],
-    navLink: "/app/waitqueue/WaitQueueList",
+    navLink: "/app/waitqueue/waitQueueList",
   },
 
   {
@@ -148,7 +148,7 @@ const navigationConfig = [
     type: "item",
     icon: <Icon.Box size={20} />,
     permissions: ["admin", "editor"],
-    navLink: "/app/orderhistory/orderhisList",
+    navLink: "/app/orderhistory/orderhislist",
   },
 
   {
@@ -170,7 +170,14 @@ const navigationConfig = [
         id: "earning",
         title: "Earning",
         type: "item",
-        icon: <Icon.Circle size={12} />,
+
+        icon: (
+          <span
+            style={{ fontSize: "20px", marginRight: "10px", fontWeight: "600" }}
+          >
+            ₹
+          </span>
+        ),
         permissions: ["admin", "editor"],
         navLink: "/app/report/earningreport",
       },

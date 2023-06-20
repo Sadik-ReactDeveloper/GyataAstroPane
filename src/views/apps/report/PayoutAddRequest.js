@@ -9,13 +9,13 @@ import {
   Label,
   Button,
 } from "reactstrap";
-//import axios from "axios";
 import axiosConfig from "../../../axiosConfig";
 // import { useParams } from "react-router-dom";
 //import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { Route } from "react-router-dom";
 import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
+import swal from "sweetalert";
 
 export class PayoutAddRequest extends Component {
   constructor(props) {
@@ -23,11 +23,25 @@ export class PayoutAddRequest extends Component {
 
     this.state = {
       astroId: "",
+      Astrodata: "",
       payout_amt: "",
+      RequestedAmount: "",
       transactionId: "",
       status: "",
     };
   }
+  componentDidMount = () => {
+    let astroId = localStorage.getItem("astroId");
+    axiosConfig
+      .get(`/admin/getoneAstro/${astroId}`)
+      .then((res) => {
+        this.setState({ Astrodata: res.data.data });
+        console.log(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   changeHandler1 = (e) => {
     this.setState({ status: e.target.value });
   };
@@ -35,33 +49,50 @@ export class PayoutAddRequest extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
   submitHandler = (e) => {
+    let astroId = localStorage.getItem("astroId");
     e.preventDefault();
-
-    axiosConfig
-      .post(`/user/add_PayOut`, this.state)
-      .then((response) => {
-        console.log(response);
-        // swal("Success!", "Submitted SuccessFull!", "success");
-        this.props.history.push("/app/report/payoutReport");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (this.state.RequestedAmount < this.state.Astrodata?.ownamount) {
+      let payload = {
+        astroId: astroId,
+        transactionId: new Date().getTime(),
+        payout_amt: this.state.RequestedAmount,
+        status: "Pending",
+      };
+      axiosConfig
+        .post(`/user/add_PayOut`, payload)
+        .then((response) => {
+          console.log(response);
+          swal("Success!", "Submitted SuccessFully", "Success");
+          this.props.history.push("/app/report/payoutReport");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else
+      swal(
+        `Your Current Balance is ${this.state.Astrodata?.ownamount}`,
+        `Your can withdrawl less than ${this.state.Astrodata?.ownamount}`
+      );
   };
   render() {
     return (
       <div>
         <Breadcrumbs
-          breadCrumbTitle="Payout Request"
+          breadCrumbTitle="Add Payout Request"
           breadCrumbParent="Home"
-          breadCrumbActive="Payout Request "
+          breadCrumbActive="Add Payout Request "
         />
         <Card>
           <Row className="m-2">
             <Col>
               <h1 col-sm-6 className="float-left">
-                Payout Request
+                Add Payout Request
               </h1>
+            </Col>
+            <Col>
+              <h3 col-sm-6 className="float-left">
+                Your Current Balance is ₹ {this.state.Astrodata?.ownamount}
+              </h3>
             </Col>
             <Col>
               <Route
@@ -83,38 +114,27 @@ export class PayoutAddRequest extends Component {
                   <Label>Current Amount</Label>
                   <Input
                     required
+                    disabled
                     type="text"
                     name="payout_amt"
                     placeholder="Enter Title"
-                    value={this.state.payout_amt}
-                    onChange={this.changeHandler}
+                    value={this.state.Astrodata?.ownamount}
+                    // onChange={this.changeHandler}
                   ></Input>
                 </Col>
                 <Col lg="6" md="6" sm="6" className="mb-2">
                   <Label>Request Amount</Label>
                   <Input
                     required
-                    type="text"
-                    name="first_name"
+                    type="number"
+                    name="RequestedAmount"
                     placeholder="Enter Title"
-                    value={this.state.first_name}
-                    onChange={this.changeHandler}
-                  ></Input>
-                </Col>
-
-                <Col lg="12" md="12" sm="12" className="mb-2">
-                  <Label>Date</Label>
-                  <Input
-                    required
-                    type="date"
-                    name="customer_email"
-                    placeholder="Email"
-                    value={this.state.customer_email}
+                    value={this.state.RequestedAmount}
                     onChange={this.changeHandler}
                   ></Input>
                 </Col>
               </Row>
-              <Row></Row>
+
               {/* <Col lg="6" md="6" sm="6" className="mb-2">
                 <Label className="mb-1">Status</Label>
                 <div

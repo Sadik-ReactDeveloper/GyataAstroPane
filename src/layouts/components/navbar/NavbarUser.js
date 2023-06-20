@@ -174,10 +174,8 @@ const NavbarUser = () => {
                         <a target="_blank" href={data?.videoLink}>
                           <Button color="success">Join Video Call</Button>
                         </a>
-                        <Button className="success media-heading gt-1">
-                          Accept
-                        </Button>
-                        <Button className="denger media-heading gt-2">
+
+                        <Button className="ml-1 denger media-heading gt-2">
                           Reject
                         </Button>
                       </div>
