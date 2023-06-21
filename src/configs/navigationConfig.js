@@ -75,14 +75,14 @@ const navigationConfig = [
     permissions: ["admin", "editor"],
     navLink: "/app/call/VideoCall",
   },
-  // {
-  //   id: "livestreaming",
-  //   title: "Live Streaming",
-  //   type: "item",
-  //   icon: <Icon.MessageCircle size={20} />,
-  //   permissions: ["admin", "editor"],
-  //   navLink: "/app/live/liveAstro",
-  // },
+  {
+    id: "livestreaming",
+    title: "Live Streaming",
+    type: "item",
+    icon: <Icon.MessageCircle size={20} />,
+    permissions: ["admin", "editor"],
+    navLink: "/app/live/liveAstro",
+  },
   {
     id: "Yourstreaming",
     title: "LiveStreaming",

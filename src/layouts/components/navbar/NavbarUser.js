@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState, useEffect } from "react";
 import "../../../assets/scss/pages/users.scss";
 import {
@@ -18,7 +18,7 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import { Bell } from "react-feather";
 import "moment-timezone";
 import moment from "moment";
-
+import Context from "../../../context/Context";
 const handleNavigation = (e, path) => {
   e.preventDefault();
 
@@ -31,13 +31,16 @@ const NavbarUser = () => {
   const [videonotification, setVideonotification] = useState([]);
   const [viewnotify, setViewnotify] = useState("");
   const [countnotify, setCountnotify] = useState("");
-
+  const contextData = useContext(Context);
+  // console.log(contextData);
   async function videoCallnotification() {
     try {
       const astroId = localStorage.getItem("astroId");
       const resp = await axiosConfig.get(`/user/VdolinkList/${astroId}`);
       console.log(resp.data.data);
       setVideonotification(resp.data.data);
+      contextData.setNotification(resp.data.data);
+      console.log(contextData.notification);
       setCountnotify(resp.data.count);
     } catch (error) {
       console.log("SomeThing Wrong");
@@ -114,7 +117,6 @@ const NavbarUser = () => {
                 {astronotification.map((data, i) => (
                   <Media className="dddddfd">
                     <Media left href="#">
-                      {/* <PlusSquare className="font-medium-5 primary" size={21} /> */}
                       <Bell size={21} />
                     </Media>
                     <Media body>
@@ -153,7 +155,6 @@ const NavbarUser = () => {
                   .map((data, i) => (
                     <Media className="dddddfd">
                       <Media left href="#">
-                        {/* <PlusSquare className="font-medium-5 primary" size={21} /> */}
                         <Bell size={21} />
                       </Media>
                       <Media body>
@@ -169,18 +170,15 @@ const NavbarUser = () => {
                         <small className="notification-text">
                           <p className="mb-0">
                             Request for:
-                            <span>
-                              {data.type}
-                              {/* typeeppp */}
-                            </span>
+                            <span>{data.type}</span>
                           </p>
                         </small>
-                        <div className="bottom-tag">
+                        <div className="">
                           <a target="_blank" href={data?.videoLink}>
                             <Button color="success">Join Video Call</Button>
                           </a>
 
-                          <Button className="ml-1 denger media-heading gt-2">
+                          <Button className="ml-1 denger media-joinbtn gt-2">
                             Reject
                           </Button>
                         </div>
@@ -190,7 +188,6 @@ const NavbarUser = () => {
                           className="media-meta"
                           dateTime="2015-06-11T18:29:20+08:00"
                         >
-                          {/* {data.createdAt} */}
                           {moment(data.createdAt).format("ll")}
                         </time>
                       </small>
