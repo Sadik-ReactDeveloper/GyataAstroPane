@@ -80,8 +80,13 @@ export default function App() {
           role,
         },
 
-        onJoinRoom: () => {
+        joinRoom: () => {
+          debugger;
           console.log("22222sasssssas");
+        },
+        onJoinRoom: () => {
+          debugger;
+          console.log("22222sacfsdsdsddssssssas");
         },
         onLiveStart: () => {
           console.log("sasssssas");
