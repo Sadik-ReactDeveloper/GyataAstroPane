@@ -62,7 +62,7 @@ export default function App() {
     serverSecret,
     roomID,
     randomID(5),
-    "Sadik"
+    randomID(5)
   );
 
   // start the call
@@ -80,12 +80,7 @@ export default function App() {
           role,
         },
 
-        joinRoom: () => {
-          debugger;
-          console.log("22222sasssssas");
-        },
         onJoinRoom: () => {
-          debugger;
           console.log("22222sacfsdsdsddssssssas");
         },
         onLiveStart: () => {

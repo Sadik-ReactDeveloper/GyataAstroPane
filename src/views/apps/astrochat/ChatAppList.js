@@ -13,7 +13,7 @@ class ChatAppList extends React.Component {
 
   render() {
     const { userChatList } = this.props;
-    // console.log("console.log", this.props.userChatList);
+
     return (
       <ul>
         {userChatList.length
@@ -24,9 +24,9 @@ class ChatAppList extends React.Component {
                   onClick={() => this.props.getChatRoomId(user, i)}
                 >
                   <div className="imglf">
-                    {user.userid?.userimg ? (
+                    {user.userid?.userimg[0] ? (
                       <img
-                        src={user.userid?.userimg}
+                        src={user.userid?.userimg[0]}
                         className="app-img"
                         alt=""
                       />

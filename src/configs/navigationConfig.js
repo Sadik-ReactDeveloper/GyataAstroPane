@@ -83,14 +83,14 @@ const navigationConfig = [
     permissions: ["admin", "editor"],
     navLink: "/app/live/liveAstro",
   },
-  {
-    id: "Yourstreaming",
-    title: "LiveStreaming",
-    type: "item",
-    icon: <Icon.Video size={20} />,
-    navLink: "/yourlivestream",
-    permissions: ["admin", "editor"],
-  },
+  // {
+  //   id: "Yourstreaming",
+  //   title: "LiveStreaming",
+  //   type: "item",
+  //   icon: <Icon.Video size={20} />,
+  //   navLink: "/yourlivestream",
+  //   permissions: ["admin", "editor"],
+  // },
   {
     id: "Uploads",
     title: "Gallary",
