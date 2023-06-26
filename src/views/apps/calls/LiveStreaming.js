@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import LivePage from "./LivePage";
 import Streaming from "./Streaming";
+import { Button } from "reactstrap";
 // import axiosConfig from "../../../axiosConfig";
 class Demo2 extends Component {
   constructor() {
@@ -11,34 +13,17 @@ class Demo2 extends Component {
     // this.formSubmit = this.formSubmit.bind(this);
   }
 
-  onValueChange = () => {
-    // alert("check");
-    // console.log(event);
-    // if (event.target.value === "unavailable") {
-    //   window.location.reload();
-    // }
-    // else {
-    //   axiosConfig
-    //     .post(``)
-    //     .then((res) => {
-    //       console.log(res);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // }
-  };
+  onValueChange = () => {};
 
   render() {
     return (
       <>
-        <div className="radio">
+        {/* <div className="radio">
           <label>
             <input
               name="name"
               type="radio"
               value="Available"
-              // checked={this.state.selectedOption === "Available"}
               onClick={(e) => {
                 this.setState({ selectedOption: e.target.value });
                 this.onValueChange();
@@ -53,7 +38,6 @@ class Demo2 extends Component {
               name="name"
               type="radio"
               value="unavailable"
-              // checked={this.state.selectedOption === "unavailable"}
               onClick={(e) => {
                 this.setState({ selectedOption: e.target.value });
                 this.onValueChange();
@@ -61,12 +45,12 @@ class Demo2 extends Component {
             />
             Unavailable
           </label>
-        </div>
-        {this.state.selectedOption === "Available" ? (
-          <>
-            <Streaming />
-          </>
-        ) : null}
+        </div> */}
+
+        <a href="#/yourlivestream" target="_blank">
+          {/* <Streaming /> */}
+          LivePage
+        </a>
       </>
     );
   }

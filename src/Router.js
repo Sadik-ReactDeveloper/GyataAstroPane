@@ -108,12 +108,8 @@ const ChatAppMassage = lazy(() =>
 
 // astro Calls
 const LiveStreaming = lazy(() => import("./views/apps/calls/LiveStreaming"));
-const liveStreamlandpage = lazy(() =>
-  import("./views/apps/astrochat/Gotolivestream.js")
-);
-const yourliveStream = lazy(() =>
-  import("./views/apps/astrochat/YourliveStream")
-);
+const liveStreamlandpage = lazy(() => import("./views/apps/calls/Streaming"));
+const yourliveStream = lazy(() => import("./views/apps/calls/LiveStreaming"));
 
 const VideoCall = lazy(() => import("./views/apps/calls/VideoCall"));
 const Upload = lazy(() => import("./views/apps/Uploads/Uploads"));
@@ -624,7 +620,12 @@ class AppRouter extends React.Component {
               component={ChatAppMassage}
             />
             <AppRoute path="/app/live/liveAstro" component={LiveStreaming} />
-            <AppRoute path="/yourlivestream" component={liveStreamlandpage} />;
+            <AppRoute
+              path="/yourlivestream"
+              component={liveStreamlandpage}
+              fullLayout
+            />
+            ;
             <AppRoute
               path="/yourlivestreamNow"
               component={yourliveStream}

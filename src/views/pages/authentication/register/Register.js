@@ -632,7 +632,7 @@ class Register extends React.Component {
                         </div>
                       </Col>
                       <Col md="6">
-                        <Label>User Image</Label>
+                        <Label>Astrologer Image</Label>
                         <Input
                           className="form-control"
                           type="file"

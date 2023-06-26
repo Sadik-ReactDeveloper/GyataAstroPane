@@ -191,6 +191,19 @@ class UserRideList extends React.Component {
     });
   }
 
+  // handleuserEdit = () = > {
+  //    let user_id = JSON.parse(localStorage.getItem("user_id"));
+  //   axiosConfig
+  //     .post(`/user/edit_myprofile/${user_id}`, data)
+  //     .then(response => {
+  //       console.log(response.data);
+  //       swal("Success!", "Submitted SuccessFull!", "success");
+  //       // this.props.history.push("/app/user/userList");
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  // }
+
   async runthisfunction(id) {
     console.log(id);
     await axiosConfig.get(`/admin/delcustomer/${id}`).then(

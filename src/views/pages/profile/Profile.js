@@ -175,7 +175,7 @@ class Profile extends React.Component {
                           <PhoneInput
                             countryCodeEditable={false}
                             className="mob-int"
-                            disabled
+                            // disabled
                             country={"in"}
                             value={(this.state?.mobile).toString()}
                             onChange={(mobile) => {
