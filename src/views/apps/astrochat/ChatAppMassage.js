@@ -4,7 +4,7 @@ import React from "react";
 import "../../../assets/scss/pages/astrochat.scss";
 // import Buyimg from "../../../assets/img/boy-img.png";
 // import Countdown from "react-countdown";
-
+import moment from "moment";
 class ChatAppMassage extends React.Component {
   constructor(props) {
     super(props);
@@ -21,12 +21,23 @@ class ChatAppMassage extends React.Component {
                 return (
                   <>
                     {chat.type !== "user" ? (
-                      <div class="message me">
-                        <div class="message-body">{chat.msg}</div>
+                      <div class="message me ">
+                        <div class="message-body">
+                          {chat.msg}
+                          <div>
+                            <small>{moment(chat.createdAt).format("hA")}</small>
+                          </div>
+                        </div>
                       </div>
                     ) : (
-                      <div className="message">
-                        <div class="message-body">{chat.msg}</div>
+                      <div className="message d-flex ">
+                        <div class="message-body">
+                          {chat.msg}
+
+                          <div className="setTime">
+                            <small>{moment(chat.createdAt).format("hA")}</small>
+                          </div>
+                        </div>
                       </div>
                     )}
                   </>

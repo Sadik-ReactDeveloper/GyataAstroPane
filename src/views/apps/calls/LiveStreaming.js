@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import LivePage from "./LivePage";
 import Streaming from "./Streaming";
-import { Button } from "reactstrap";
-// import axiosConfig from "../../../axiosConfig";
 class Demo2 extends Component {
   constructor() {
     super();
@@ -18,7 +16,7 @@ class Demo2 extends Component {
   render() {
     return (
       <>
-        {/* <div className="radio">
+        <div className="radio">
           <label>
             <input
               name="name"
@@ -45,7 +43,7 @@ class Demo2 extends Component {
             />
             Unavailable
           </label>
-        </div> */}
+        </div>
 
         <a href="#/yourlivestream" target="_blank">
           {/* <Streaming /> */}
