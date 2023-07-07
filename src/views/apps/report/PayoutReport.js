@@ -18,7 +18,7 @@ import { ContextLayout } from "../../../utility/context/Layout";
 import "../../../assets/scss/pages/users.scss";
 import { AgGridReact } from "ag-grid-react";
 import { Route } from "react-router-dom";
-
+import axios from "axios";
 //import classnames from "classnames";
 import axiosConfig from "../../../axiosConfig";
 import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
@@ -48,14 +48,15 @@ class PayoutReport extends React.Component {
       },
 
       {
-        headerName: "Payout Request Amount",
+        headerName: "Requested Amount",
         field: "payout_amt",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
+          console.log(params);
           return (
             <div>
-              <span>{params.data.payout_amt}</span>
+              <span>{params.data?.reqsted_amt}</span>
             </div>
           );
         },

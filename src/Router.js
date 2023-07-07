@@ -194,6 +194,11 @@ const PackageList = lazy(() => import("./views/apps/poojapackage/PackageList"));
 const AddPackage = lazy(() => import("./views/apps/poojapackage/AddPackage"));
 const EditPackage = lazy(() => import("./views/apps/poojapackage/EditPackage"));
 const CallReport = lazy(() => import("./views/apps/report/CallReport"));
+const VideoCallReport = lazy(() =>
+  import("./views/apps/report/VideoCallReport")
+);
+const ChatReport = lazy(() => import("./views/apps/report/ChatReport"));
+
 const EarningReport = lazy(() => import("./views/apps/report/EarningReport"));
 const PayoutReport = lazy(() => import("./views/apps/report/PayoutReport"));
 const PayoutAddRequest = lazy(() =>
@@ -581,6 +586,11 @@ class AppRouter extends React.Component {
             />
             <AppRoute path="/app/report/callreport" component={CallReport} />
             <AppRoute
+              path="/app/report/videocallreport"
+              component={VideoCallReport}
+            />
+            <AppRoute path="/app/report/chatreport" component={ChatReport} />
+            <AppRoute
               path="/app/report/earningreport"
               component={EarningReport}
             />
@@ -632,7 +642,11 @@ class AppRouter extends React.Component {
               fullLayout
             />
             <AppRoute path="/uploads" component={Upload} />
-            <AppRoute path="/app/call/VideoCall" component={VideoCall} />
+            <AppRoute
+              path="/app/call/VideoCall"
+              component={VideoCall}
+              fullLayout
+            />
             <AppRoute
               path="/app/astrochat/chatapplist"
               component={ChatAppList}

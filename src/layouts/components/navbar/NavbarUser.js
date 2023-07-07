@@ -12,7 +12,7 @@ import {
 } from "reactstrap";
 
 import * as Icon from "react-feather";
-import { Route, Link } from "react-router-dom";
+import { Route } from "react-router-dom";
 import axiosConfig from "../../../axiosConfig";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { Bell } from "react-feather";
@@ -32,7 +32,7 @@ const NavbarUser = () => {
   const [viewnotify, setViewnotify] = useState("");
   const [countnotify, setCountnotify] = useState("");
   const contextData = useContext(Context);
-  // console.log(contextData);
+  const [ButtonText, setButtonText] = useState("Offline");
   async function videoCallnotification() {
     try {
       const astroId = localStorage.getItem("astroId");
@@ -54,7 +54,6 @@ const NavbarUser = () => {
       try {
         const astroId = localStorage.getItem("astroId");
         const data = await axiosConfig.get(`/admin/getoneAstro/${astroId}`);
-
         setProfilepic(data.data.data);
       } catch (error) {
         console.log("SomeThing Wrong");
@@ -76,7 +75,25 @@ const NavbarUser = () => {
     getOneUser();
     getAllnotification();
   }, []);
-
+  const handleshowofflineAstro = (e) => {
+    e.preventDefault();
+    let astroid = localStorage.getItem("astroId");
+    axiosConfig
+      .post(`/user/status_change/${astroid}`, {
+        status: ButtonText,
+      })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.message === "success") {
+          if (ButtonText === "Offline") {
+            setButtonText("Online");
+          } else setButtonText("offline");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div className="">
       <ul className="nav navbar-nav navbar-nav-user float-right">
@@ -84,6 +101,15 @@ const NavbarUser = () => {
         {/* <li>
           <Button className="ml-1 mt-1 btn btn-success ">Start Live</Button>
         </li> */}
+        <li>
+          <Button
+            onClick={handleshowofflineAstro}
+            size="sm"
+            className="ml-1 mt-2 btn btn-success "
+          >
+            Mark {ButtonText && ButtonText}
+          </Button>
+        </li>
         <UncontrolledDropdown
           className="dropdown-notification nav-item"
           tag="li"
@@ -164,7 +190,15 @@ const NavbarUser = () => {
                           tag="h6"
                         >
                           <smaill className="notification-text ml-1">
-                            ({data?.videoLink})
+                            (
+                            {window.location.protocol +
+                              "//" +
+                              window.location.host +
+                              "/#/VideoCall" +
+                              window.location.pathname +
+                              "?roomID=" +
+                              data?.videoLink}
+                            )
                           </smaill>
                         </Media>
                         <small className="notification-text">
@@ -174,7 +208,18 @@ const NavbarUser = () => {
                           </p>
                         </small>
                         <div className="">
-                          <a target="_blank" href={data?.videoLink}>
+                          <a
+                            target="_blank"
+                            href={
+                              window.location.protocol +
+                              "//" +
+                              window.location.host +
+                              "/#app/call/VideoCall" +
+                              window.location.pathname +
+                              "?roomID=" +
+                              data?.videoLink
+                            }
+                          >
                             <Button color="success">Join Video Call</Button>
                           </a>
 
@@ -207,9 +252,7 @@ const NavbarUser = () => {
         <UncontrolledDropdown tag="li" className="dropdown-user nav-item">
           <DropdownToggle tag="a" className="nav-link dropdown-user-link">
             <div className="user-nav d-sm-flex d-none">
-              {/* <span className="user-name text-bold-600">Astro</span> */}
               {profilepic?.fullname}
-              {/* <span className="user-status">Available</span> */}
             </div>
             <span data-tour="user">
               <img
@@ -221,7 +264,6 @@ const NavbarUser = () => {
               />
             </span>
           </DropdownToggle>
-          {/* {/ <UserDropdown {...this.props} /> /} */}
           <DropdownMenu right>
             <DropdownItem
               tag="a"

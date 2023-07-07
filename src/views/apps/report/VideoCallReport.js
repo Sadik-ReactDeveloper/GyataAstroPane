@@ -23,7 +23,7 @@ import axios from "axios";
 import axiosConfig from "../../../axiosConfig";
 import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
 
-class CallReport extends React.Component {
+class VideoCallReport extends React.Component {
   state = {
     rowData: [],
     paginationPageSize: 20,
@@ -122,56 +122,9 @@ class CallReport extends React.Component {
           );
         },
       },
-
-      // {
-      //   headerName: "Actions",
-      //   field: "sortorder",
-      //   width: 200,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="actions cursor-pointer">
-      //         <Route
-      //           render={({ history }) => (
-      //             <Eye
-      //               className="mr-50"
-      //               size="25px"
-      //               color="green"
-      //               onClick={() =>
-      //                 history.push(
-      //                   `/app/customer/viewCustomer/${params.data._id}`
-      //                 )
-      //               }
-      //             />
-      //           )}
-      //         />
-      //         <Route
-      //           render={({ history }) => (
-      //             <Edit
-      //               className="mr-50"
-      //               size="25px"
-      //               color="blue"
-      //               onClick={() => history.push("/app/customer/editCustomer")}
-      //             />
-      //           )}
-      //         />
-      //         <Trash2
-      //           className="mr-50"
-      //           size="25px"
-      //           color="red"
-      //           onClick={() => {
-      //             let selectedData = this.gridApi.getSelectedRows();
-      //             this.runthisfunction(params.data._id);
-      //             this.gridApi.updateRowData({ remove: selectedData });
-      //           }}
-      //         />
-      //       </div>
-      //     );
-      //   },
-      // },
     ],
   };
   componentDidMount() {
-    let { id } = this.props.match.params;
     let astroid = localStorage.getItem("astroId");
     console.log(astroid);
     axiosConfig.get(`/user/astroCallHistory/${astroid}`).then((response) => {
@@ -219,9 +172,9 @@ class CallReport extends React.Component {
       // console.log(rowData),
       <div>
         <Breadcrumbs
-          breadCrumbTitle="Call Report"
+          breadCrumbTitle="Video Call Report"
           breadCrumbParent="Home"
-          breadCrumbActive="Call Report"
+          breadCrumbActive="Video Call Report"
         />
         <Row className="app-user-list">
           <Col sm="12"></Col>
@@ -230,23 +183,9 @@ class CallReport extends React.Component {
               <Row className="m-2">
                 <Col>
                   <h1 sm="6" className="float-left">
-                    Call Reports
+                    Video Call Reports
                   </h1>
                 </Col>
-                {/* <Col>
-                  <Route
-                    render={({ history }) => (
-                      <Button
-                        className=" btn btn-danger float-right"
-                        onClick={() =>
-                          history.push("/app/customer/addCustomer")
-                        }
-                      >
-                        Add Call Details
-                      </Button>
-                    )}
-                  />
-                </Col> */}
               </Row>
               <CardBody>
                 {this.state.rowData === null ? null : (
@@ -347,4 +286,4 @@ class CallReport extends React.Component {
     );
   }
 }
-export default CallReport;
+export default VideoCallReport;

@@ -79,6 +79,10 @@ class Register extends React.Component {
     });
   }
 
+  handleskillsdetails() {
+    // if(!this.state.gender && !this.state.dob && )
+    this.stepper.next();
+  }
   handleBackToLogin = (e) => {
     window.location.replace("/#/pages/login");
   };
@@ -184,18 +188,22 @@ class Register extends React.Component {
   };
   stepperSecond = () => {
     const { otp, mobile } = this.state;
+
     axiosConfig
       .post("/user/verifyotp", {
         otp: parseInt(otp, mobile) !== isNaN ? parseInt(otp) : "null",
-        // otp: otp,
         mobile: mobile,
       })
       .then((response) => {
-        this.stepper.next();
-        let userInfo = response.data.user;
-        this.setState({ userId: response.data._id });
-        localStorage.setItem("user_id", response.data._id);
-        localStorage.setItem("userInfo", JSON.stringify(userInfo));
+        if (otp) {
+          this.stepper.next();
+          let userInfo = response.data.user;
+          this.setState({ userId: response.data._id });
+          localStorage.setItem("user_id", response.data._id);
+          localStorage.setItem("userInfo", JSON.stringify(userInfo));
+        } else {
+          swal("Oops!", "Please Fill the OTP First", "error");
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -364,9 +372,9 @@ class Register extends React.Component {
                           <Label>DOB*</Label>
                           <Input
                             type="date"
-                            required
                             name="dob"
-                            maxLength="8"
+                            required
+                            // maxLength="8"
                             value={this.state.dob}
                             onChange={this.changeHandler}
                           />
@@ -376,9 +384,10 @@ class Register extends React.Component {
                         <div className="form-group mtb-10">
                           <Label>Primary Skills*</Label>
                           <Input
-                            placeholder="Primary Skills"
-                            name="primary_skills"
                             type="text"
+                            name="primary_skills"
+                            required
+                            placeholder="Primary Skills"
                             value={this.state.primary_skills}
                             onChange={this.changeHandler}
                           />
@@ -388,9 +397,10 @@ class Register extends React.Component {
                         <div className="form-group mtb-10">
                           <Label>All Skills*</Label>
                           <Input
-                            placeholder="All Skills"
-                            name="all_skills"
                             type="text"
+                            name="all_skills"
+                            required
+                            placeholder="All Skills"
                             value={this.state.all_skills}
                             onChange={this.changeHandler}
                           />
@@ -401,10 +411,10 @@ class Register extends React.Component {
                         <div className="form-group mtb-10">
                           <Label>Minimum Amount*</Label>
                           <Input
-                            placeholder="Enter Amount"
-                            name="min_amount"
-                            required
                             type="number"
+                            name="min_amount"
+                            placeholder="Enter Amount"
+                            required
                             value={this.state.min_amount}
                             onChange={this.changeHandler}
                           />
@@ -495,18 +505,12 @@ class Register extends React.Component {
                               />
                             </div>
                           </Col>
-                          {/* <Col md="6">
-                            <div className="form-group mtb-10">
-                              <Label>Monthly Earning</Label>
-                              <Input type="number" value={this.state.mont} />
-                            </div>
-                          </Col> */}
                         </Row>
                       </Col>
                     </Row>
                     <button
                       className="btn btn-primary"
-                      onClick={() => this.stepper.next()}
+                      onClick={(e) => this.handleskillsdetails(e)}
                     >
                       Next
                     </button>
@@ -556,12 +560,12 @@ class Register extends React.Component {
                       </Col>
                       <Col md="6">
                         <div className="form-group mtb-10">
-                          <Label>Call Charge</Label>
+                          <Label>Call Rate</Label>
                           <Input
                             type="number"
                             required
                             name="callCharge"
-                            placeholder="Call Charge"
+                            placeholder="Call Rate"
                             value={this.state.callCharge}
                             onChange={this.changeHandler}
                           />
@@ -573,9 +577,10 @@ class Register extends React.Component {
                             Main source of business (other than astrology)*
                           </Label>
                           <Input
-                            placeholder="source of business"
-                            name="income_src"
                             type="text"
+                            required
+                            name="income_src"
+                            placeholder="source of business"
                             value={this.state.income_src}
                             onChange={this.changeHandler}
                           />
@@ -585,9 +590,10 @@ class Register extends React.Component {
                         <div className="form-group mtb-10">
                           <Label>Select your highest qualification*</Label>
                           <Input
+                            type="text"
+                            required
                             placeholder="qualification"
                             name="highest_qualification"
-                            type="text"
                             value={this.state.highest_qualification}
                             onChange={this.changeHandler}
                           />
@@ -597,9 +603,10 @@ class Register extends React.Component {
                         <div className="form-group mtb-10">
                           <Label>Degree/Diploma*</Label>
                           <Input
+                            type="text"
+                            required
                             placeholder="Degree/Diploma"
                             name="degree_deploma"
-                            type="text"
                             value={this.state.degree_deploma}
                             onChange={this.changeHandler}
                           />
@@ -634,9 +641,9 @@ class Register extends React.Component {
                       <Col md="6">
                         <Label>Astrologer Image</Label>
                         <Input
-                          className="form-control"
                           type="file"
                           required
+                          className="form-control"
                           name="img"
                           onChange={this.onChangeHandler}
                         />
@@ -756,8 +763,8 @@ class Register extends React.Component {
                           <Input
                             type="password"
                             name="password"
-                            placeholder="Password"
                             required
+                            placeholder="Password"
                             value={this.state.password}
                             onChange={this.changeHandler}
                           />
@@ -769,8 +776,8 @@ class Register extends React.Component {
                           <Input
                             type="password"
                             name="cnfmPassword"
-                            placeholder="Confirm Password"
                             required
+                            placeholder="Confirm Password"
                             value={this.state.cnfmPassword}
                             onChange={this.changeHandler}
                           />
@@ -781,9 +788,9 @@ class Register extends React.Component {
                           <Label>Long bio*</Label>
                           <textarea
                             type="text"
-                            className="form-control"
                             name="long_bio"
                             required
+                            className="form-control"
                             value={this.state.long_bio}
                             onChange={this.changeHandler}
                             placeholder="Please let us know more about you"
@@ -796,46 +803,11 @@ class Register extends React.Component {
                       team at onboarding@Astrogyata.com in case of any issues or
                       queries.
                     </p>
-                    {/* <button className="btn btn-primary" onClick={() => this.s}>
-                      Submit
-                    </button> */}
+
                     <Button type="submit" className="btn  mt-5" color="primary">
                       Submit
                     </Button>
                   </div>
-                  {/* <div id="test-l-4" className="content"> */}
-                  {/* <div>
-                        {inputList.map((x, i) => {
-                          return (
-                            <div className="box">
-                              <input
-                                name="firstName"
-                                placeholder="Enter First Name"
-                                value={x.firstName}
-                                onChange={e => handleInputChange(e, i)}
-                              />
-                              <input
-                                className="ml10"
-                                name="lastName"
-                                placeholder="Enter Last Name"
-                                value={x.lastName}
-                                onChange={e => handleInputChange(e, i)}
-                              />
-                              <div className="btn-box">
-                                {inputList.length !== 1 && <button
-                                  className="mr10"
-                                  onClick={() => handleRemoveClick(i)}>Remove</button>}
-                                {inputList.length - 1 === i && <button onClick={handleAddClick}>Add</button>}
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div> */}
-                  {/* <Avilitiy /> */}
-                  {/* <Button type="submit" className="btn btn-primary mt-5">
-                      Submit
-                    </Button> */}
-                  {/* </div> */}
                 </Form>
               </div>
             </div>
