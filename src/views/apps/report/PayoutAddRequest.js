@@ -117,7 +117,7 @@ export class PayoutAddRequest extends Component {
                     disabled
                     type="text"
                     name="payout_amt"
-                    placeholder="Enter Title"
+                    placeholder="Current Amount"
                     value={this.state.Astrodata?.ownamount}
                     // onChange={this.changeHandler}
                   ></Input>
@@ -128,7 +128,7 @@ export class PayoutAddRequest extends Component {
                     required
                     type="number"
                     name="RequestedAmount"
-                    placeholder="Enter Title"
+                    placeholder="Request Amount"
                     value={this.state.RequestedAmount}
                     onChange={this.changeHandler}
                   ></Input>

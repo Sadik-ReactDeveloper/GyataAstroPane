@@ -10,7 +10,7 @@ import {
   DropdownItem,
   Button,
 } from "reactstrap";
-
+import swal from "sweetalert";
 import * as Icon from "react-feather";
 import { Route } from "react-router-dom";
 import axiosConfig from "../../../axiosConfig";
@@ -33,6 +33,7 @@ const NavbarUser = () => {
   const [countnotify, setCountnotify] = useState("");
   const contextData = useContext(Context);
   const [ButtonText, setButtonText] = useState("Offline");
+  const [newStatus, setNewStatus] = useState("");
   async function videoCallnotification() {
     try {
       const astroId = localStorage.getItem("astroId");
@@ -46,6 +47,24 @@ const NavbarUser = () => {
       console.log("SomeThing Wrong");
     }
   }
+  const handleshowChangeMode = (e) => {
+    e.preventDefault();
+
+    let astroid = localStorage.getItem("astroId");
+    if (astroid) {
+      axiosConfig
+        .post(`/user/status_change/${astroid}`, {
+          callingStatus: newStatus,
+        })
+        .then((res) => {
+          console.log("res", res.data.data);
+          swal("Status changed Successfully");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
   useEffect(() => {
     videoCallnotification();
   }, []);
@@ -101,6 +120,24 @@ const NavbarUser = () => {
         {/* <li>
           <Button className="ml-1 mt-1 btn btn-success ">Start Live</Button>
         </li> */}
+        <li>
+          <select
+            className="mt-2"
+            onChange={(e) => setNewStatus(e.target.value)}
+            id="availability"
+          >
+            <option value="Available">Available</option>
+            <option value="Busy">Busy</option>
+            <option value="Wait">Wait</option>
+          </select>
+          <Button
+            onClick={handleshowChangeMode}
+            size="sm"
+            className="ml-1  btn btn-success "
+          >
+            Mark {newStatus && newStatus}
+          </Button>
+        </li>
         <li>
           <Button
             onClick={handleshowofflineAstro}

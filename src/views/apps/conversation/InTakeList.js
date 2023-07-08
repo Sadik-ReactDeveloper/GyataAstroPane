@@ -15,7 +15,6 @@ import axiosConfig from "../../../axiosConfig";
 import { ContextLayout } from "../../../utility/context/Layout";
 import { AgGridReact } from "ag-grid-react";
 import { Eye, Edit, Trash2, ChevronDown } from "react-feather";
-//import classnames from "classnames";
 import "../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../assets/scss/pages/users.scss";
 import { Route } from "react-router-dom";
@@ -238,55 +237,14 @@ class InTakeList extends React.Component {
           );
         },
       },
-
-      //   {
-      //     headerName: "Status",
-      //     field: "approvedstatus",
-      //     filter: true,
-      //     width: 100,
-      //     cellRendererFramework: (params) => {
-      //       return params.value === "true" ? (
-      //         <div className="badge badge-pill badge-success">
-      //           {params.data.approvedstatus}
-      //         </div>
-      //       ) : params.value === "false" ? (
-      //         <div className="badge badge-pill badge-warning">
-      //           {params.data.approvedstatus}
-      //         </div>
-      //       ) : null;
-      //     },
-      //   },
-
-      //   {
-      //     headerName: "Status",
-      //     field: "status",
-      //     filter: true,
-      //     width: 100,
-      //     cellRendererFramework: (params) => {
-      //       return params.value === "Online" ? (
-      //         <div className="badge badge-pill badge-success">
-      //           {params.data.status}
-      //         </div>
-      //       ) : params.value === "Offline" ? (
-      //         <div className="badge badge-pill badge-warning">
-      //           {params.data.status}
-      //         </div>
-      //       ) : null;
-      //     },
-      //   },
     ],
   };
-  // handlebirthchart = (data) => {
 
-  //   console.log("object", data?.date_of_time.split(":"));
-  //   console.log("object", data?.dob.split("-"));
-  // };
   async componentDidMount() {
-    // let { id } = this.props.match.params;
-
     let astroId = localStorage.getItem("astroId");
+    // 13.233.142.228:4000/admin/intekListByastro/647eeaf65588e0b2d5e4d374
     await axiosConfig
-      .get(`admin/intekListByastro/${astroId}`)
+      .get(`/admin/intekListByastro/${astroId}`)
       .then((response) => {
         let rowData = response.data.data;
         console.log(rowData);
@@ -346,20 +304,6 @@ class InTakeList extends React.Component {
                     Conversion InTake List
                   </h1>
                 </Col>
-                {/* <Col>
-                  <Route
-                    render={({ history }) => (
-                      <Button
-                        className=" btn btn-success float-right"
-                        onClick={() =>
-                          history.push("/app/astrology/addAstrologer")
-                        }
-                      >
-                        Add Astrologer
-                      </Button>
-                    )}
-                  />
-                </Col> */}
               </Row>
               <CardBody>
                 {this.state.rowData === null ? null : (

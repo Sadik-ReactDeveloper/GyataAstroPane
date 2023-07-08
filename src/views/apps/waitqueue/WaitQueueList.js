@@ -105,7 +105,7 @@ class WaitQueueList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data.email}</span>
+              <span>{params.data.type}</span>
             </div>
           );
         },
