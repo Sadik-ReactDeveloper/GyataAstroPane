@@ -365,6 +365,20 @@ class Profile extends React.Component {
                           onChange={this.changeHandler}
                         />
                         <br></br>
+
+                        {/* <Label> Calling Status</Label>
+                         <select
+                          className=" form-control mt-2"
+                          onChange={(e) =>
+                            this.setState({ callingStatus: e.target.value })
+                          }
+                          id="availability"
+                        >
+                          <option value="Available">Available</option>
+                          <option value="Busy">Busy</option>
+                          <option value="Wait">Wait</option>
+                        </select>
+                        <br></br> */}
                         <Label>Experience In Year</Label>
                         <Input
                           type="number"

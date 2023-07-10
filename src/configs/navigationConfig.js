@@ -14,14 +14,14 @@ const navigationConfig = [
     groupTitle: "Component",
   },
 
-  {
-    id: "requestuser",
-    title: "Request User List",
-    type: "item",
-    icon: <Icon.Users size={20} />,
-    permissions: ["admin", "editor"],
-    navLink: "/app/userrequest/userrequestlist",
-  },
+  // {
+  //   id: "requestuser",
+  //   title: "Request User List",
+  //   type: "item",
+  //   icon: <Icon.Users size={20} />,
+  //   permissions: ["admin", "editor"],
+  //   navLink: "/app/userrequest/userrequestlist",
+  // },
 
   {
     id: "callhistory",
