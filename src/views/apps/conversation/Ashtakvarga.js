@@ -14,12 +14,12 @@ import { history } from "../../../history";
 import "../../../assets/scss/pages/app-ecommerce-shop.scss";
 import axiosConfig from "../../../axiosConfig";
 import { Route } from "react-router-dom";
-class BirthChart extends React.Component {
+class Ashtakvarga extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       data: {},
-      birthDetailList: [],
+      ashtakvargaDetail: [],
     };
   }
 
@@ -29,7 +29,7 @@ class BirthChart extends React.Component {
       .get(`/user/birth_detailsByAstroid/${astroId}`)
       .then((response) => {
         console.log(response.data.data);
-        this.setState({ birthDetailList: response.data.data });
+        this.setState({ ashtakvargaDetail: response.data.data });
       })
       .catch((error) => {
         console.log(error);
@@ -47,9 +47,9 @@ class BirthChart extends React.Component {
                     Home
                   </BreadcrumbItem>
                   <BreadcrumbItem href="/app/setting/bank/bankList" tag="a">
-                    Birth Details
+                    Ashtakvarga Details
                   </BreadcrumbItem>
-                  <BreadcrumbItem active>View Birth</BreadcrumbItem>
+                  <BreadcrumbItem active> Ashtakvarga</BreadcrumbItem>
                 </Breadcrumb>
               </div>
             </Col>
@@ -95,7 +95,7 @@ class BirthChart extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {this.state.birthDetailList.map((detail) => {
+                  {this.state.ashtakvargaDetail.map((detail) => {
                     return (
                       <tr key={detail._id}>
                         <th scope="row">1</th>
@@ -122,4 +122,4 @@ class BirthChart extends React.Component {
     );
   }
 }
-export default BirthChart;
+export default Ashtakvarga;

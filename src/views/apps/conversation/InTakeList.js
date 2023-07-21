@@ -43,10 +43,56 @@ class InTakeList extends React.Component {
       {
         headerName: "Action",
         field: "sortorder",
-        width: 200,
+        width: 300,
         cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
+              <Route
+                render={({ history }) => (
+                  <Button
+                    className="mr-50"
+                    color="success"
+                    size="sm"
+                    onClick={() =>
+                      history.push(
+                        `/app/conversation/yoginiDasha/${params.data?._id}`
+                      )
+                    }
+                  >
+                    Dosha
+                  </Button>
+                )}
+              />
+              <Route
+                render={({ history }) => (
+                  <Eye
+                    className="mr-50"
+                    size="25px"
+                    color="green"
+                    onClick={() =>
+                      history.push(
+                        `/app/conversation/horoScopeChart/${params.data._id}`
+                      )
+                    }
+                  />
+                )}
+              />
+              {/* <Route
+                render={({ history }) => (
+                  <Button
+                    className="mr-50"
+                    color="success"
+                    size="sm"
+                    onClick={() =>
+                      history.push(
+                        `/app/conversation/planetdasha/${params.data?._id}`
+                      )
+                    }
+                  >
+                    PlanetDasha Details
+                  </Button>
+                )}
+              /> */}
               <Route
                 render={({ history }) => (
                   <Button
@@ -87,6 +133,19 @@ class InTakeList extends React.Component {
                   this.gridApi.updateRowData({ remove: selectedData });
                 }}
               /> */}
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Type",
+        field: "type",
+        filter: true,
+        width: 120,
+        cellRendererFramework: (params) => {
+          return (
+            <div>
+              <span>{params.data.type}</span>
             </div>
           );
         },
@@ -242,12 +301,10 @@ class InTakeList extends React.Component {
 
   async componentDidMount() {
     let astroId = localStorage.getItem("astroId");
-    // 13.233.142.228:4000/admin/intekListByastro/647eeaf65588e0b2d5e4d374
     await axiosConfig
       .get(`/admin/intekListByastro/${astroId}`)
       .then((response) => {
         let rowData = response.data.data;
-        console.log(rowData);
         this.setState({ rowData });
       });
   }

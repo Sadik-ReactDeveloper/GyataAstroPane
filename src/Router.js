@@ -31,6 +31,15 @@ const ConversationList = lazy(() =>
 
 const InTakeList = lazy(() => import("./views/apps/conversation/InTakeList"));
 const BirthChart = lazy(() => import("./views/apps/conversation/BirthChart"));
+const Ashtakvarga = lazy(() => import("./views/apps/conversation/Ashtakvarga"));
+const HoroScopeChart = lazy(() =>
+  import("./views/apps/conversation/HoroScopeChart")
+);
+const PlanetDasha = lazy(() => import("./views/apps/conversation/PlanetDasha"));
+const VimshottariDasha = lazy(() =>
+  import("./views/apps/conversation/VimshottariDasha")
+);
+const YoginiDasha = lazy(() => import("./views/apps/conversation/YoginiDasha"));
 
 const chatlist = lazy(() => import("./views/apps/userchat/ChatList"));
 const chat = lazy(() => import("./views/apps/chat/Chat"));
@@ -472,8 +481,28 @@ class AppRouter extends React.Component {
               component={InTakeList}
             />
             <AppRoute
+              path="/app/conversation/ashtakvarga/:id"
+              component={Ashtakvarga}
+            />
+            <AppRoute
               path="/app/conversation/birthchart/:id"
               component={BirthChart}
+            />
+            <AppRoute
+              path="/app/conversation/horoScopeChart/:id"
+              component={HoroScopeChart}
+            />
+            <AppRoute
+              path="/app/conversation/planetdasha/:id"
+              component={PlanetDasha}
+            />
+            <AppRoute
+              path="/app/conversation/vimshottariDasha/:id"
+              component={VimshottariDasha}
+            />
+            <AppRoute
+              path="/app/conversation/yoginiDasha/:id"
+              component={YoginiDasha}
             />
             <AppRoute path="/app/user/viewUser" component={ViewUser} />
             <AppRoute path="/chat" component={chat} />
