@@ -26,7 +26,14 @@ import "../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../assets/scss/pages/users.scss";
 import { Route } from "react-router-dom";
 import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
-
+const style = {
+  table: {
+    width: "100%",
+    display: "table",
+    borderSpacing: 0,
+    borderCollapse: "separate",
+  },
+};
 class Dosha extends React.Component {
   list = [
     {
@@ -382,12 +389,12 @@ class Dosha extends React.Component {
             <Col sm="12">
               <Card>
                 <Row className="m-2">
-                  <Col lg="4" md="4" sm="12" className="my-1">
-                    <h1 sm="6" className="float-left">
+                  <Col lg="3" md="3" sm="12" className="my-1">
+                    <h4 sm="6" className="float-left">
                       Horoscope List
-                    </h1>
+                    </h4>
                   </Col>
-                  <Col lg="4" md="4" sm="12" className="my-1">
+                  <Col lg="3" md="3" sm="12" className="my-1">
                     <select
                       name="selected"
                       onChange={(e) => this.handleChange(e)}
@@ -400,13 +407,28 @@ class Dosha extends React.Component {
                       ))}
                     </select>
                   </Col>
-                  <Col g="4" md="4" sm="12" className="my-1">
+
+                  <Col lg="3" md="3" sm="12" className="">
                     <Button
                       onClick={this.handleSubmit}
                       className="ml-1  btn btn-success "
                     >
                       Submit
                     </Button>
+                  </Col>
+                  <Col lg="3" md="3" sm="12">
+                    <Route
+                      render={({ history }) => (
+                        <Button
+                          className=" btn btn-danger float-right"
+                          onClick={() =>
+                            history.push("/app/conversation/intakelist")
+                          }
+                        >
+                          Back
+                        </Button>
+                      )}
+                    />
                   </Col>
                 </Row>
                 <CardBody>

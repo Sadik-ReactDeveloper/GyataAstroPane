@@ -16,6 +16,14 @@ import "../../../assets/scss/pages/app-ecommerce-shop.scss";
 import axiosConfig from "../../../axiosConfig";
 import { Route } from "react-router-dom";
 import swal from "sweetalert";
+const style = {
+  table: {
+    width: "100%",
+    display: "table",
+    borderSpacing: 0,
+    borderCollapse: "separate",
+  },
+};
 class YoginiDasha extends React.Component {
   constructor(props) {
     super(props);
@@ -259,12 +267,12 @@ class YoginiDasha extends React.Component {
           </Card> */}
           <Card className="overflow-hidden app-ecommerce-details">
             <Row className="m-2">
-              <Col lg="4" md="4" sm="12" className="my-1">
-                <h1 col-sm-6 className="float-left">
+              <Col lg="3" md="4" sm="12" className="my-1">
+                <h4 col-sm-6 className="float-left">
                   Ashtakvarga List
-                </h1>
+                </h4>
               </Col>
-              <Col>
+              <Col lg="3" md="3" sm="12" className="">
                 <select
                   name="dropdownList"
                   className="mt-2"
@@ -281,7 +289,7 @@ class YoginiDasha extends React.Component {
                   <option value="ascendant">ascendant</option>
                 </select>
               </Col>
-              <Col lg="4" md="4" sm="12" className="my-1">
+              <Col lg="3" md="3" sm="12" className="my-1">
                 <Button
                   onClick={this.handleSubmitList}
                   className="ml-1  btn btn-success "
@@ -289,7 +297,7 @@ class YoginiDasha extends React.Component {
                   Submit
                 </Button>
               </Col>
-              {/* <Col>
+              <Col lg="3" md="3" sm="12" className="my-1">
                 <Route
                   render={({ history }) => (
                     <Button
@@ -302,60 +310,67 @@ class YoginiDasha extends React.Component {
                     </Button>
                   )}
                 />
-              </Col> */}
+              </Col>
             </Row>
             <CardBody className="pb-0">
-              <Table responsive>
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>ascendant</th>
-                    <th>jupiter</th>
-                    <th>mars</th>
-                    <th>mercury</th>
-                    <th>moon</th>
-                    <th>saturn</th>
-                    <th>sun</th>
-                    <th>total</th>
-                    <th>venus</th>
-                    <th>Sign Id</th>
-                    <th>Sign Name</th>
-                    <th>Type</th>
-                    <th>Planet</th>
-                    <th>total</th>
-                    <th>venus</th>
-                    <th>Sign Id</th>
-                    <th>Sign Name</th>
-                    <th>Type</th>
-                    <th>Planet</th>
-                    <th>total</th>
-                    <th>venus</th>
-                    <th>Sign Id</th>
-                    <th>Sign Name</th>
-                    <th>Type</th>
-                    <th>Planet</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>{this.state.ashtalData.ascendant}</td>
-                    <td>{this.state.ashtalData.jupiter}</td>
-                    <td>{this.state.ashtalData.mars}</td>
-                    <td>{this.state.ashtalData.mercury}</td>
-                    <td>{this.state.ashtalData.moon}</td>
-                    <td>{this.state.ashtalData.saturn}</td>
-                    <td>{this.state.ashtalData.sun}</td>
-                    <td>{this.state.ashtalData.total}</td>
-                    <td>{this.state.ashtalData.venus}</td>
-                    <td>{this.state.Ashtakvarga?.ashtak_varga?.sign_id}</td>
+              <div
+                style={{
+                  maxHeight: "200px",
+                  overflowY: "auto",
+                }}
+              >
+                <Table responsive style={style.table}>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>ascendant</th>
+                      <th>jupiter</th>
+                      <th>mars</th>
+                      <th>mercury</th>
+                      <th>moon</th>
+                      <th>saturn</th>
+                      <th>sun</th>
+                      <th>total</th>
+                      <th>venus</th>
+                      <th>Sign Id</th>
+                      <th>Sign Name</th>
+                      <th>Type</th>
+                      <th>Planet</th>
+                      <th>total</th>
+                      <th>venus</th>
+                      <th>Sign Id</th>
+                      <th>Sign Name</th>
+                      <th>Type</th>
+                      <th>Planet</th>
+                      <th>total</th>
+                      <th>venus</th>
+                      <th>Sign Id</th>
+                      <th>Sign Name</th>
+                      <th>Type</th>
+                      <th>Planet</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>{this.state.ashtalData.ascendant}</td>
+                      <td>{this.state.ashtalData.jupiter}</td>
+                      <td>{this.state.ashtalData.mars}</td>
+                      <td>{this.state.ashtalData.mercury}</td>
+                      <td>{this.state.ashtalData.moon}</td>
+                      <td>{this.state.ashtalData.saturn}</td>
+                      <td>{this.state.ashtalData.sun}</td>
+                      <td>{this.state.ashtalData.total}</td>
+                      <td>{this.state.ashtalData.venus}</td>
+                      <td>{this.state.Ashtakvarga?.ashtak_varga?.sign_id}</td>
 
-                    <td>{this.state.Ashtakvarga?.ashtak_varga?.type}</td>
-                    <td>{this.state.Ashtakvarga?.ashtak_varga?.planet}</td>
-                    <td>{this.state.Ashtakvarga?.ashtak_varga?.sign}</td>
-                  </tr>
-                </tbody>
-              </Table>
+                      <td>{this.state.Ashtakvarga?.ashtak_varga?.type}</td>
+                      <td>{this.state.Ashtakvarga?.ashtak_varga?.planet}</td>
+                      <td>{this.state.Ashtakvarga?.ashtak_varga?.sign}</td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </div>
             </CardBody>
           </Card>
         </div>

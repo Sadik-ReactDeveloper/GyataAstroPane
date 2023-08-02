@@ -70,7 +70,7 @@ class HoroScopeChart extends React.Component {
         <div>
           <Row>
             <Col sm="12">
-              <div>
+              {/* <div>
                 <Breadcrumb listTag="div">
                   <BreadcrumbItem href="/analyticsDashboard" tag="a">
                     Home
@@ -80,17 +80,15 @@ class HoroScopeChart extends React.Component {
                   </BreadcrumbItem>
                   <BreadcrumbItem active>View HoroScope</BreadcrumbItem>
                 </Breadcrumb>
-              </div>
+              </div> */}
             </Col>
           </Row>
           <Card className="overflow-hidden app-ecommerce-details">
             <Row className="m-2">
-              <Col>
-                <h1 col-sm-6 className="float-left">
-                  HoroScope Details
-                </h1>
+              <Col lg="3" md="6" sm="12">
+                <h4 className="float-left">HoroScope Details</h4>
               </Col>
-              <Col>
+              <Col lg="9" md="6" sm="12">
                 <Route
                   render={({ history }) => (
                     <Button
@@ -106,7 +104,7 @@ class HoroScopeChart extends React.Component {
               </Col>
             </Row>
             <CardBody className="pb-0">
-              <Table bordered>
+              <Table bordered responsive>
                 <thead>
                   <tr>
                     <th>#</th>
@@ -146,13 +144,27 @@ class HoroScopeChart extends React.Component {
           <Card className="overflow-hidden app-ecommerce-details">
             <Row className="m-2">
               <Col>
-                <h1 col-sm-6 className="float-left">
+                <h4 col-sm-6 className="float-left">
                   Yogini Dasha
-                </h1>
+                </h4>
+              </Col>
+              <Col>
+                <Route
+                  render={({ history }) => (
+                    <Button
+                      className=" btn btn-danger float-right"
+                      onClick={() =>
+                        history.push("/app/conversation/intakelist")
+                      }
+                    >
+                      Back
+                    </Button>
+                  )}
+                />
               </Col>
             </Row>
             <CardBody className="pb-0">
-              <Table bordered>
+              <Table bordered responsive>
                 <thead>
                   <tr>
                     <th>#</th>
@@ -189,13 +201,27 @@ class HoroScopeChart extends React.Component {
           <Card className="overflow-hidden app-ecommerce-details">
             <Row className="m-2">
               <Col>
-                <h1 col-sm-6 className="float-left">
+                <h4 col-sm-6 className="float-left">
                   Planet Dasha
-                </h1>
+                </h4>
+              </Col>
+              <Col>
+                <Route
+                  render={({ history }) => (
+                    <Button
+                      className=" btn btn-danger float-right"
+                      onClick={() =>
+                        history.push("/app/conversation/intakelist")
+                      }
+                    >
+                      Back
+                    </Button>
+                  )}
+                />
               </Col>
             </Row>
             <CardBody className="pb-0">
-              <Table bordered>
+              <Table bordered responsive>
                 <thead>
                   <tr>
                     <th>#</th>
@@ -232,13 +258,27 @@ class HoroScopeChart extends React.Component {
           <Card className="overflow-hidden app-ecommerce-details">
             <Row className="m-2">
               <Col>
-                <h1 col-sm-6 className="float-left">
+                <h4 col-sm-6 className="float-left">
                   Ashtakvarga Details
-                </h1>
+                </h4>
+              </Col>
+              <Col>
+                <Route
+                  render={({ history }) => (
+                    <Button
+                      className=" btn btn-danger float-right"
+                      onClick={() =>
+                        history.push("/app/conversation/intakelist")
+                      }
+                    >
+                      Back
+                    </Button>
+                  )}
+                />
               </Col>
             </Row>
             <CardBody className="pb-0">
-              <Table bordered>
+              <Table bordered responsive>
                 <thead>
                   <tr>
                     <th>#</th>

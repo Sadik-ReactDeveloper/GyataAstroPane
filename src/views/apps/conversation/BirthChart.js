@@ -57,9 +57,9 @@ class BirthChart extends React.Component {
           <Card className="overflow-hidden app-ecommerce-details">
             <Row className="m-2">
               <Col>
-                <h1 col-sm-6 className="float-left">
+                <h4 col-sm-6 className="float-left">
                   BirthDetails
-                </h1>
+                </h4>
               </Col>
               <Col>
                 <Route
