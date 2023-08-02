@@ -33,7 +33,7 @@ const NavbarUser = () => {
   const [newStatus, setNewStatus] = useState("");
   const [viewnotify, setViewnotify] = useState("");
   const [VideoCount, setVideoCount] = useState("");
-  const [countnotify, setCountnotify] = useState("");
+  // const [countnotify, setCountnotify] = useState("");
   const [videonotify, setVideonotify] = useState([]);
   const [ButtonText, setButtonText] = useState("Offline");
   const history = useHistory();
@@ -269,16 +269,14 @@ const NavbarUser = () => {
             <Bell size={21} />
 
             <Badge pill color="primary" className="badge-up">
-              {viewnotify + countnotify + VideoCount}
+              {viewnotify + VideoCount}
             </Badge>
           </DropdownToggle>
 
           <DropdownMenu tag="ul" right className="dropdown-menu-media">
             <li className="dropdown-menu-header">
               <div className="dropdown-header mt-0">
-                <h3 className="text-white">
-                  {viewnotify + countnotify + VideoCount}
-                </h3>
+                <h3 className="text-white">{viewnotify + VideoCount}</h3>
                 <span className="notification-title"> Notifications</span>
               </div>
             </li>
