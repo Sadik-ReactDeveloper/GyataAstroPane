@@ -198,8 +198,6 @@ class ConversationList extends React.Component {
     ],
   };
   async componentDidMount() {
-    // let { id } = this.props.match.params;
-    // let { userid } = this.props.match.params
     let userId = localStorage.getItem("userId");
     await axiosConfig
       .get(`/user/getOne_Conversation_Wallet/${userId}`)

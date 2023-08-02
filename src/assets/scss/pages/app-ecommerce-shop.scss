@@ -523,6 +523,9 @@ $wishlist-bg: #f6f6f6;
     }
   }
 
+  .table-responsive {
+    height: 100vh;
+  }
   // Media queries to change grid columns in diffrent Screens and to hide search results below 768px
   @media (max-width: 1200px) {
     .app-content {

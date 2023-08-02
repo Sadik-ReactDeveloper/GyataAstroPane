@@ -2,34 +2,32 @@ import React from "react";
 import {
   Card,
   CardBody,
+  Input,
   Row,
   Col,
   Button,
+  UncontrolledDropdown,
+  DropdownMenu,
+  DropdownItem,
+  DropdownToggle,
   Breadcrumb,
   BreadcrumbItem,
   Table,
 } from "reactstrap";
-import Select from "react-select";
-import { history } from "../../../history";
-
+import Ashtakvarga from "./yog";
+import NewCode from "./newCode";
 import "../../../assets/scss/pages/app-ecommerce-shop.scss";
 import axiosConfig from "../../../axiosConfig";
-import { Route } from "react-router-dom";
 import swal from "sweetalert";
-class YoginiDasha extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: {},
-      yoginiDasha: [],
-      selected: "",
-      horoChart: [],
-      ashtakvarga: [],
-      ashtalData: [],
-      dropdownList: "",
-    };
-  }
+import { ContextLayout } from "../../../utility/context/Layout";
+import { AgGridReact } from "ag-grid-react";
+import { Eye, Edit, Trash2, ChevronDown } from "react-feather";
+import "../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
+import "../../../assets/scss/pages/users.scss";
+import { Route } from "react-router-dom";
+import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
 
+class Dosha extends React.Component {
   list = [
     {
       label: "Chalit Chart",
@@ -116,6 +114,183 @@ class YoginiDasha extends React.Component {
       value: "D60",
     },
   ];
+  state = {
+    rowData: [],
+    data: {},
+    selected: "",
+    horoChart: [],
+    ashtakvarga: [],
+    ashtalData: [],
+    dropdownList: "",
+    paginationPageSize: 20,
+    currenPageSize: "",
+    getPageSize: "",
+    defaultColDef: {
+      sortable: true,
+      editable: true,
+      resizable: true,
+      suppressMenu: true,
+    },
+    columnDefs: [
+      {
+        headerName: "S.No",
+        valueGetter: "node.rowIndex + 1",
+        field: "node.rowIndex + 1",
+        width: 100,
+        filter: true,
+      },
+      // {
+      //   headerName: "Action",
+      //   field: "sortorder",
+      //   width: 300,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="actions cursor-pointer">
+      //         <Route
+      //           render={({ history }) => (
+      //             <Button
+      //               className="mr-50"
+      //               color="success"
+      //               size="sm"
+      //               onClick={() =>
+      //                 history.push(
+      //                   `/app/conversation/yoginiDasha/${params.data?._id}`
+      //                 )
+      //               }
+      //             >
+      //               Dosha
+      //             </Button>
+      //           )}
+      //         />
+      //         <Route
+      //           render={({ history }) => (
+      //             <Eye
+      //               className="mr-50"
+      //               size="25px"
+      //               color="green"
+      //               onClick={() =>
+      //                 history.push(
+      //                   `/app/conversation/horoScopeChart/${params.data._id}`
+      //                 )
+      //               }
+      //             />
+      //           )}
+      //         />
+
+      //         <Route
+      //           render={({ history }) => (
+      //             <Button
+      //               className="mr-50"
+      //               color="success"
+      //               size="sm"
+      //               onClick={() =>
+      //                 history.push(
+      //                   `/app/conversation/birthchart/${params.data?._id}`
+      //                 )
+      //               }
+      //             >
+      //               BirthChart
+      //             </Button>
+      //           )}
+      //         />
+      //         {/* <Route
+      //           render={({ history }) => (
+      //             <Edit
+      //               className="mr-50"
+      //               size="25px"
+      //               color="blue"
+      //               onClick={() =>
+      //                 history.push(
+      //                   `/app/astrology/editAstrologer/${params.data._id}`
+      //                 )
+      //               }
+      //             />
+      //           )}
+      //         /> */}
+      //         {/* <Trash2
+      //           className="mr-50"
+      //           size="25px"
+      //           color="red"
+      //           onClick={() => {
+      //             let selectedData = this.gridApi.getSelectedRows();
+      //             this.runthisfunction(params.data._id);
+      //             this.gridApi.updateRowData({ remove: selectedData });
+      //           }}
+      //         /> */}
+      //       </div>
+      //     );
+      //   },
+      // },
+      {
+        headerName: "Sign",
+        field: "type",
+        filter: true,
+        width: 120,
+        cellRendererFramework: (params) => {
+          return (
+            <div>
+              <span>{params.data.sign}</span>
+            </div>
+          );
+        },
+      },
+
+      {
+        headerName: "Sign Name",
+        field: "sign_name",
+        filter: true,
+        width: 120,
+        cellRendererFramework: (params) => {
+          return (
+            <div>
+              <span>{params.data.sign_name}</span>
+            </div>
+          );
+        },
+      },
+
+      {
+        headerName: "Planet",
+        field: "planet",
+        filter: true,
+        width: 120,
+        cellRendererFramework: (params) => {
+          return (
+            <div>
+              <span>{params.data.planet}</span>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Planet Small",
+        field: "planet_small",
+        filter: true,
+        width: 150,
+        cellRendererFramework: (params) => {
+          return (
+            <div>
+              <span>{params.data.planet_small}</span>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Planet Degree",
+        field: "planet_degree",
+        filter: true,
+        width: 150,
+        cellRendererFramework: (params) => {
+          return (
+            <div>
+              <span>{params.data.planet_degree}</span>
+            </div>
+          );
+        },
+      },
+    ],
+  };
+
   handleChange = (e) => {
     this.setState({ selected: e.target.value });
   };
@@ -127,7 +302,6 @@ class YoginiDasha extends React.Component {
     axiosConfig
       .get(`/user/birth_detailsByAstroid/${astroId}`)
       .then((response) => {
-        // console.log(response.data.data);
         this.setState({ yoginiDasha: response.data.data });
       })
       .catch((error) => {
@@ -141,229 +315,200 @@ class YoginiDasha extends React.Component {
         this.state.yoginiDasha[0]
       )
       .then((response) => {
-        this.setState({ horoChart: response.data.data });
-        console.log("yogini", response.data.data);
+        console.log(response.data.data);
+        this.setState({ rowData: response.data.data });
       })
       .catch((error) => {
         console.log("Error BirthDetails", error);
         swal("Error!", "You clicked the button!", "error");
       });
   };
-  handleSubmitList = () => {
-    console.log(this.state.dropdownList);
-    axiosConfig
-      .post(
-        `/user/ashtakvarga/${this.state.dropdownList}`,
-        this.state.yoginiDasha[0]
-      )
-      .then((response) => {
-        this.setState({ ashtakvarga: response.data.data });
-        this.setState({
-          ashtalData: response.data.data.ashtak_points.aquarius,
-        });
-        console.log("CVCVCV", response.data.data.ashtak_points.aquarius);
 
-        // console.log("CVCVCV", response.data.data.ashtak_points.aries);
-        // console.log("CVCVCV", response.data.data.ashtak_points.cancer);
-        // console.log("CVCVCV", response.data.data.ashtak_points.capricorn);
-        // console.log("CVCVCV", response.data.data.ashtak_points.gemini);
-        // console.log("CVCVCV", response.data.data.ashtak_points.leo);
-        // console.log("CVCVCV", response.data.data.ashtak_points.libra);
-        // console.log("CVCVCV", response.data.data.ashtak_points.pisces);
-        // console.log("CVCVCV", response.data.data.ashtak_points.sagittarius);
-        // console.log("CVCVCV", response.data.data.ashtak_points.scorpio);
-        // console.log("CVCVCV", response.data.data.ashtak_points.taurus);
-        // console.log("CVCVCV", response.data.data.ashtak_points.virgo);
-        //   .ashtak_varga.type
-      })
-      .catch((error) => {
-        console.log("Error BirthDetails", error);
-        swal("Error!", "You clicked the button!", "error");
+  // async componentDidMount() {
+  //   let astroId = localStorage.getItem("astroId");
+  //   await axiosConfig
+  //     .get(`/admin/intekListByastro/${astroId}`)
+  //     .then((response) => {
+  //       let rowData = response.data.data;
+  //       this.setState({ rowData });
+  //     });
+  // }
+
+  // async runthisfunction(id) {
+  //   console.log(id);
+  //   await axiosConfig.get(`/admin/dlt_ChatIntek/${id}`).then(
+  //     (response) => {
+  //       console.log(response);
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //     }
+  //   );
+  // }
+  onGridReady = (params) => {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+    this.setState({
+      currenPageSize: this.gridApi.paginationGetCurrentPage() + 1,
+      getPageSize: this.gridApi.paginationGetPageSize(),
+      totalPages: this.gridApi.paginationGetTotalPages(),
+    });
+  };
+  updateSearchQuery = (val) => {
+    this.gridApi.setQuickFilter(val);
+  };
+  filterSize = (val) => {
+    if (this.gridApi) {
+      this.gridApi.paginationSetPageSize(Number(val));
+      this.setState({
+        currenPageSize: val,
+        getPageSize: val,
       });
+    }
   };
   render() {
+    const { rowData, columnDefs, defaultColDef } = this.state;
     return (
-      <React.Fragment>
+      <>
         <div>
-          <Row>
+          {/* <Breadcrumbs
+            breadCrumbTitle="  Horoscope List"
+            breadCrumbParent="Home"
+            breadCrumbActive="   Horoscope List"
+          /> */}
+
+          <Row className="app-user-list">
+            <Col sm="12"></Col>
             <Col sm="12">
-              <div>
-                <Breadcrumb listTag="div">
-                  <BreadcrumbItem href="/analyticsDashboard" tag="a">
-                    Home
-                  </BreadcrumbItem>
-                  <BreadcrumbItem href="/app/setting/bank/bankList" tag="a">
-                    Horoscope Details
-                  </BreadcrumbItem>
-                  <BreadcrumbItem active> Horoscope</BreadcrumbItem>
-                </Breadcrumb>
-              </div>
+              <Card>
+                <Row className="m-2">
+                  <Col lg="4" md="4" sm="12" className="my-1">
+                    <h1 sm="6" className="float-left">
+                      Horoscope List
+                    </h1>
+                  </Col>
+                  <Col lg="4" md="4" sm="12" className="my-1">
+                    <select
+                      name="selected"
+                      onChange={(e) => this.handleChange(e)}
+                    >
+                      {this.list.map((option) => (
+                        <>
+                          {/* <option> Select Horoscope</option> */}
+                          <option value={option.value}> {option.label}</option>
+                        </>
+                      ))}
+                    </select>
+                  </Col>
+                  <Col g="4" md="4" sm="12" className="my-1">
+                    <Button
+                      onClick={this.handleSubmit}
+                      className="ml-1  btn btn-success "
+                    >
+                      Submit
+                    </Button>
+                  </Col>
+                </Row>
+                <CardBody>
+                  {this.state.rowData === null ? null : (
+                    <div className="ag-theme-material w-100 my-2 ag-grid-table">
+                      <div className="d-flex flex-wrap justify-content-between align-items-center">
+                        <div className="mb-1">
+                          <UncontrolledDropdown className="p-1 ag-dropdown">
+                            <DropdownToggle tag="div">
+                              {this.gridApi
+                                ? this.state.currenPageSize
+                                : "" * this.state.getPageSize -
+                                  (this.state.getPageSize - 1)}{" "}
+                              -{" "}
+                              {this.state.rowData.length -
+                                this.state.currenPageSize *
+                                  this.state.getPageSize >
+                              0
+                                ? this.state.currenPageSize *
+                                  this.state.getPageSize
+                                : this.state.rowData.length}{" "}
+                              of {this.state.rowData.length}
+                              <ChevronDown className="ml-50" size={15} />
+                            </DropdownToggle>
+                            <DropdownMenu right>
+                              <DropdownItem
+                                tag="div"
+                                onClick={() => this.filterSize(20)}
+                              >
+                                20
+                              </DropdownItem>
+                              <DropdownItem
+                                tag="div"
+                                onClick={() => this.filterSize(50)}
+                              >
+                                50
+                              </DropdownItem>
+                              <DropdownItem
+                                tag="div"
+                                onClick={() => this.filterSize(100)}
+                              >
+                                100
+                              </DropdownItem>
+                              <DropdownItem
+                                tag="div"
+                                onClick={() => this.filterSize(134)}
+                              >
+                                134
+                              </DropdownItem>
+                            </DropdownMenu>
+                          </UncontrolledDropdown>
+                        </div>
+                        <div className="d-flex flex-wrap justify-content-between mb-1">
+                          <div className="table-input mr-1">
+                            <Input
+                              placeholder="search..."
+                              onChange={(e) =>
+                                this.updateSearchQuery(e.target.value)
+                              }
+                              value={this.state.value}
+                            />
+                          </div>
+                          <div className="export-btn">
+                            <Button.Ripple
+                              color="primary"
+                              onClick={() => this.gridApi.exportDataAsCsv()}
+                            >
+                              Export as CSV
+                            </Button.Ripple>
+                          </div>
+                        </div>
+                      </div>
+                      <ContextLayout.Consumer>
+                        {(context) => (
+                          <AgGridReact
+                            gridOptions={{}}
+                            rowSelection="multiple"
+                            defaultColDef={defaultColDef}
+                            columnDefs={columnDefs}
+                            rowData={rowData}
+                            onGridReady={this.onGridReady}
+                            colResizeDefault={"shift"}
+                            animateRows={true}
+                            floatingFilter={false}
+                            pagination={true}
+                            paginationPageSize={this.state.paginationPageSize}
+                            pivotPanelShow="always"
+                            enableRtl={context.state.direction === "rtl"}
+                          />
+                        )}
+                      </ContextLayout.Consumer>
+                    </div>
+                  )}
+                </CardBody>
+              </Card>
             </Col>
           </Row>
-          <Card className="overflow-hidden app-ecommerce-details">
-            <Row className="m-2">
-              <Col>
-                <h1 col-sm-6 className="float-left">
-                  Horoscope List
-                </h1>
-              </Col>
-              <Col>
-                <select name="selected" onChange={(e) => this.handleChange(e)}>
-                  {this.list.map((option) => (
-                    <option value={option.value}> {option.label}</option>
-                  ))}
-                </select>
-              </Col>
-              <Col>
-                <Button
-                  onClick={this.handleSubmit}
-                  className="ml-1  btn btn-success "
-                >
-                  Submit
-                </Button>
-              </Col>
-              <Col>
-                <Route
-                  render={({ history }) => (
-                    <Button
-                      className=" btn btn-danger float-right"
-                      onClick={() =>
-                        history.push("/app/conversation/intakelist")
-                      }
-                    >
-                      Back
-                    </Button>
-                  )}
-                />
-              </Col>
-            </Row>
-            <CardBody className="pb-0">
-              <Table bordered>
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Sign</th>
-                    <th>Sign Name</th>
-                    <th>Planet</th>
-                    <th>Planet Small</th>
-                    <th> Planet Degree</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.state.horoChart &&
-                    this.state.horoChart.map((detail) => {
-                      return (
-                        <tr key={detail._id}>
-                          <th scope="row">1</th>
-                          <td>{detail.sign}</td>
-                          <td>{detail.sign_name}</td>
-                          <td>{detail.planet}</td>
-                          <td>{detail.planet_small}</td>
-                          <td>{detail.planet_degree}</td>
-                        </tr>
-                      );
-                    })}
-                </tbody>
-              </Table>
-            </CardBody>
-          </Card>
-          <Card className="overflow-hidden app-ecommerce-details">
-            <Row className="m-2">
-              <Col>
-                <h1 col-sm-6 className="float-left">
-                  Ashtakvarga List
-                </h1>
-              </Col>
-              <Col>
-                {/* <select name="selected" onChange={(e) => this.handleChange(e)}>
-                  {this.list.map((option) => (
-                    <option value={option.value}> {option.label}</option>
-                  ))}
-                </select> */}
-                <select
-                  name="dropdownList"
-                  className="mt-2"
-                  onChange={(e) => this.ashtakChange(e)}
-                  //   id="availability"
-                >
-                  <option value="sun">sun</option>
-                  <option value="moon">moon</option>
-                  <option value="mars">mars</option>
-                  <option value="mercury">mercury</option>
-                  <option value="jupiter">jupiter</option>
-                  <option value="venus">venus</option>
-                  <option value="saturn">saturn</option>
-                  <option value="ascendant">ascendant</option>
-                </select>
-              </Col>
-              <Col>
-                <Button
-                  onClick={this.handleSubmitList}
-                  className="ml-1  btn btn-success "
-                >
-                  Submit
-                </Button>
-              </Col>
-              <Col>
-                <Route
-                  render={({ history }) => (
-                    <Button
-                      className=" btn btn-danger float-right"
-                      onClick={() =>
-                        history.push("/app/conversation/intakelist")
-                      }
-                    >
-                      Back
-                    </Button>
-                  )}
-                />
-              </Col>
-            </Row>
-            <CardBody className="pb-0">
-              <Table bordered>
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>ascendant</th>
-                    <th>jupiter</th>
-                    <th>mars</th>
-                    <th>mercury</th>
-                    <th>moon</th>
-                    <th>saturn</th>
-                    <th>sun</th>
-                    <th>total</th>
-                    <th>venus</th>
-                    <th>Sign Id</th>
-                    <th>Sign Name</th>
-                    <th>Type</th>
-                    <th>Planet</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>{this.state.ashtalData.ascendant}</td>
-                    <td>{this.state.ashtalData.jupiter}</td>
-                    <td>{this.state.ashtalData.mars}</td>
-                    <td>{this.state.ashtalData.mercury}</td>
-                    <td>{this.state.ashtalData.moon}</td>
-                    <td>{this.state.ashtalData.saturn}</td>
-                    <td>{this.state.ashtalData.sun}</td>
-                    <td>{this.state.ashtalData.total}</td>
-                    <td>{this.state.ashtalData.venus}</td>
-                    <td>{this.state.ashtakvarga?.ashtak_varga?.sign_id}</td>
-
-                    <td>{this.state.ashtakvarga?.ashtak_varga?.type}</td>
-                    <td>{this.state.ashtakvarga?.ashtak_varga?.planet}</td>
-                    <td>{this.state.ashtakvarga?.ashtak_varga?.sign}</td>
-                  </tr>
-                </tbody>
-              </Table>
-            </CardBody>
-          </Card>
+          {/* <Ashtakvarga /> */}
+          <NewCode />
         </div>
-      </React.Fragment>
+      </>
     );
   }
 }
-export default YoginiDasha;
+export default Dosha;

@@ -39,7 +39,6 @@ export class AddProduct extends Component {
   // };
 
   componentDidMount() {
-    console.log(this.state.category);
     axiosConfig
       .get(`/admin/getproductcalegory`)
       .then((response) => {
@@ -123,8 +122,10 @@ export class AddProduct extends Component {
                       axiosConfig
                         .get(`/user/productbycategory/${e.target.value}`)
                         .then((response) => {
-                          console.log(response.data.data);
-                          this.setState({ productList: response.data.data });
+                          this.setState({
+                            productList: response.data.data,
+                          });
+                          console.log("productList", response.data.data);
                         })
                         .catch((error) => {
                           console.log(error);

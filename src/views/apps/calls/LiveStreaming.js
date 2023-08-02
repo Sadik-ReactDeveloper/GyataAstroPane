@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import LivePage from "./LivePage";
-import Streaming from "./Streaming";
+import axiosConfig from "../../../axiosConfig";
+import { Button } from "reactstrap";
 class Demo2 extends Component {
   constructor() {
     super();
@@ -8,10 +8,30 @@ class Demo2 extends Component {
       name: "",
     };
     this.onValueChange = this.onValueChange.bind(this);
-    // this.formSubmit = this.formSubmit.bind(this);
   }
 
-  onValueChange = () => {};
+  onValueChange = () => {
+    console.log("already live");
+    // axiosConfig
+    //   .get(`/user/closeLiveStream/${localStorage.getItem("stopLiveId")}`)
+    //   .then((response) => {
+    //     console.log("Stop LIVE  ", response.data);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+  };
+  deleteLive = () => {
+    console.log("deleteddd");
+    axiosConfig
+      .get(`/user/closeLiveStream/${localStorage.getItem("stopLiveId")}`)
+      .then((response) => {
+        console.log("Stop LIVE  ", response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   render() {
     return (
@@ -23,7 +43,7 @@ class Demo2 extends Component {
               type="radio"
               value="Available"
               onClick={(e) => {
-                this.setState({ selectedOption: e.target.value });
+                // this.setState({ selectedOption: e.target.value });
                 this.onValueChange();
               }}
             />
@@ -38,11 +58,12 @@ class Demo2 extends Component {
               value="unavailable"
               onClick={(e) => {
                 this.setState({ selectedOption: e.target.value });
-                this.onValueChange();
+                // this.onValueChange();
               }}
             />
             Unavailable
           </label>
+          <Button onClick={() => this.deleteLive()}>Already Live</Button>
         </div>
 
         <a href="#/yourlivestream" target="_blank">

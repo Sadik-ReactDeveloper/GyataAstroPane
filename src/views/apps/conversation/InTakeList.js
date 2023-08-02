@@ -77,22 +77,7 @@ class InTakeList extends React.Component {
                   />
                 )}
               />
-              {/* <Route
-                render={({ history }) => (
-                  <Button
-                    className="mr-50"
-                    color="success"
-                    size="sm"
-                    onClick={() =>
-                      history.push(
-                        `/app/conversation/planetdasha/${params.data?._id}`
-                      )
-                    }
-                  >
-                    PlanetDasha Details
-                  </Button>
-                )}
-              /> */}
+
               <Route
                 render={({ history }) => (
                   <Button
@@ -304,8 +289,17 @@ class InTakeList extends React.Component {
     await axiosConfig
       .get(`/admin/intekListByastro/${astroId}`)
       .then((response) => {
+        console.log(response.data.data);
         let rowData = response.data.data;
         this.setState({ rowData });
+      });
+    let userId = localStorage.getItem("userId");
+    await axiosConfig
+      .get(`/user/getOne_Conversation_Wallet/${userId}`)
+      .then((response) => {
+        // let rowData = response.data.data;
+        console.log("getOne_Conversation_Wallet", response.data.data);
+        // this.setState({ rowData });
       });
   }
 

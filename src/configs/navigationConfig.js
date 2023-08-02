@@ -79,7 +79,7 @@ const navigationConfig = [
     id: "livestreaming",
     title: "Live Streaming",
     type: "item",
-    icon: <Icon.MessageCircle size={20} />,
+    icon: <Icon.Video size={20} />,
     permissions: ["admin", "editor"],
     navLink: "/app/live/liveAstro",
   },

@@ -67,13 +67,13 @@ class AnalyticsDashboard extends React.Component {
       });
     await axiosConfig.get(`/user/productlist/${astroId}`).then((response) => {
       let ProductList = response.data?.data?.length;
-      console.log(ProductList);
+      // console.log(ProductList);
       this.setState({ ProductList: ProductList });
     });
     await axiosConfig
       .get(`/user/astro_ques_list/${astroId}`)
       .then((response) => {
-        console.log(response.data.data);
+        // console.log(response.data.data);
         let answered = response.data?.data?.filter((value) => value?.answer);
         let faq = response?.data?.data?.length;
         this.setState({ faq: faq });

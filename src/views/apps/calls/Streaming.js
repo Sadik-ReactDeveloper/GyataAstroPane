@@ -82,14 +82,15 @@ export default function App() {
         },
       },
       sharedLinks,
-      onJoinRoom: () => {
-        console.log("joined Room");
-      },
       preJoinViewConfig: {
         title: "Join Room For Live", // The title of the prejoin view. Uses "enter Room" by default.
       },
-      onLiveStart: () => {
-        console.log("Starting Live");
+      onLiveStart: (data) => {
+        console.log(data);
+        // if (localStorage.getItem("stopLiveId") && roomID) {
+        //   alert("ASTRO Already Live");
+        // }
+        // else {
         let obj = {
           astroid: astroid,
           status: "live",
@@ -99,19 +100,20 @@ export default function App() {
           .post("/user/WebliveStream", obj)
           .then((response) => {
             console.log("LIVE Call ", response.data);
-            localStorage.setItem("stopLiveId", response.data.data?._id);
-            this.setState({ status: "" });
-            // this.setState({ astroid: "" });
+            if (localStorage.getItem("stopLiveId")) {
+              localStorage.setItem("stopLivenewId", response.data.data._id);
+            } else {
+              localStorage.setItem("stopLiveId", response.data.data?._id);
+              this.setState({ status: "" });
+            }
           })
           .catch((error) => {
             console.log(error);
           });
+        // }
       },
-      onYouRemovedFromRoom: () => {
-        console.log("llllll");
-      },
+
       onLiveEnd: () => {
-        // let stopLiveId = ;
         axiosConfig
           .get(`/user/closeLiveStream/${localStorage.getItem("stopLiveId")}`)
           .then((response) => {
