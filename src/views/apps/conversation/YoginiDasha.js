@@ -37,26 +37,32 @@ const style = {
 class Dosha extends React.Component {
   list = [
     {
+      id: "1",
       label: "Chalit Chart",
       value: "chalit",
     },
     {
+      id: "2",
       label: "Sun Chart",
       value: "SUN",
     },
     {
+      id: "3",
       label: "Moon Chart",
       value: "MOON",
     },
     {
+      id: "4",
       label: "Brith Chart",
       value: "D1",
     },
     {
+      id: "5",
       label: "Hora Chart",
       value: "D2",
     },
     {
+      id: "6",
       label: "Dreshkan Chart",
       value: "D3",
     },
@@ -389,38 +395,39 @@ class Dosha extends React.Component {
             <Col sm="12">
               <Card>
                 <Row className="m-2">
-                  <Col lg="3" md="3" sm="12" className="my-1">
+                  <Col lg="3" md="3" sm="6" className="my-1">
                     <h4 sm="6" className="float-left">
                       Horoscope List
                     </h4>
                   </Col>
-                  <Col lg="3" md="3" sm="12" className="my-1">
+                  <Col lg="3" md="3" sm="6" className="my-1">
                     <select
                       name="selected"
                       onChange={(e) => this.handleChange(e)}
                     >
                       {this.list.map((option) => (
-                        <>
-                          {/* <option> Select Horoscope</option> */}
-                          <option value={option.value}> {option.label}</option>
-                        </>
+                        <option value={option.value} key={option.value}>
+                          {option.label}
+                        </option>
                       ))}
                     </select>
                   </Col>
 
-                  <Col lg="3" md="3" sm="12" className="">
+                  <Col lg="3" md="3" sm="6">
                     <Button
                       onClick={this.handleSubmit}
+                      size="sm"
                       className="ml-1  btn btn-success "
                     >
                       Submit
                     </Button>
                   </Col>
-                  <Col lg="3" md="3" sm="12">
+                  <Col lg="3" md="3" sm="6">
                     <Route
                       render={({ history }) => (
                         <Button
                           className=" btn btn-danger float-right"
+                          size="sm"
                           onClick={() =>
                             history.push("/app/conversation/intakelist")
                           }
@@ -526,7 +533,6 @@ class Dosha extends React.Component {
               </Card>
             </Col>
           </Row>
-          {/* <Ashtakvarga /> */}
           <NewCode />
         </div>
       </>

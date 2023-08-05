@@ -39,17 +39,12 @@ const NavbarUser = () => {
   const history = useHistory();
 
   const handleofflineAstro = (e) => {
-    e.preventDefault();
-    let astroid = localStorage.getItem("astroId");
-    let astroData = JSON.parse(localStorage.getItem("astroData"));
-    // console.log(astroData?.token);
-    // .post(`/user/status_change/${astroid}`, {
+    let token = JSON.parse(localStorage.getItem("token"));
     axiosConfig
       .get(`/user/logout`, {
-        headers: { Authorization: `Bearer ${astroData?.token}` },
+        headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
-        console.log(res.data);
         localStorage.removeItem("astroId");
         localStorage.removeItem("astroData");
         window.location.replace("/#/pages/login");
@@ -61,29 +56,32 @@ const NavbarUser = () => {
 
   const getAllnotification = async () => {
     const astroId = localStorage.getItem("astroId");
-    await axiosConfig
-      .get(`/user/wait_queue_list/${astroId}`)
-      .then((res) => {
-        console.log("ChatNotify>>", res.data.data);
-        setAstronotification(res.data.data);
-        setViewnotify(res.data.count);
-        handlenotification();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (astroId) {
+      await axiosConfig
+        .get(`/user/wait_queue_list/${astroId}`)
+        .then((res) => {
+          setAstronotification(res.data.data);
+          setViewnotify(res.data.count);
+          handlenotification();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
   const newgetAllnotification = async () => {
     const astroId = localStorage.getItem("astroId");
-    await axiosConfig
-      .get(`/user/VdolinkList/${astroId}`)
-      .then((res) => {
-        setVideonotify(res.data.data);
-        setVideoCount(res.data.count);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (astroId) {
+      await axiosConfig
+        .get(`/user/VdolinkList/${astroId}`)
+        .then((res) => {
+          setVideonotify(res.data.data);
+          setVideoCount(res.data.count);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   const handlenotification = () => {

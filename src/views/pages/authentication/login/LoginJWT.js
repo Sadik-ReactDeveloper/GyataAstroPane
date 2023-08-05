@@ -1,15 +1,6 @@
 import React from "react";
 
-import {
-  CardBody,
-  FormGroup,
-  Form,
-  Input,
-  Button,
-  Label,
-  Col,
-} from "reactstrap";
-import { Phone } from "react-feather";
+import { CardBody, FormGroup, Form, Input, Button, Label } from "reactstrap";
 import { loginWithJWT } from "../../../../redux/actions/auth/loginActions";
 import { connect } from "react-redux";
 
@@ -41,7 +32,6 @@ class LoginJWT extends React.Component {
         mobile: this.state.mobile,
       })
       .then((response) => {
-        console.log(response.data);
         this.setState({ otpMsg: response.data.msg });
         if (response.data.msg === "Waiting for Admin Approval") {
           swal("Waiting for Admin Approval");
@@ -65,16 +55,11 @@ class LoginJWT extends React.Component {
       })
 
       .then((response) => {
-        // console.log(response.data);
-        // console.log(response.data._id);
         if (response.data.msg === "otp verified") {
           swal("Login Successfull");
           localStorage.setItem("astroId", response.data._id);
           localStorage.setItem("astroData", JSON.stringify(response.data));
-          // localStorage.setItem("user_id", response.data.data._id);
-          // this.props.history.push("/");
           window.location.replace("/#/");
-          // swal("Login Successfull");
         }
       })
       .catch((error) => {
@@ -102,7 +87,6 @@ class LoginJWT extends React.Component {
                   maxLength={6}
                   value={this.state.otp}
                   onChange={this.handlechange}
-                  // required
                 />
 
                 <Label>OTP*</Label>
@@ -140,7 +124,6 @@ class LoginJWT extends React.Component {
                     </span>
                   ) : null}
                 </div>
-                {/* </Col> */}
               </FormGroup>
 
               <div className="d-flex justify-content-center">
@@ -167,13 +150,6 @@ class LoginJWT extends React.Component {
                   </div>
                 )}
               />
-              {/* <Route
-                render={({ history }) => (
-                  <button color="primary" type="submit">
-                    Sign up
-                  </button>
-                )}
-              /> */}
             </div>
           </CardBody>
         )}

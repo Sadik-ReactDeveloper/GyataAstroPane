@@ -267,12 +267,12 @@ class YoginiDasha extends React.Component {
           </Card> */}
           <Card className="overflow-hidden app-ecommerce-details">
             <Row className="m-2">
-              <Col lg="3" md="4" sm="12" className="my-1">
+              <Col lg="3" md="4" sm="6" className="my-1">
                 <h4 col-sm-6 className="float-left">
                   Ashtakvarga List
                 </h4>
               </Col>
-              <Col lg="3" md="3" sm="12" className="">
+              <Col lg="3" md="3" sm="6">
                 <select
                   name="dropdownList"
                   className="mt-2"
@@ -289,18 +289,20 @@ class YoginiDasha extends React.Component {
                   <option value="ascendant">ascendant</option>
                 </select>
               </Col>
-              <Col lg="3" md="3" sm="12" className="my-1">
+              <Col lg="3" md="3" sm="6" className="my-1">
                 <Button
+                  size="sm"
                   onClick={this.handleSubmitList}
                   className="ml-1  btn btn-success "
                 >
                   Submit
                 </Button>
               </Col>
-              <Col lg="3" md="3" sm="12" className="my-1">
+              <Col lg="3" md="3" sm="6" className="my-1">
                 <Route
                   render={({ history }) => (
                     <Button
+                      size="sm"
                       className=" btn btn-danger float-right"
                       onClick={() =>
                         history.push("/app/conversation/intakelist")
