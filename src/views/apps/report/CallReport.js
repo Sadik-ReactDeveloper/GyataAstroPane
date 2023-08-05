@@ -18,7 +18,6 @@ import { ContextLayout } from "../../../utility/context/Layout";
 import "../../../assets/scss/pages/users.scss";
 import { AgGridReact } from "ag-grid-react";
 import { Route } from "react-router-dom";
-import axios from "axios";
 
 import axiosConfig from "../../../axiosConfig";
 import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
@@ -72,7 +71,7 @@ class CallReport extends React.Component {
                 </>
               ) : (
                 <>
-                  <span>{params.data?.Duration} Second</span>
+                  <span>{params.data?.Duration} Min</span>
                 </>
               )}
             </div>
@@ -171,27 +170,23 @@ class CallReport extends React.Component {
     ],
   };
   componentDidMount() {
-    let { id } = this.props.match.params;
     let astroid = localStorage.getItem("astroId");
-    console.log(astroid);
     axiosConfig.get(`/user/astroCallHistory/${astroid}`).then((response) => {
       let rowData = response.data.data;
-      console.log(rowData);
       this.setState({ rowData });
     });
+    this.CallHistoryList();
   }
+  CallHistoryList = () => {
+    setInterval(() => {
+      let astroid = localStorage.getItem("astroId");
+      axiosConfig.get(`/user/astroCallHistory/${astroid}`).then((response) => {
+        let rowData = response.data.data;
+        this.setState({ rowData });
+      });
+    }, 10000);
+  };
 
-  async runthisfunction(id) {
-    console.log(id);
-    await axios.get(`http://3.108.185.7:4000/admin/delcustomer/${id}`).then(
-      (response) => {
-        console.log(response);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
   onGridReady = (params) => {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;

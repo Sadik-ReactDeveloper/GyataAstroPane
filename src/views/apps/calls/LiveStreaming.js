@@ -7,20 +7,20 @@ class Demo2 extends Component {
     this.state = {
       name: "",
     };
-    this.onValueChange = this.onValueChange.bind(this);
+    // this.onValueChange = this.onValueChange.bind(this);
   }
 
-  onValueChange = () => {
-    console.log("already live");
-    // axiosConfig
-    //   .get(`/user/closeLiveStream/${localStorage.getItem("stopLiveId")}`)
-    //   .then((response) => {
-    //     console.log("Stop LIVE  ", response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-  };
+  // onValueChange = () => {
+  // console.log("already live");
+  // axiosConfig
+  //   .get(`/user/closeLiveStream/${localStorage.getItem("stopLiveId")}`)
+  //   .then((response) => {
+  //     console.log("Stop LIVE  ", response.data);
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
+  // };
   deleteLive = () => {
     console.log("deleteddd");
     axiosConfig

@@ -118,7 +118,7 @@ const ChatAppMassage = lazy(() =>
 // astro Calls
 const LiveStreaming = lazy(() => import("./views/apps/calls/LiveStreaming"));
 const liveStreamlandpage = lazy(() => import("./views/apps/calls/Streaming"));
-const yourliveStream = lazy(() => import("./views/apps/calls/LiveStreaming"));
+// const yourliveStream = lazy(() => import("./views/apps/calls/LiveStreaming"));
 
 const VideoCall = lazy(() => import("./views/apps/calls/VideoCall"));
 const Upload = lazy(() => import("./views/apps/Uploads/Uploads"));
@@ -665,11 +665,11 @@ class AppRouter extends React.Component {
               fullLayout
             />
             ;
-            <AppRoute
+            {/* <AppRoute
               path="/yourlivestreamNow"
               component={yourliveStream}
               fullLayout
-            />
+            /> */}
             <AppRoute path="/uploads" component={Upload} />
             <AppRoute
               path="/app/call/VideoCall"

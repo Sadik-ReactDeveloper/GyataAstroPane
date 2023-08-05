@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React from "react";
 import {
   Card,
@@ -26,6 +27,7 @@ import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
 class ChatReport extends React.Component {
   state = {
     rowData: [],
+    chatData: [],
     paginationPageSize: 20,
     currenPageSize: "",
     getPageSize: "",
@@ -44,25 +46,25 @@ class ChatReport extends React.Component {
         filter: true,
       },
 
-      {
-        headerName: "Status",
-        field: "Status",
-        filter: true,
-        width: 200,
-        cellRendererFramework: (params) => {
-          return (
-            <div>
-              <span>{params.data?.Status}</span>
-            </div>
-          );
-        },
-      },
+      // {
+      //   headerName: "Status",
+      //   field: "Status",
+      //   filter: true,
+      //   width: 200,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div>
+      //         <span>{params.data?.Status}</span>
+      //       </div>
+      //     );
+      //   },
+      // },
 
       {
         headerName: "Duration",
         field: "duration",
         filter: true,
-        width: 200,
+        width: 180,
         cellRendererFramework: (params) => {
           return (
             <div>
@@ -72,7 +74,7 @@ class ChatReport extends React.Component {
                 </>
               ) : (
                 <>
-                  <span>{params.data?.Duration} Second</span>
+                  <span>{params.data?.totalDuration} Min</span>
                 </>
               )}
             </div>
@@ -88,7 +90,7 @@ class ChatReport extends React.Component {
           return (
             <div>
               <>
-                <span>{params.data?.userid?.fullname}</span>
+                <span>{params.data?.userId.fullname}</span>
               </>
             </div>
           );
@@ -124,27 +126,35 @@ class ChatReport extends React.Component {
       },
     ],
   };
+
   componentDidMount() {
     let astroid = localStorage.getItem("astroId");
-    console.log(astroid);
-    axiosConfig.get(`/user/astroCallHistory/${astroid}`).then((response) => {
-      let rowData = response.data.data;
-      console.log(rowData);
+    axiosConfig.get(`/user/astroChathistory/${astroid}`).then((response) => {
+      let AllReport = response.data.data;
+      let rowData = AllReport?.filter((value) => {
+        if (value?.type === "Chat") {
+          return value;
+        }
+      });
       this.setState({ rowData });
     });
+    this.ChatHistoryList();
   }
+  ChatHistoryList = () => {
+    setInterval(() => {
+      let astroid = localStorage.getItem("astroId");
+      axiosConfig.get(`/user/astroChathistory/${astroid}`).then((response) => {
+        let AllReport = response.data.data;
+        let rowData = AllReport?.filter((value) => {
+          if (value?.type === "Chat") {
+            return value;
+          }
+        });
+        this.setState({ rowData });
+      });
+    }, 10000);
+  };
 
-  async runthisfunction(id) {
-    console.log(id);
-    await axios.get(`http://3.108.185.7:4000/admin/delcustomer/${id}`).then(
-      (response) => {
-        console.log(response);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
   onGridReady = (params) => {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -169,7 +179,6 @@ class ChatReport extends React.Component {
   render() {
     const { rowData, columnDefs, defaultColDef } = this.state;
     return (
-      // console.log(rowData),
       <div>
         <Breadcrumbs
           breadCrumbTitle="Chat Report"

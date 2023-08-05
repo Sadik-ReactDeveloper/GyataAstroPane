@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React from "react";
 import {
   Card,
@@ -44,19 +45,19 @@ class VideoCallReport extends React.Component {
         filter: true,
       },
 
-      {
-        headerName: "Status",
-        field: "Status",
-        filter: true,
-        width: 200,
-        cellRendererFramework: (params) => {
-          return (
-            <div>
-              <span>{params.data?.Status}</span>
-            </div>
-          );
-        },
-      },
+      // {
+      //   headerName: "Status",
+      //   field: "Status",
+      //   filter: true,
+      //   width: 200,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div>
+      //         <span>{params.data?.Status}</span>
+      //       </div>
+      //     );
+      //   },
+      // },
 
       {
         headerName: "Duration",
@@ -72,7 +73,7 @@ class VideoCallReport extends React.Component {
                 </>
               ) : (
                 <>
-                  <span>{params.data?.Duration} Second</span>
+                  <span>{params.data?.totalDuration} Min</span>
                 </>
               )}
             </div>
@@ -87,9 +88,7 @@ class VideoCallReport extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div>
-              <>
-                <span>{params.data?.userid?.fullname}</span>
-              </>
+              <span>{params.data?.userId.fullname}</span>
             </div>
           );
         },
@@ -126,25 +125,32 @@ class VideoCallReport extends React.Component {
   };
   componentDidMount() {
     let astroid = localStorage.getItem("astroId");
-    console.log(astroid);
-    axiosConfig.get(`/user/astroCallHistory/${astroid}`).then((response) => {
-      let rowData = response.data.data;
-      console.log(rowData);
+    axiosConfig.get(`/user/astroChathistory/${astroid}`).then((response) => {
+      let AllReport = response.data.data;
+      let rowData = AllReport?.filter((value) => {
+        if (value?.type === "Video") {
+          return value;
+        }
+      });
       this.setState({ rowData });
     });
+    this.VideoHistoryList();
   }
+  VideoHistoryList = () => {
+    setInterval(() => {
+      let astroid = localStorage.getItem("astroId");
+      axiosConfig.get(`/user/astroChathistory/${astroid}`).then((response) => {
+        let AllReport = response.data.data;
+        let rowData = AllReport?.filter((value) => {
+          if (value?.type === "Video") {
+            return value;
+          }
+        });
+        this.setState({ rowData });
+      });
+    }, 10000);
+  };
 
-  async runthisfunction(id) {
-    console.log(id);
-    await axios.get(`http://3.108.185.7:4000/admin/delcustomer/${id}`).then(
-      (response) => {
-        console.log(response);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
   onGridReady = (params) => {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;

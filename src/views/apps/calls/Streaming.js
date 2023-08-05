@@ -99,13 +99,14 @@ export default function App() {
         axiosConfig
           .post("/user/WebliveStream", obj)
           .then((response) => {
-            console.log("LIVE Call ", response.data);
-            if (localStorage.getItem("stopLiveId")) {
-              localStorage.setItem("stopLivenewId", response.data.data._id);
-            } else {
-              localStorage.setItem("stopLiveId", response.data.data?._id);
-              this.setState({ status: "" });
-            }
+            // console.log("LIVE Call ", response.data);
+            localStorage.setItem("stopLivenewId", response.data.data._id);
+            // if (localStorage.getItem("stopLiveId")) {
+            //   localStorage.setItem("stopLivenewId", response.data.data._id);
+            // } else {
+            //   localStorage.setItem("stopLiveId", response.data.data?._id);
+            //   this.setState({ status: "" });
+            // }
           })
           .catch((error) => {
             console.log(error);
@@ -115,7 +116,7 @@ export default function App() {
 
       onLiveEnd: () => {
         axiosConfig
-          .get(`/user/closeLiveStream/${localStorage.getItem("stopLiveId")}`)
+          .get(`/user/closeLiveStream/${localStorage.getItem("stopLivenewId")}`)
           .then((response) => {
             console.log("Stop LIVE  ", response.data);
           })

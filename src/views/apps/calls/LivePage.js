@@ -4,7 +4,7 @@ function LivePage() {
   return (
     <div>
       <a href="/yourlivestreamNow" target="_blank">
-        Live Pagessss
+        Live Page
       </a>
     </div>
   );

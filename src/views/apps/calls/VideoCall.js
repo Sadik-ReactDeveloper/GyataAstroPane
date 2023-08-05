@@ -29,7 +29,7 @@ export function getUrlParams(url = window.location.href) {
 
 export default function App() {
   const astroName = localStorage.getItem("astroData");
-  let name = astroName.fullname;
+  let name = astroName?.fullname;
   let room = window.location.href.split("/")[7];
   const roomID = getUrlParams().get("roomID") || room || randomID(5);
   const astroname = name || randomID(5).toString();

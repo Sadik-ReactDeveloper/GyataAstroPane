@@ -78,7 +78,6 @@ const NavbarUser = () => {
     await axiosConfig
       .get(`/user/VdolinkList/${astroId}`)
       .then((res) => {
-        console.log(res.data.data);
         setVideonotify(res.data.data);
         setVideoCount(res.data.count);
       })
@@ -182,7 +181,7 @@ const NavbarUser = () => {
     axiosConfig
       .post(`/user/acceptVideoNotificationByAstro/${data?._id}`, accept)
       .then((res) => {
-        console.log("for Type", res.data);
+        console.log("for Type", res.data.status);
       })
       .catch((err) => {
         console.log(err);
@@ -361,8 +360,8 @@ const NavbarUser = () => {
                       </Media>
                       <small className="notification-text">
                         <p className="mb-0">
-                          {/* Request for: <span>{data.type} Call</span> */}
-                          {data.videoLink}
+                          Request for: <span>{data.type} Call</span>
+                          {/* {data.videoLink} */}
                         </p>
                       </small>
                       <div className="bottom-tag">
