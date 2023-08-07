@@ -157,24 +157,23 @@ const NavbarUser = () => {
       .post(`/user/acceptNotificationByAstro/${data?._id}`, accept)
       .then((res) => {
         console.log(res.data);
-        history.push("/app/astrochat/chatastro");
+        // history.push("/app/astrochat/chatastro");
+        let type = data?.type;
+        if (type === "Chat") {
+          history.push("/app/astrochat/chatastro");
+        }
+        if (type === "Video" && data.videoLink) {
+          window.open(
+            `#/app/call/VideoCall/${data?.videoLink}`,
+            data.videoLink
+          );
+        } else {
+          swal("Wait For confirmation with second notify");
+        }
       })
       .catch((err) => {
         console.log(err);
       });
-    let type = data?.type;
-
-    if (type === "Chat") {
-      history.push("/app/astrochat/chatastro");
-    }
-    if (type === "Video" && data.videoLink) {
-      // let astrodata = JSON.parse(localStorage.getItem("astroData"));
-      window.open(`#/app/call/VideoCall/${data?.videoLink}`, data.videoLink);
-      // history.push("/app/astrochat/chatastro");
-      // window.open(`#/astrovideocall/${astrodata?._id}`, "_blank");
-    } else {
-      swal("Wait For confirmation with second notify");
-    }
   };
   // const handleVideoStatus = (data) => {
   //   console.log("XCV", data);
