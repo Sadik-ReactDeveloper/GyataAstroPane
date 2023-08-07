@@ -33,7 +33,6 @@ const NavbarUser = () => {
   const [newStatus, setNewStatus] = useState("");
   const [viewnotify, setViewnotify] = useState("");
   const [VideoCount, setVideoCount] = useState("");
-  // const [countnotify, setCountnotify] = useState("");
   const [videonotify, setVideonotify] = useState([]);
   const [ButtonText, setButtonText] = useState("Offline");
   const history = useHistory();
@@ -56,51 +55,58 @@ const NavbarUser = () => {
 
   const getAllnotification = async () => {
     const astroId = localStorage.getItem("astroId");
-    if (astroId) {
-      await axiosConfig
-        .get(`/user/wait_queue_list/${astroId}`)
-        .then((res) => {
-          setAstronotification(res.data.data);
-          setViewnotify(res.data.count);
-          handlenotification();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    // if (astroId) {
+    await axiosConfig
+      .get(`/user/wait_queue_list/${astroId}`)
+      .then((res) => {
+        console.log("response", res.data.data);
+        setAstronotification(res.data.data);
+        setViewnotify(res.data.count);
+        // handlenotification();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // }
   };
   const newgetAllnotification = async () => {
     const astroId = localStorage.getItem("astroId");
-    if (astroId) {
-      await axiosConfig
-        .get(`/user/VdolinkList/${astroId}`)
-        .then((res) => {
-          setVideonotify(res.data.data);
-          setVideoCount(res.data.count);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    // if (astroId) {
+    await axiosConfig
+      .get(`/user/VdolinkList/${astroId}`)
+      .then((res) => {
+        setVideonotify(res.data.data);
+        setVideoCount(res.data.count);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // }
   };
 
-  const handlenotification = () => {
+  // const handlenotification = () => {
+  //   setInterval(() => {
+  //     newgetAllnotification();
+  //   }, 2000);
+  // };
+  useEffect(() => {
+    // console.log("hello check");
     setInterval(() => {
       newgetAllnotification();
+      getAllnotification();
     }, 2000);
-  };
+  }, [VideoCount]);
   useEffect(() => {
-    getAllnotification();
+    // getAllnotification();
     async function getOneUser() {
       try {
         const astroId = localStorage.getItem("astroId");
-        const data = await axiosConfig.get(`/admin/getoneAstro/${astroId}`);
-        setProfilepic(data.data.data);
+        const response = await axiosConfig.get(`/admin/getoneAstro/${astroId}`);
+        setProfilepic(response.data.data);
       } catch (error) {
         console.log("SomeThing Wrong");
       }
     }
-
     getOneUser();
   }, []);
 
@@ -114,7 +120,6 @@ const NavbarUser = () => {
       .then((res) => {
         console.log(res.data);
         swal("Status changed Successfully");
-
         if (res.data.message === "success") {
           if (ButtonText === "Offline") {
             setButtonText("Online");
@@ -127,7 +132,6 @@ const NavbarUser = () => {
   };
   const handleshowChangeMode = (e) => {
     e.preventDefault();
-
     let astroid = localStorage.getItem("astroId");
     axiosConfig
       .post(`/user/status_change/${astroid}`, {
@@ -153,7 +157,7 @@ const NavbarUser = () => {
       .post(`/user/acceptNotificationByAstro/${data?._id}`, accept)
       .then((res) => {
         console.log(res.data);
-        // history.push("/app/astrochat/chatastro");
+        history.push("/app/astrochat/chatastro");
       })
       .catch((err) => {
         console.log(err);
@@ -163,52 +167,32 @@ const NavbarUser = () => {
     if (type === "Chat") {
       history.push("/app/astrochat/chatastro");
     }
-    if (type === "Video") {
-      let astrodata = JSON.parse(localStorage.getItem("astroData"));
-      window.open(`#/astrovideocall/${astrodata?._id}`, "_blank");
-      // history.push(`//${astrodata?._id}`, "_blank");
+    if (type === "Video" && data.videoLink) {
+      // let astrodata = JSON.parse(localStorage.getItem("astroData"));
+      window.open(`#/app/call/VideoCall/${data?.videoLink}`, data.videoLink);
+      // history.push("/app/astrochat/chatastro");
+      // window.open(`#/astrovideocall/${astrodata?._id}`, "_blank");
+    } else {
+      swal("Wait For confirmation with second notify");
     }
   };
-  const handleVideoStatus = (data) => {
-    console.log("XCV", data);
-    localStorage.setItem("notification_Accepted_id", data?._id);
-    localStorage.setItem("CurrentVideo_userid", data?.userid?._id);
-    let accept = {
-      status: "Accept",
-    };
-    axiosConfig
-      .post(`/user/acceptVideoNotificationByAstro/${data?._id}`, accept)
-      .then((res) => {
-        console.log("for Type", res.data.status);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    // let astrodata = JSON.parse(localStorage.getItem("astroData"));
-    window.open(`#/app/call/VideoCall/${data?.videoLink}`, data.videoLink);
-    // history.push({
-    //   pathname: `window.location.protocol +
-    //                         "//" +
-    //                         window.location.host +
-    //                         "/#/app/call/VideoCall" +
-    //                         window.location.pathname +
-    //                         "?roomID=" +
-    //                         ${data?.videoLink}`,
-    //   state: { data },
-    // });
-    // history.push(`//${astrodata?._id}`, "_blank");
-    // history.push(
-    //   `window.location.protocol +
-    //                         "//" +
-    //                         window.location.host +
-    //                         "/#/VideoCall" +
-    //                         window.location.pathname +
-    //                         "?roomID=" +
-    //                         ${data?.videoLink}`,
-    //   "_blank"
-    // );
-  };
+  // const handleVideoStatus = (data) => {
+  //   console.log("XCV", data);
+  //   localStorage.setItem("notification_Accepted_id", data?._id);
+  //   localStorage.setItem("CurrentVideo_userid", data?.userid?._id);
+  //   let accept = {
+  //     status: "Accept",
+  //   };
+  //   axiosConfig
+  //     .post(`/user/acceptVideoNotificationByAstro/${data?._id}`, accept)
+  //     .then((res) => {
+  //       console.log("for Type", res.data.status);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  //   window.open(`#/app/call/VideoCall/${data?.videoLink}`, data.videoLink);
+  // };
   const handledelStatus = (data) => {
     axiosConfig
       .get(`/admin/dltNotificattion/${data?._id}`)
@@ -307,11 +291,6 @@ const NavbarUser = () => {
                           Request for: <span>{data.type}</span>
                         </p>
                       </small>
-                      {/* <small className="notification-text">
-                        <p className="mb-0">
-                          Request for: <span>{data.type}</span>
-                        </p>
-                      </small> */}
                       <div className="bottom-tag">
                         <Button
                           onClick={() => handleStatus(data)}
@@ -364,7 +343,8 @@ const NavbarUser = () => {
                       </small>
                       <div className="bottom-tag">
                         <Button
-                          onClick={() => handleVideoStatus(data)}
+                          // onClick={() => handleVideoStatus(data)}
+                          onClick={() => handleStatus(data)}
                           className="success media-heading gt-1"
                         >
                           Accept
