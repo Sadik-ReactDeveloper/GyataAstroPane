@@ -61,6 +61,20 @@
   box-shadow: none !important;
   outline: 0px !important;
 }
+.newmainheaading {
+  display: flex;
+  border-radius: 8px;
+  height: 9vh;
+  margin-top: 10px;
+  // margin-bottom: 10px;
+}
+// .userName h5,
+// p {
+//   color: #fff;
+// }
+.userName h5 {
+  font-size: 1.5rem;
+}
 .attach_btn {
   border-radius: 15px 0 0 15px !important;
   background-color: #fff !important;
@@ -431,9 +445,13 @@ span.appchattimer {
   margin-top: -57px;
   font-size: 18px;
 }
-.imglf {
-  width: 55px;
-  float: left;
+
+.userprofile {
+  // width: 55px;
+  // float: left;
+  display: inline-block;
+  margin-top: 5px;
+  margin-left: 10px;
 }
 .chat-bottom {
   text-align: right;

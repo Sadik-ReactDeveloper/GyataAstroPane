@@ -37,8 +37,8 @@ const NavbarUser = () => {
   const [ButtonText, setButtonText] = useState("Offline");
   const history = useHistory();
 
-  const handleofflineAstro = (e) => {
-    let token = JSON.parse(localStorage.getItem("token"));
+  const handleofflineAstro = () => {
+    let token = localStorage.getItem("ad-token");
     axiosConfig
       .get(`/user/logout`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -55,14 +55,12 @@ const NavbarUser = () => {
 
   const getAllnotification = async () => {
     const astroId = localStorage.getItem("astroId");
-    // if (astroId) {
+
     await axiosConfig
       .get(`/user/wait_queue_list/${astroId}`)
       .then((res) => {
-        console.log("response", res.data.data);
         setAstronotification(res.data.data);
         setViewnotify(res.data.count);
-        // handlenotification();
       })
       .catch((err) => {
         console.log(err);
@@ -71,7 +69,6 @@ const NavbarUser = () => {
   };
   const newgetAllnotification = async () => {
     const astroId = localStorage.getItem("astroId");
-    // if (astroId) {
     await axiosConfig
       .get(`/user/VdolinkList/${astroId}`)
       .then((res) => {
@@ -84,20 +81,13 @@ const NavbarUser = () => {
     // }
   };
 
-  // const handlenotification = () => {
-  //   setInterval(() => {
-  //     newgetAllnotification();
-  //   }, 2000);
-  // };
   useEffect(() => {
-    // console.log("hello check");
     setInterval(() => {
       newgetAllnotification();
       getAllnotification();
     }, 2000);
   }, [VideoCount]);
   useEffect(() => {
-    // getAllnotification();
     async function getOneUser() {
       try {
         const astroId = localStorage.getItem("astroId");
@@ -156,48 +146,55 @@ const NavbarUser = () => {
     axiosConfig
       .post(`/user/acceptNotificationByAstro/${data?._id}`, accept)
       .then((res) => {
-        console.log(res.data);
-        // history.push("/app/astrochat/chatastro");
-        let type = data?.type;
-        if (type === "Chat") {
-          history.push("/app/astrochat/chatastro");
-        }
-        if (type === "Video" && data.videoLink) {
-          window.open(
-            `#/app/call/VideoCall/${data?.videoLink}`,
-            data.videoLink
-          );
-        } else {
-          swal("Wait For confirmation with second notify");
-        }
+        // console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
+    // let type = data?.type;
+
+    if (data?.type === "Chat") {
+      history.push({ pathname: "/app/astrochat/chatastro", state: data });
+    }
+    if (data?.type === "Video" && data.videoLink) {
+      window.open(`#/app/call/VideoCall/${data?.videoLink}`, data.videoLink);
+    } else {
+      swal("Wait For confirmation with second notify");
+    }
   };
-  // const handleVideoStatus = (data) => {
-  //   console.log("XCV", data);
-  //   localStorage.setItem("notification_Accepted_id", data?._id);
-  //   localStorage.setItem("CurrentVideo_userid", data?.userid?._id);
-  //   let accept = {
-  //     status: "Accept",
-  //   };
-  //   axiosConfig
-  //     .post(`/user/acceptVideoNotificationByAstro/${data?._id}`, accept)
-  //     .then((res) => {
-  //       console.log("for Type", res.data.status);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  //   window.open(`#/app/call/VideoCall/${data?.videoLink}`, data.videoLink);
-  // };
+  const handleVideoStatus = (data) => {
+    console.log("XCV", data);
+    localStorage.setItem("notification_Accepted_id", data?._id);
+    localStorage.setItem("CurrentVideo_userid", data?.userid?._id);
+    let accept = {
+      status: "Accept",
+    };
+    axiosConfig
+      .post(`/user/acceptVideoNotificationByAstro/${data?._id}`, accept)
+      .then((res) => {
+        console.log("for Type", res.data.status);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    window.open(`#/app/call/VideoCall/${data?.videoLink}`, data.videoLink);
+  };
   const handledelStatus = (data) => {
     axiosConfig
       .get(`/admin/dltNotificattion/${data?._id}`)
       .then((res) => {
         console.log(res);
         getAllnotification();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const handleVideoDeleteNotify = (data) => {
+    axiosConfig
+      .get(`/user/VdolinkList/${data?._id}`)
+      .then((res) => {
+        console.log(res);
       })
       .catch((err) => {
         console.log(err);
@@ -243,7 +240,6 @@ const NavbarUser = () => {
           <DropdownToggle
             tag="a"
             data-toggle="dropdown"
-            // aria-expanded={this.state.dropdownNotification}
             className="nav-link nav-link-label"
           >
             <Bell size={21} />
@@ -298,7 +294,7 @@ const NavbarUser = () => {
                           Accept
                         </Button>
                         <Button
-                          onClick={() => handledelStatus(data)}
+                          onClick={() => handleVideoDeleteNotify(data)}
                           className="denger media-heading gt-2"
                         >
                           Reject
@@ -337,13 +333,11 @@ const NavbarUser = () => {
                       <small className="notification-text">
                         <p className="mb-0">
                           Request for: <span>{data.type} Call</span>
-                          {/* {data.videoLink} */}
                         </p>
                       </small>
                       <div className="bottom-tag">
                         <Button
-                          // onClick={() => handleVideoStatus(data)}
-                          onClick={() => handleStatus(data)}
+                          onClick={() => handleVideoStatus(data)}
                           className="success media-heading gt-1"
                         >
                           Accept
@@ -376,7 +370,7 @@ const NavbarUser = () => {
           </DropdownMenu>
         </UncontrolledDropdown>
 
-        {/* astrologet api call */}
+        {/* astrologer api call */}
         <UncontrolledDropdown tag="li" className="dropdown-user nav-item">
           <DropdownToggle tag="a" className="nav-link dropdown-user-link">
             <div className="user-nav d-sm-flex d-none">
@@ -406,7 +400,7 @@ const NavbarUser = () => {
             <DropdownItem divider />
             <Route
               render={({ history }) => (
-                <DropdownItem tag="a" onClick={(e) => handleofflineAstro(e)}>
+                <DropdownItem tag="a" onClick={() => handleofflineAstro()}>
                   <Icon.Power size={14} className="mr-50" />
                   <span className="align-middle">LogOut</span>
                 </DropdownItem>
