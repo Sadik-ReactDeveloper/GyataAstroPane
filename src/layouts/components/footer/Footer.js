@@ -19,7 +19,7 @@ const Footer = (props) => {
         <span className="float-md-left d-block d-md-inline-block mt-25">
           © {new Date().getFullYear()}
           <a href="#" target="_blank" rel="noopener noreferrer">
-            ASTROLOGY,
+            ASTROGYATA,
           </a>
           All rights reserved
         </span>

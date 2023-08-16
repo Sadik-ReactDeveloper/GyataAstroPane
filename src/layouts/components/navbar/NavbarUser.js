@@ -283,7 +283,8 @@ const NavbarUser = () => {
                       </Media>
                       <small className="notification-text">
                         <p className="mb-0">
-                          Request for: <span>{data.type}</span>
+                          Request for:
+                          <span>{data.type ? data.type : "Voice Call"}</span>
                         </p>
                       </small>
                       <div className="bottom-tag">
