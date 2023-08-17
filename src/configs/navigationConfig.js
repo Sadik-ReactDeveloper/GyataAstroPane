@@ -92,11 +92,11 @@ const navigationConfig = [
   //   permissions: ["admin", "editor"],
   // },
   {
-    id: "Uploads",
-    title: "Gallary",
+    id: "gallaryList",
+    title: "GallaryList",
     type: "item",
     icon: <Icon.Upload size={16} />,
-    navLink: "/uploads",
+    navLink: "/gallaryList",
     permissions: ["admin", "editor"],
   },
   // {

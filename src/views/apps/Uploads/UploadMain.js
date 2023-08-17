@@ -355,29 +355,10 @@ class UploadMain extends React.Component {
       .then((res) => {
         console.log("images", res.data.data);
         this.setState({ rowData: res.data.data });
-
-        // this.setState({ Images: res.data?.data?.images });
-        // this.setState({ Videos: res.data?.data?.videos });
       })
       .catch((err) => {
         console.log(err);
       });
-    // let { id } = this.props.match.params;
-
-    // await axios
-    //   .get(`http://3.108.185.7:4000/user/view_onecust/${id}`)
-    //   .then((response) => {
-    //     let rowData = response.data.data;
-    //     console.log(rowData);
-    //     this.setState({ rowData });
-    //   });
-    // await axiosConfig
-    //   .get(`admin/intekListByastro/${astroId}`)
-    //   .then((response) => {
-    //     let rowData = response.data.data;
-    //     console.log(rowData);
-    //     // this.setState({ rowData });
-    //   });
   }
 
   onGridReady = (params) => {

@@ -121,6 +121,8 @@ const liveStreamlandpage = lazy(() => import("./views/apps/calls/Streaming"));
 // const yourliveStream = lazy(() => import("./views/apps/calls/LiveStreaming"));
 
 const VideoCall = lazy(() => import("./views/apps/calls/VideoCall"));
+const GallaryList = lazy(() => import("./views/apps/Uploads/GallaryList"));
+const EditGallary = lazy(() => import("./views/apps/Uploads/EditGallary"));
 const Upload = lazy(() => import("./views/apps/Uploads/Uploads"));
 const RatingReview = lazy(() =>
   import("./views/apps/reviewrating/RatingReview")
@@ -670,6 +672,8 @@ class AppRouter extends React.Component {
               component={yourliveStream}
               fullLayout
             /> */}
+            <AppRoute path="/gallaryList" component={GallaryList} />
+            <AppRoute path="/editGallary" component={EditGallary} />
             <AppRoute path="/uploads" component={Upload} />
             <AppRoute
               path="/app/call/VideoCall"

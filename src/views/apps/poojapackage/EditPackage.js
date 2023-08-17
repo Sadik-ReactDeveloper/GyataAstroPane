@@ -39,20 +39,18 @@ export class EditPackage extends Component {
   componentDidMount() {
     console.log(this.props.match.params);
     let { id } = this.props.match.params;
-    axiosConfig
-      .get(`/getonecustomer/${id}`)
-      .then((response) => {
-        console.log(response);
-        this.setState({
-            first_name: "",
-            last_name: "",
-            customer_email: "",
-            mobile_no: "",
-            sortorder: "",
-            selectedFile: null,
-            status: response.data.data.status,
-        });
-      })
+    axiosConfig.get(`/getonecustomer/${id}`).then((response) => {
+      console.log(response);
+      this.setState({
+        first_name: "",
+        last_name: "",
+        customer_email: "",
+        mobile_no: "",
+        sortorder: "",
+        selectedFile: null,
+        status: response.data.data.status,
+      });
+    });
     //   .catch((error) => {
     //     console.log(error);
     //   });
@@ -90,15 +88,9 @@ export class EditPackage extends Component {
     //   );
     // }
 
-    // for (var value of data.values()) {
-    //    console.log(value);
-    // }
-    // for (var key of data.keys()) {
-    //    console.log(key);
-    // }
     let { id } = this.props.match.params;
     axiosConfig
-      .post(`/view_onecust/${id}`,data )
+      .post(`/view_onecust/${id}`, data)
       .then((response) => {
         console.log(response);
         this.props.history.push("/app/customer/customerList");
@@ -111,31 +103,32 @@ export class EditPackage extends Component {
     return (
       <div>
         <Breadcrumbs
-            breadCrumbTitle="Edit Package"
-            breadCrumbParent="Home"
-            breadCrumbActive="Edit Package "
-          />
+          breadCrumbTitle="Edit Package"
+          breadCrumbParent="Home"
+          breadCrumbActive="Edit Package "
+        />
         <Card>
           <Row className="m-2">
             <Col>
               <h1 col-sm-6 className="float-left">
-                  Edit Package
+                Edit Package
               </h1>
             </Col>
             <Col>
-            <Route render={({ history}) => (
-              <Button
-                className=" btn btn-danger float-right"
-                onClick={() => history.push("/app/customer/customerList")}
-              >
-                Back
-                </Button>
+              <Route
+                render={({ history }) => (
+                  <Button
+                    className=" btn btn-danger float-right"
+                    onClick={() => history.push("/app/customer/customerList")}
+                  >
+                    Back
+                  </Button>
                 )}
               />
-              </Col>
+            </Col>
           </Row>
           <CardBody>
-          <Form className="m-1" onSubmit={this.submitHandler}>
+            <Form className="m-1" onSubmit={this.submitHandler}>
               <Row>
                 <Col lg="6" md="6" sm="6" className="mb-2">
                   <Label>Title</Label>
@@ -145,8 +138,8 @@ export class EditPackage extends Component {
                     name="first_name"
                     placeholder="Enter First Name"
                     value={this.state.first_name}
-                    onChange={this.changeHandler}>
-                  </Input>
+                    onChange={this.changeHandler}
+                  ></Input>
                 </Col>
                 <Col lg="6" md="6" sm="6" className="mb-2">
                   <Label>Amount</Label>
@@ -156,8 +149,8 @@ export class EditPackage extends Component {
                     name="first_name"
                     placeholder="Enter First Name"
                     value={this.state.first_name}
-                    onChange={this.changeHandler}>
-                  </Input>
+                    onChange={this.changeHandler}
+                  ></Input>
                 </Col>
                 <Col lg="4" md="4" sm="4" className="mb-2">
                   <Label>Thumnail image1</Label>
@@ -168,8 +161,8 @@ export class EditPackage extends Component {
                     className="form-control"
                     placeholder="Enter Last Name"
                     value={this.state.last_name}
-                    onChange={this.changeHandler}>
-                  </Input>
+                    onChange={this.changeHandler}
+                  ></Input>
                 </Col>
                 <Col lg="4" md="4" sm="4" className="mb-2">
                   <Label>Thumnail image2</Label>
@@ -180,8 +173,8 @@ export class EditPackage extends Component {
                     className="form-control"
                     placeholder="Enter Last Name"
                     value={this.state.last_name}
-                    onChange={this.changeHandler}>
-                  </Input>
+                    onChange={this.changeHandler}
+                  ></Input>
                 </Col>
                 <Col lg="4" md="4" sm="4" className="mb-2">
                   <Label>Thumnail image3</Label>
@@ -192,48 +185,48 @@ export class EditPackage extends Component {
                     className="form-control"
                     placeholder="Enter Last Name"
                     value={this.state.last_name}
-                    onChange={this.changeHandler}>
-                  </Input>
+                    onChange={this.changeHandler}
+                  ></Input>
                 </Col>
 
                 <Col lg="12" md="12" sm="12" className="mb-2">
                   <Label>Description</Label>
-                   <textarea className="form-control" placeholder="Description...">
-
-                   </textarea>
+                  <textarea
+                    className="form-control"
+                    placeholder="Description..."
+                  ></textarea>
                 </Col>
+              </Row>
+              <Col lg="6" md="6" sm="6" className="mb-2">
+                <Label className="mb-1">Status</Label>
+                <div
+                  className="form-label-group"
+                  onChange={(e) => this.changeHandler1(e)}
+                >
+                  <input
+                    style={{ marginRight: "3px" }}
+                    type="radio"
+                    name="status"
+                    value="Active"
+                  />
+                  <span style={{ marginRight: "20px" }}>Active</span>
 
-
-            </Row>
-                <Col lg="6" md="6" sm="6" className="mb-2">
-                  <Label className="mb-1">Status</Label>
-                  <div
-                    className="form-label-group"
-                    onChange={(e) => this.changeHandler1(e)}
-                  >
-                    <input
-                      style={{ marginRight: "3px" }}
-                      type="radio"
-                      name="status"
-                      value="Active"
-                    />
-                    <span style={{ marginRight: "20px" }}>Active</span>
-
-                    <input
-                      style={{ marginRight: "3px" }}
-                      type="radio"
-                      name="status"
-                      value="Inactive"
-                    />
-                    <span style={{ marginRight: "3px" }}>Inactive</span>
-                  </div>
-                </Col>
+                  <input
+                    style={{ marginRight: "3px" }}
+                    type="radio"
+                    name="status"
+                    value="Inactive"
+                  />
+                  <span style={{ marginRight: "3px" }}>Inactive</span>
+                </div>
+              </Col>
               <Row>
                 <Col lg="6" md="6" sm="6" className="mb-2">
                   <Button.Ripple
                     color="primary"
                     type="submit"
-                    className="mr-1 mb-1">
+                    className="mr-1 mb-1"
+                  >
                     Save
                   </Button.Ripple>
                 </Col>
