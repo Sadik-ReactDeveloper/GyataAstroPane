@@ -57,8 +57,10 @@ class LoginJWT extends React.Component {
       .then((response) => {
         if (response.data.msg === "otp verified") {
           swal("Login Successfull");
+
           localStorage.setItem("astroId", response.data._id);
           localStorage.setItem("astroData", JSON.stringify(response.data));
+          localStorage.setItem("ad-token", JSON.stringify(response.data.token));
           window.location.replace("/#/");
         }
       })

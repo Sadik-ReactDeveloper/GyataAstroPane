@@ -451,9 +451,9 @@ const AppRoute = connect(mapStateToProps)(RouteConfig);
 
 class AppRouter extends React.Component {
   componentDidMount() {
-    let data = localStorage.getItem("astroId");
+    let astroData = localStorage.getItem("astroData");
     sessionStorage.clear();
-    if (data === undefined || data === null) {
+    if (astroData === undefined || astroData === null) {
       history.push("/#/pages/login");
       window.location.replace("/#/pages/login");
     }

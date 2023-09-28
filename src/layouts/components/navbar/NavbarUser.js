@@ -37,19 +37,23 @@ const NavbarUser = () => {
   const [ButtonText, setButtonText] = useState("Offline");
   const history = useHistory();
 
-  const handleofflineAstro = () => {
-    let token = localStorage.getItem("ad-token");
+  const handleofflineAstro = (e, path) => {
+    e.preventDefault();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem("ad-token"))}`,
+      },
+    };
     axiosConfig
-      .get(`/user/logout`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get(`/user/logout`, config)
       .then((res) => {
-        localStorage.removeItem("astroId");
-        localStorage.removeItem("astroData");
-        window.location.replace("/#/pages/login");
+        console.log(res);
+        window.localStorage.clear();
+        swal("Logout Successfully");
+        window.location.replace(path);
       })
       .catch((err) => {
-        console.log(err.response.data);
+        swal("Logout Api not Working ");
       });
   };
 
@@ -401,7 +405,10 @@ const NavbarUser = () => {
             <DropdownItem divider />
             <Route
               render={({ history }) => (
-                <DropdownItem tag="a" onClick={() => handleofflineAstro()}>
+                <DropdownItem
+                  tag="a"
+                  onClick={(e) => handleofflineAstro(e, "/#/pages/login")}
+                >
                   <Icon.Power size={14} className="mr-50" />
                   <span className="align-middle">LogOut</span>
                 </DropdownItem>

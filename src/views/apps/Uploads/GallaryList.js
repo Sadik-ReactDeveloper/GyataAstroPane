@@ -51,11 +51,7 @@ class GallaryList extends React.Component {
           return (
             <div>
               <img
-                src={
-                  params.data.product?.image[0]
-                    ? params.data.product?.image[0]
-                    : demo
-                }
+                src={params.data.file ? params.data.file : demo}
                 alt="img"
                 className="w-50 h-50 rounded-0"
               />
@@ -117,7 +113,7 @@ class GallaryList extends React.Component {
       .get(`/admin/get_astroGallery/${astroId}`)
       .then((response) => {
         let rowData = response.data.data;
-        console.log(rowData);
+        console.log(rowData[0].file);
         this.setState({ rowData });
       });
   }
