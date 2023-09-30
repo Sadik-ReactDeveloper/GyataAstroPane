@@ -41,43 +41,53 @@ class TransactionHistory extends React.Component {
         field: "node.rowIndex + 1",
         width: 100,
         filter: true,
-        // checkboxSelection: true,
-        // headerCheckboxSelectionFilteredOnly: true,
-        // headerCheckboxSelection: true,
       },
 
+      // {
+      //   headerName: "Product Name",
+      //   field: "productname",
+      //   filter: true,
+      //   width: 200,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div>
+      //         <span>{params.data.productid?.product?.productname}</span>
+      //       </div>
+      //     );
+      //   },
+      // },
+      // {
+      //   headerName: "Image",
+      //   field: "image",
+      //   filter: true,
+      //   width: 200,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div>
+      //         <span>
+      //           <img
+      //             width="50px"
+      //             src={params.data?.productid?.product?.image}
+      //           />
+      //         </span>
+      //       </div>
+      //     );
+      //   },
+      // },
+
       {
-        headerName: "Product Name",
-        field: "productname",
+        headerName: "OrderID",
+        field: "OrderID",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
           return (
-            <div>
-              <span>{params.data.productid?.product?.productname}</span>
+            <div className="d-flex align-items-center cursor-pointer">
+              <span>{params.data?.orderId}</span>
             </div>
           );
         },
       },
-      {
-        headerName: "Image",
-        field: "image",
-        filter: true,
-        width: 200,
-        cellRendererFramework: (params) => {
-          return (
-            <div>
-              <span>
-                <img
-                  width="50px"
-                  src={params.data?.productid?.product?.image}
-                />
-              </span>
-            </div>
-          );
-        },
-      },
-
       {
         headerName: "Price",
         field: "price",
@@ -86,7 +96,7 @@ class TransactionHistory extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              {/* <span>{params.data?.productid.price}</span> */}
+              <span>{params.data?.total_amt - params.data?.gst}</span>
             </div>
           );
         },
@@ -166,29 +176,15 @@ class TransactionHistory extends React.Component {
     ],
   };
   async componentDidMount() {
-    let { id } = this.props.match.params;
-
-    await axiosConfig
-      .get(`admin/all_transaction_list`)
-      // .get(`http://3.108.185.7:4000/user/view_onecust/${id}`)
-      .then((response) => {
-        let rowData = response.data.data;
-        console.log(rowData);
-        this.setState({ rowData });
-      });
-
-    // await axiosConfig
-    //   .get("http://3.108.185.7:4000/admin/allcustomer")
-    //   .then((response) => {
-    //     let rowData = response.data.data;
-    //     console.log(rowData);
-    //     this.setState({ rowData });
-    //   });
+    await axiosConfig.get(`admin/all_transaction_list`).then((response) => {
+      let rowData = response.data.data;
+      this.setState({ rowData });
+    });
   }
 
   async runthisfunction(id) {
     console.log(id);
-    await axios.get(`http://3.108.185.7:4000/admin/delcustomer/${id}`).then(
+    await axios.get(`/admin/delcustomer/${id}`).then(
       (response) => {
         console.log(response);
       },

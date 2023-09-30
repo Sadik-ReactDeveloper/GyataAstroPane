@@ -126,6 +126,7 @@ class VideoCallReport extends React.Component {
   componentDidMount() {
     let astroid = localStorage.getItem("astroId");
     axiosConfig.get(`/user/astroChathistory/${astroid}`).then((response) => {
+      console.log(response);
       let AllReport = response.data.data;
       let rowData = AllReport?.filter((value) => {
         if (value?.type === "Video") {

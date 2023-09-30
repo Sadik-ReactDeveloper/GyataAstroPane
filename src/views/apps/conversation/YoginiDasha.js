@@ -10,9 +10,6 @@ import {
   DropdownMenu,
   DropdownItem,
   DropdownToggle,
-  Breadcrumb,
-  BreadcrumbItem,
-  Table,
 } from "reactstrap";
 import Ashtakvarga from "./yog";
 import NewCode from "./newCode";

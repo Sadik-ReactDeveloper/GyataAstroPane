@@ -89,7 +89,7 @@ const NavbarUser = () => {
     setInterval(() => {
       newgetAllnotification();
       getAllnotification();
-    }, 2000);
+    }, 4000);
   }, [VideoCount]);
   useEffect(() => {
     async function getOneUser() {
