@@ -11,7 +11,6 @@ import {
   DropdownItem,
   DropdownToggle,
 } from "reactstrap";
-import Ashtakvarga from "./yog";
 import NewCode from "./newCode";
 import "../../../assets/scss/pages/app-ecommerce-shop.scss";
 import axiosConfig from "../../../axiosConfig";
@@ -22,7 +21,6 @@ import { Eye, Edit, Trash2, ChevronDown } from "react-feather";
 import "../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../assets/scss/pages/users.scss";
 import { Route } from "react-router-dom";
-import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
 const style = {
   table: {
     width: "100%",
@@ -36,52 +34,52 @@ class Dosha extends React.Component {
     {
       id: "1",
       label: "Chalit Chart",
-      value: "chalit",
+      value: "ChalitChart",
     },
     {
       id: "2",
       label: "Sun Chart",
-      value: "SUN",
+      value: "SunChart",
     },
     {
       id: "3",
       label: "Moon Chart",
-      value: "MOON",
+      value: "MOONChart",
     },
     {
       id: "4",
       label: "Brith Chart",
-      value: "D1",
+      value: "Brith Chart",
     },
     {
       id: "5",
       label: "Hora Chart",
-      value: "D2",
+      value: "HoraChart",
     },
     {
       id: "6",
       label: "Dreshkan Chart",
-      value: "D3",
+      value: "DreshkanChart",
     },
     {
       label: "Chathurthamasha Chart",
-      value: "D4",
+      value: "ChathurthamashaChart",
     },
     {
       label: "Panchmansha Chart",
-      value: "D5",
+      value: "PanchmanshaChart",
     },
     {
       label: "Saptamansha Chart",
-      value: "D7",
+      value: "SaptamanshaChart",
     },
     {
       label: "Ashtamansha Chart",
-      value: "D8",
+      value: "AshtamanshaChart",
     },
     {
       label: "Navamansha Chart",
-      value: "D9",
+      value: "NavamanshaChart",
     },
     {
       label: "Dashamansha Chart",
@@ -89,39 +87,39 @@ class Dosha extends React.Component {
     },
     {
       label: "Dwadashamsha Chart",
-      value: "D12",
+      value: "DwadashamshaChart",
     },
     {
       label: "Shodashamsha Chart",
-      value: "D16",
+      value: "ShodashamshaChart",
     },
     {
       label: "Vishamansha Chart",
-      value: "D20",
+      value: "VishamanshaChart",
     },
     {
       label: "Chaturvimshamsha Chart",
-      value: "D24",
+      value: "ChaturvimshamshaChart",
     },
     {
       label: "Bhamsha Chart",
-      value: "D27",
+      value: "BhamshaChart",
     },
     {
       label: "Trishamansha Chart",
-      value: "D30",
+      value: "TrishamanshaChart",
     },
     {
       label: "Khavedamsha Chart",
-      value: "D40",
+      value: "KhavedamshaChart",
     },
     {
       label: "Akshvedansha Chart",
-      value: "D45",
+      value: "AkshvedanshaChart",
     },
     {
       label: "Shashtymsha Chart",
-      value: "D60",
+      value: "ShashtymshaChart",
     },
   ];
   state = {

@@ -39,6 +39,7 @@ const NavbarUser = () => {
 
   const handleofflineAstro = (e, path) => {
     e.preventDefault();
+    debugger;
     const config = {
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("ad-token"))}`,

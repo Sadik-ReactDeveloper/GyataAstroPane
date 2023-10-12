@@ -39,8 +39,10 @@ const PlanetDasha = lazy(() => import("./views/apps/conversation/PlanetDasha"));
 const VimshottariDasha = lazy(() =>
   import("./views/apps/conversation/VimshottariDasha")
 );
-const YoginiDasha = lazy(() => import("./views/apps/conversation/YoginiDasha"));
-
+// const YoginiDasha = lazy(() => import("./views/apps/conversation/YoginiDasha"));
+const YoginiDashaImage = lazy(() =>
+  import("./views/apps/conversation/YoginiDashaImage")
+);
 const chatlist = lazy(() => import("./views/apps/userchat/ChatList"));
 const chat = lazy(() => import("./views/apps/chat/Chat"));
 const chatLog = lazy(() => import("./views/apps/chat/ChatLog"));
@@ -502,9 +504,13 @@ class AppRouter extends React.Component {
               path="/app/conversation/vimshottariDasha/:id"
               component={VimshottariDasha}
             />
-            <AppRoute
+            {/* <AppRoute
               path="/app/conversation/yoginiDasha/:id"
               component={YoginiDasha}
+            /> */}
+            <AppRoute
+              path="/app/conversation/yoginiDasha/:id"
+              component={YoginiDashaImage}
             />
             <AppRoute path="/app/user/viewUser" component={ViewUser} />
             <AppRoute path="/chat" component={chat} />

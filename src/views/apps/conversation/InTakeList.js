@@ -28,7 +28,6 @@ class InTakeList extends React.Component {
     getPageSize: "",
     defaultColDef: {
       sortable: true,
-      editable: true,
       resizable: true,
       suppressMenu: true,
     },
@@ -45,6 +44,8 @@ class InTakeList extends React.Component {
         field: "sortorder",
         width: 300,
         cellRendererFramework: (params) => {
+          // birthPlace;
+
           return (
             <div className="actions cursor-pointer">
               <Route
@@ -53,11 +54,7 @@ class InTakeList extends React.Component {
                     className="mr-50"
                     color="success"
                     size="sm"
-                    onClick={() =>
-                      history.push(
-                        `/app/conversation/yoginiDasha/${params.data?._id}`
-                      )
-                    }
+                    onClick={() => this.handleLang(params)}
                   >
                     Dosha
                   </Button>
@@ -77,47 +74,6 @@ class InTakeList extends React.Component {
                   />
                 )}
               />
-
-              <Route
-                render={({ history }) => (
-                  <Button
-                    className="mr-50"
-                    color="success"
-                    size="sm"
-                    onClick={() =>
-                      history.push(
-                        `/app/conversation/birthchart/${params.data?._id}`
-                      )
-                    }
-                  >
-                    BirthChart
-                  </Button>
-                )}
-              />
-              {/* <Route
-                render={({ history }) => (
-                  <Edit
-                    className="mr-50"
-                    size="25px"
-                    color="blue"
-                    onClick={() =>
-                      history.push(
-                        `/app/astrology/editAstrologer/${params.data._id}`
-                      )
-                    }
-                  />
-                )}
-              /> */}
-              {/* <Trash2
-                className="mr-50"
-                size="25px"
-                color="red"
-                onClick={() => {
-                  let selectedData = this.gridApi.getSelectedRows();
-                  this.runthisfunction(params.data._id);
-                  this.gridApi.updateRowData({ remove: selectedData });
-                }}
-              /> */}
             </div>
           );
         },
@@ -150,32 +106,6 @@ class InTakeList extends React.Component {
         },
       },
 
-      // {
-      //   headerName: "Email",
-      //   field: "email	",
-      //   filter: true,
-      //   width: 120,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <span>{params.data.userid?.email}</span>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "Mobile No.",
-      //   field: "mobile",
-      //   filter: true,
-      //   width: 120,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div>
-      //         <span>{params.data.userid?.mobile}</span>
-      //       </div>
-      //     );
-      //   },
-      // },
       {
         headerName: "Gender",
         field: "gender",
@@ -289,20 +219,44 @@ class InTakeList extends React.Component {
     await axiosConfig
       .get(`/admin/intekListByastro/${astroId}`)
       .then((response) => {
-        console.log(response.data.data);
         let rowData = response.data.data;
+        console.log(rowData);
         this.setState({ rowData });
       });
-    let userId = localStorage.getItem("userId");
-    await axiosConfig
-      .get(`/user/getOne_Conversation_Wallet/${userId}`)
-      .then((response) => {
-        // let rowData = response.data.data;
-        console.log("getOne_Conversation_Wallet", response.data.data);
-        // this.setState({ rowData });
-      });
+    // let userId = localStorage.getItem("userId");
+    // await axiosConfig
+    //   .get(`/user/getOne_Conversation_Wallet/${userId}`)
+    //   .then((response) => {
+    //     // let rowData = response.data.data;
+    //     // this.setState({ rowData });
+    //   });
   }
 
+  handleLang = (params) => {
+    axiosConfig
+      .post(`/user/geo_detail`, {
+        place: params.data.birthPlace,
+      })
+      .then((response) => {
+        this.setState({
+          latitude: response?.data?.data?.geonames[0].latitude,
+          longitude: response?.data?.data?.geonames[0].longitude,
+        });
+        this.props.history.push({
+          pathname: `/app/conversation/yoginiDasha/${params.data?._id}`,
+          state: params.data,
+          anotherParam: this.state.latitude,
+          anotherParam2: this.state.longitude,
+        });
+        // history.push({
+        //   pathname: `/app/conversation/yoginiDasha/${params.data?._id}`,
+        //   state: params.data,
+        // })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   async runthisfunction(id) {
     console.log(id);
     await axiosConfig.get(`/admin/dlt_ChatIntek/${id}`).then(
