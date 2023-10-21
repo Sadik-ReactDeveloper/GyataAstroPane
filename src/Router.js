@@ -39,7 +39,6 @@ const PlanetDasha = lazy(() => import("./views/apps/conversation/PlanetDasha"));
 const VimshottariDasha = lazy(() =>
   import("./views/apps/conversation/VimshottariDasha")
 );
-// const YoginiDasha = lazy(() => import("./views/apps/conversation/YoginiDasha"));
 const YoginiDashaImage = lazy(() =>
   import("./views/apps/conversation/YoginiDashaImage")
 );
@@ -119,8 +118,8 @@ const ChatAppMassage = lazy(() =>
 
 // astro Calls
 const LiveStreaming = lazy(() => import("./views/apps/calls/LiveStreaming"));
+const AddAcount = lazy(() => import("./views/apps/BankAccount/AddAcount"));
 const liveStreamlandpage = lazy(() => import("./views/apps/calls/Streaming"));
-// const yourliveStream = lazy(() => import("./views/apps/calls/LiveStreaming"));
 
 const VideoCall = lazy(() => import("./views/apps/calls/VideoCall"));
 const GallaryList = lazy(() => import("./views/apps/Uploads/GallaryList"));
@@ -169,9 +168,6 @@ const UserQuestionReply = lazy(() =>
 const AddAstrologer = lazy(() =>
   import("./views/apps/astrology/AddAstrologer")
 );
-// const EditAstrologer = lazy(() =>
-//   import('./views/apps/astrology/EditAstrologer'),
-// )
 const ViewAstrologer = lazy(() =>
   import("./views/apps/astrology/ViewAstrologer")
 );
@@ -187,8 +183,6 @@ const OrderHisList = lazy(() =>
 
 const ProductList = lazy(() => import("./views/apps/products/ProductList"));
 const AddProduct = lazy(() => import("./views/apps/products/AddProduct"));
-
-// const UserChatList = lazy(() => import('./views/apps/chat/UserChatList'))
 
 const FaqUserList = lazy(() => import("./views/apps/user/FaqUserList"));
 
@@ -220,11 +214,6 @@ const PayoutAddRequest = lazy(() =>
 const PayoutAddReqEdit = lazy(() =>
   import("./views/apps/report/PayoutAddReqEdit")
 );
-// const AdbyCommissionList = lazy(() =>
-//   import("./views/apps/report/AdbyCommissionList")
-// );
-
-// close
 
 // setting
 const addBank = lazy(() => import("./views/apps/setting/bank/AddBank"));
@@ -462,8 +451,6 @@ class AppRouter extends React.Component {
   }
   render() {
     return (
-      // Set the directory path if you are deploying in sub-folder
-
       <Router history={history}>
         <HashRouter>
           <Switch>
@@ -504,10 +491,6 @@ class AppRouter extends React.Component {
               path="/app/conversation/vimshottariDasha/:id"
               component={VimshottariDasha}
             />
-            {/* <AppRoute
-              path="/app/conversation/yoginiDasha/:id"
-              component={YoginiDasha}
-            /> */}
             <AppRoute
               path="/app/conversation/yoginiDasha/:id"
               component={YoginiDashaImage}
@@ -569,10 +552,6 @@ class AppRouter extends React.Component {
               path="/app/driver/withdrawalRequests"
               component={WithdrawalRequests}
             />
-            {/* <AppRoute
-              path="/app/astrology/editAstrologer"
-              component={EditAs / addproducttrologer}
-            /> */}
             <AppRoute
               path="/app/astrology/viewAstrologer"
               component={ViewAstrologer}
@@ -591,7 +570,6 @@ class AppRouter extends React.Component {
               component={ProductList}
             />
             <AppRoute path="/app/products/addproduct" component={AddProduct} />
-            {/* <AppRoute path="/app/chat/userchatlist" component={UserChatList} /> */}
             <AppRoute
               path="/app/historycall/callhistory"
               component={CallHistory}
@@ -639,10 +617,6 @@ class AppRouter extends React.Component {
               path="/app/report/payoutaddrequest"
               component={PayoutAddRequest}
             />
-            {/* <AppRoute
-              path="/app/report/asbycommissionlist"
-              component={AdbyCommissionList}
-            /> */}
             <AppRoute
               path="/app/report/payoutaddreqedit"
               component={PayoutAddReqEdit}
@@ -667,17 +641,13 @@ class AppRouter extends React.Component {
               component={ChatAppMassage}
             />
             <AppRoute path="/app/live/liveAstro" component={LiveStreaming} />
+            <AppRoute path="/app/bank/AddBankDetails" component={AddAcount} />
             <AppRoute
               path="/yourlivestream"
               component={liveStreamlandpage}
               fullLayout
             />
             ;
-            {/* <AppRoute
-              path="/yourlivestreamNow"
-              component={yourliveStream}
-              fullLayout
-            /> */}
             <AppRoute path="/gallaryList" component={GallaryList} />
             <AppRoute path="/editGallary" component={EditGallary} />
             <AppRoute path="/uploads" component={Upload} />

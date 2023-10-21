@@ -10,6 +10,13 @@ import {
   DropdownMenu,
   DropdownItem,
   DropdownToggle,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Form,
+  Label,
+  CustomInput,
 } from "reactstrap";
 import axiosConfig from "../../../axiosConfig";
 import { ContextLayout } from "../../../utility/context/Layout";
@@ -22,6 +29,7 @@ import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
 
 class InTakeList extends React.Component {
   state = {
+    modal: false,
     rowData: [],
     paginationPageSize: 20,
     currenPageSize: "",
@@ -44,8 +52,6 @@ class InTakeList extends React.Component {
         field: "sortorder",
         width: 300,
         cellRendererFramework: (params) => {
-          // birthPlace;
-
           return (
             <div className="actions cursor-pointer">
               <Route
@@ -214,48 +220,91 @@ class InTakeList extends React.Component {
     ],
   };
 
+  toggleModal = () => {
+    this.setState({ modal: !this.state.modal });
+  };
   async componentDidMount() {
     let astroId = localStorage.getItem("astroId");
     await axiosConfig
       .get(`/admin/intekListByastro/${astroId}`)
       .then((response) => {
         let rowData = response.data.data;
-        console.log(rowData);
         this.setState({ rowData });
       });
-    // let userId = localStorage.getItem("userId");
-    // await axiosConfig
-    //   .get(`/user/getOne_Conversation_Wallet/${userId}`)
-    //   .then((response) => {
-    //     // let rowData = response.data.data;
-    //     // this.setState({ rowData });
-    //   });
   }
 
+  handleChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+    console.log(e.target.value);
+  };
+
+  handleSubmit = () => {
+    alert("submited");
+    this.setState({ modal: !this.state.modal });
+    // const formData = {};
+    // axiosConfig
+    //   .post(`/user/birth_details`, formData)
+    //   .then((response) => {
+    //     console.log(response.data.data);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+  };
   handleLang = (params) => {
+    console.log(params?.data);
     axiosConfig
       .post(`/user/geo_detail`, {
         place: params.data.birthPlace,
       })
-      .then((response) => {
+      .then(() => {
         this.setState({
-          latitude: response?.data?.data?.geonames[0].latitude,
-          longitude: response?.data?.data?.geonames[0].longitude,
+          latitude: params?.data?.longitude,
+          longitude: params?.data?.latitude,
         });
         this.props.history.push({
           pathname: `/app/conversation/yoginiDasha/${params.data?._id}`,
           state: params.data,
-          anotherParam: this.state.latitude,
-          anotherParam2: this.state.longitude,
+          // anotherParam: this.state.latitude,
+          // anotherParam2: this.state.longitude,
         });
-        // history.push({
-        //   pathname: `/app/conversation/yoginiDasha/${params.data?._id}`,
-        //   state: params.data,
-        // })
       })
       .catch((error) => {
         console.log(error);
       });
+
+    // console.log(params.data);
+    // const { astroid, userid, date_of_time, dob } = params.data;
+    // const arr = date_of_time?.split(":");
+    // const hour = parseInt(arr[0]);
+    // const min = parseInt(arr[1]);
+    // const date = new Date(dob);
+    // const Year = date.getFullYear();
+    // const month = date.getMonth();
+    // const actualmonth = month + 1;
+    // const Day = date.getDate();
+
+    // const payload = {
+    //   astroid: astroid,
+    //   userid: userid._id,
+    //   hour: hour,
+    //   min: min,
+    //   day: Day,
+    //   month: actualmonth,
+    //   year: Year,
+    //   lat: this.state.latitude,
+    //   lon: this.state.longitude,
+    // };
+    // axiosConfig
+    //   .post(`/user/birth_details`, payload)
+    //   .then((response) => {
+    //     console.log(response.data.data);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+
+    // axiosConfig.post(`/user/birth_details`,);
   };
   async runthisfunction(id) {
     console.log(id);
@@ -308,6 +357,11 @@ class InTakeList extends React.Component {
                   <h1 sm="6" className="float-left">
                     Conversion InTake List
                   </h1>
+                </Col>
+                <Col>
+                  <Button color="primary" onClick={this.toggleModal}>
+                    User Form
+                  </Button>
                 </Col>
               </Row>
               <CardBody>
@@ -405,6 +459,45 @@ class InTakeList extends React.Component {
             </Card>
           </Col>
         </Row>
+        <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
+          <ModalHeader toggle={this.toggleModal}>Modal title</ModalHeader>
+          <ModalBody>
+            <Form>
+              <Label>Name *</Label>
+              <Input type="text" placeholder="Name" />
+              <Label>Place of Birth *</Label>
+              <Input type="text" placeholder="Place of Birth" />
+              <Label>Birth Date *</Label>
+              <Input type="date" />
+              <Label>Birth Time *</Label>
+              <Input type="date" placeholder="Birth Time" />
+              <Label>Email*</Label>
+              <Input type="email" placeholder="Enter Email" />
+
+              <Label>Select Gender</Label>
+              <CustomInput
+                required
+                type="select"
+                name="gender"
+                // value={category}
+                onChange={this.handleChange}
+              >
+                <option>....Select Gender.....</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </CustomInput>
+            </Form>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.handleSubmit}>
+              Submit
+            </Button>
+            <Button color="secondary" onClick={this.toggleModal}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
       </div>
     );
   }

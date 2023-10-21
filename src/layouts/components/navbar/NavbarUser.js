@@ -34,7 +34,7 @@ const NavbarUser = () => {
   const [viewnotify, setViewnotify] = useState("");
   const [VideoCount, setVideoCount] = useState("");
   const [videonotify, setVideonotify] = useState([]);
-  const [ButtonText, setButtonText] = useState("Offline");
+  const [ButtonText, setButtonText] = useState("offline");
   const history = useHistory();
 
   const handleofflineAstro = (e, path) => {
@@ -108,16 +108,20 @@ const NavbarUser = () => {
   const handleshowofflineAstro = (e) => {
     e.preventDefault();
     let astroid = localStorage.getItem("astroId");
+    // console.log("ButtonText", ButtonText, e.target.value);
     axiosConfig
       .post(`/user/status_change/${astroid}`, {
         status: ButtonText,
       })
       .then((res) => {
-        console.log(res.data);
-        swal("Status changed Successfully");
+        debugger;
+        console.log("message", res);
+        // swal("Status changed Successfully");
         if (res.data.message === "success") {
-          if (ButtonText === "Offline") {
+          console.log("default", ButtonText);
+          if (ButtonText === "offline") {
             setButtonText("Online");
+            console.log("after", ButtonText);
           } else setButtonText("offline");
         }
       })
@@ -133,7 +137,7 @@ const NavbarUser = () => {
         callingStatus: newStatus,
       })
       .then((res) => {
-        console.log("res", res.data.data);
+        console.log("statusChange", res.data.data);
         swal("Status changed Successfully");
       })
       .catch((err) => {
@@ -156,7 +160,6 @@ const NavbarUser = () => {
       .catch((err) => {
         console.log(err);
       });
-    // let type = data?.type;
 
     if (data?.type === "Chat") {
       history.push({ pathname: "/app/astrochat/chatastro", state: data });
@@ -209,11 +212,10 @@ const NavbarUser = () => {
   return (
     <div className="">
       <ul className="nav navbar-nav navbar-nav-user float-right">
-        <li>
+        {/* <li>
           <select
             className="mt-1"
             onChange={(e) => setNewStatus(e.target.value)}
-            id=""
           >
             <option value="Available">--Select--</option>
             <option value="Wait">Wait</option>
@@ -227,12 +229,12 @@ const NavbarUser = () => {
           >
             Mark {newStatus && newStatus}
           </Button>
-        </li>
+        </li> */}
         <li>
           <Button
             onClick={handleshowofflineAstro}
             size="sm"
-            className="ml-1 mt-1 btn btn-success "
+            className="ml-1 mt-1 btn btn-success"
           >
             Mark {ButtonText && ButtonText}
           </Button>

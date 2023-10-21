@@ -14,15 +14,6 @@ const navigationConfig = [
     groupTitle: "Component",
   },
 
-  // {
-  //   id: "requestuser",
-  //   title: "Request User List",
-  //   type: "item",
-  //   icon: <Icon.Users size={20} />,
-  //   permissions: ["admin", "editor"],
-  //   navLink: "/app/userrequest/userrequestlist",
-  // },
-
   {
     id: "callhistory",
     title: "Call History",
@@ -31,15 +22,6 @@ const navigationConfig = [
     permissions: ["admin", "editor"],
     navLink: "/app/historycall/callhistory",
   },
-
-  // {
-  //   id: "conversationList",
-  //   title: "Conversation List",
-  //   type: "item",
-  //   icon: <Icon.List size={20} />,
-  //   permissions: ["admin", "editor"],
-  //   navLink: "/app/conversation/conversationList",
-  // },
 
   {
     id: "conversationintakeList",
@@ -58,14 +40,7 @@ const navigationConfig = [
     permissions: ["admin", "editor"],
     navLink: "/app/astrochat/chatastro",
   },
-  // {
-  //   id: "voiceastro",
-  //   title: "Voice Call",
-  //   type: "item",
-  //   icon: <Icon.MessageCircle size={20} />,
-  //   permissions: ["admin", "editor"],
-  //   navLink: "/app/astrochat/chatastro",
-  // },
+
   {
     id: "videoastro",
     title: "Video Call",
@@ -83,14 +58,15 @@ const navigationConfig = [
     permissions: ["admin", "editor"],
     navLink: "/app/live/liveAstro",
   },
-  // {
-  //   id: "Yourstreaming",
-  //   title: "LiveStreaming",
-  //   type: "item",
-  //   icon: <Icon.Video size={20} />,
-  //   navLink: "/yourlivestream",
-  //   permissions: ["admin", "editor"],
-  // },
+  {
+    id: "addBalance",
+    title: "Add Balance",
+    type: "item",
+    icon: <Icon.CreditCard size={20} />,
+    permissions: ["admin", "editor"],
+    navLink: "/app/bank/AddBankDetails",
+  },
+
   {
     id: "gallaryList",
     title: "GallaryList",
@@ -99,14 +75,6 @@ const navigationConfig = [
     navLink: "/gallaryList",
     permissions: ["admin", "editor"],
   },
-  // {
-  //   id: "chat",
-  //   title: "Chat",
-  //   type: "item",
-  //   icon: <Icon.MessageSquare size={16} />,
-  //   navLink: "/chat",
-  //   permissions: ["admin", "editor"],
-  // },
 
   {
     id: "products",

@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import axiosConfig from "../../../axiosConfig";
-import { Button } from "reactstrap";
 class Demo2 extends Component {
   constructor() {
     super();
     this.state = {
       name: "",
     };
-    // this.onValueChange = this.onValueChange.bind(this);
   }
 
   deleteLive = () => {

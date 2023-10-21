@@ -10,11 +10,20 @@ import {
   CustomInput,
   Label,
   Button,
+  CardTitle,
+  CardText,
+  TabPane,
+  TabContent,
+  NavLink,
+  NavItem,
+  Nav,
+  Table,
 } from "reactstrap";
 import axiosConfig from "../../../axiosConfig";
 import "react-toastify/dist/ReactToastify.css";
 import { Route, useHistory } from "react-router-dom";
 import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
+import classnames from "classnames";
 // import swal from "sweetalert";
 
 function YoginiDashaImage(props) {
@@ -23,6 +32,8 @@ function YoginiDashaImage(props) {
   const [yoginiDasha, setyoginiDasha] = useState("");
   const [svgData1, setSvgData] = useState("");
   const [DOB, setDOB] = useState("");
+  const [currentActiveTab, setCurrentActiveTab] = useState("1");
+
   const history = useHistory();
   const list = [
     {
@@ -117,15 +128,20 @@ function YoginiDashaImage(props) {
     },
   ];
 
+  // Toggle active state for Tab
+  const toggle = (tab) => {
+    if (currentActiveTab !== tab) setCurrentActiveTab(tab);
+  };
   useEffect(() => {
-    const lat = props.location.anotherParam;
-    const long = props.location.anotherParam2;
-    console.log(props.history.location.state);
-    const arr = props.history.location.state.date_of_time.split(":");
+    console.log(props?.history.location?.state?.date_of_time);
+    const lat = props?.latitude;
+    const long = props?.longitude;
+    const arr = props?.history.location?.state?.date_of_time?.split(":");
+    console.log(arr, parseInt(arr[0]), parseInt(arr[1]));
     const hour = parseInt(arr[0]);
     const min = parseInt(arr[1]);
-
-    let dob = props.history.location.state.dob;
+    console.log(min);
+    let dob = props?.history.location.state?.dob;
     const date = new Date(dob);
     const Year = date.getFullYear();
     const month = date.getMonth();
@@ -141,7 +157,7 @@ function YoginiDashaImage(props) {
       lon: long,
       tzone: 5.5,
     });
-    setuserData(props.history.location.state);
+    setuserData(props?.history.location.state);
   }, []);
 
   const changeHandler1 = (e) => {
@@ -165,9 +181,9 @@ function YoginiDashaImage(props) {
   return (
     <div>
       <Breadcrumbs
-        breadCrumbTitle="Add Product"
-        breadCrumbParent=" Product Management"
-        breadCrumbActive="Add Product"
+        breadCrumbTitle="HoroScope Chart"
+        breadCrumbParent=" HoroScope List"
+        breadCrumbActive="HoroScope Chart"
       />
       <Card>
         <Row className="m-2">
@@ -181,7 +197,7 @@ function YoginiDashaImage(props) {
               render={({ history }) => (
                 <Button
                   className=" btn btn-danger float-right"
-                  onClick={() => history.push("/app/products/productlist")}
+                  onClick={() => history.push("app/conversation/intakelist")}
                 >
                   Back
                 </Button>
@@ -227,6 +243,281 @@ function YoginiDashaImage(props) {
               </Col>
             </Row>
           </Form>
+          <div>
+            <Nav tabs>
+              <NavItem>
+                <NavLink
+                  className={classnames({
+                    active: currentActiveTab === "1",
+                  })}
+                  onClick={() => {
+                    toggle("1");
+                  }}
+                >
+                  Basic Details
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  className={classnames({
+                    active: currentActiveTab === "2",
+                  })}
+                  onClick={() => {
+                    toggle("2");
+                  }}
+                >
+                  Planetary Position
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  className={classnames({
+                    active: currentActiveTab === "3",
+                  })}
+                  onClick={() => {
+                    toggle("3");
+                  }}
+                >
+                  Predictions
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  className={classnames({
+                    active: currentActiveTab === "4",
+                  })}
+                  onClick={() => {
+                    toggle("4");
+                  }}
+                >
+                  Pratharashtakvarga
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  className={classnames({
+                    active: currentActiveTab === "5",
+                  })}
+                  onClick={() => {
+                    toggle("5");
+                  }}
+                >
+                  Shodashvarga
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  className={classnames({
+                    active: currentActiveTab === "6",
+                  })}
+                  onClick={() => {
+                    toggle("6");
+                  }}
+                >
+                  Fivefold Friendship
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  className={classnames({
+                    active: currentActiveTab === "7",
+                  })}
+                  onClick={() => {
+                    toggle("7");
+                  }}
+                >
+                  Ashtakvarga
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  className={classnames({
+                    active: currentActiveTab === "8",
+                  })}
+                  onClick={() => {
+                    toggle("8");
+                  }}
+                >
+                  Vimshottari Dasha
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  className={classnames({
+                    active: currentActiveTab === "9",
+                  })}
+                  onClick={() => {
+                    toggle("9");
+                  }}
+                >
+                  Yogini Dasha
+                </NavLink>
+              </NavItem>
+            </Nav>
+            <TabContent activeTab={currentActiveTab}>
+              <TabPane tabId="1">
+                {/* <Row>
+                  <Col sm="12">
+                    <h5>Basic Details</h5>
+                  </Col>
+                </Row> */}
+                <Row>
+                  <Col lg="6" md="6" sm="6">
+                    <Table striped>
+                      <tr>
+                        <thead>
+                          <th>Name</th>
+                        </thead>
+                        <td>{props?.location?.state?.mobile}</td>
+                      </tr>
+                      <tr>
+                        <thead>
+                          <th>Birth Date</th>
+                        </thead>
+                        <td>{props?.location?.state?.dob}</td>
+                      </tr>
+                      <tr>
+                        <thead>
+                          <th>Birth Time</th>
+                        </thead>
+                        <td>{props?.location?.state?.date_of_time}</td>
+                      </tr>
+                      <tr>
+                        <thead>
+                          <th>Birth Place</th>
+                        </thead>
+                        <td>{props?.location?.state?.birthPlace}</td>
+                      </tr>
+                      <tr>
+                        <thead>
+                          <th>Ascendant</th>
+                        </thead>
+                        <td>{props?.location?.state?.date_of_time}</td>
+                      </tr>
+                      <tr>
+                        <thead>
+                          <th>Latitude </th>
+                        </thead>
+                        <td>{props?.location?.state?.latitude}</td>
+                      </tr>
+                      <tr>
+                        <thead>
+                          <th>Longitude </th>
+                        </thead>
+                        <td>{props?.location?.state?.longitude}</td>
+                      </tr>
+                      <tr>
+                        <thead>
+                          <th>Time Zone </th>
+                        </thead>
+                        <td>{props?.location?.state?.date_of_time}</td>
+                      </tr>
+                      <tr>
+                        <thead>
+                          <th>Time Zone Hour </th>
+                        </thead>
+                        <td>{props?.location?.state?.date_of_time}</td>
+                      </tr>
+                      <tr>
+                        <thead>
+                          <th>Sun Sign </th>
+                        </thead>
+                        <td>{props?.location?.state?.date_of_time}</td>
+                      </tr>
+                    </Table>
+                  </Col>
+                  <Col lg="6" md="6" sm="6">
+                    <Table striped>
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>Username</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">1</th>
+                          <td>Mark</td>
+                          <td>Otto</td>
+                          <td>@mdo</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2</th>
+                          <td>Jacob</td>
+                          <td>Thornton</td>
+                          <td>@fat</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">3</th>
+                          <td>Larry</td>
+                          <td>the Bird</td>
+                          <td>@twitter</td>
+                        </tr>
+                      </tbody>
+                    </Table>
+                  </Col>
+                </Row>
+              </TabPane>
+              <TabPane tabId="2">
+                <Row>
+                  <Col sm="12">
+                    <h5>Planetary Position</h5>
+                  </Col>
+                </Row>
+              </TabPane>
+              <TabPane tabId="3">
+                <Row>
+                  <Col sm="12">
+                    <h5>Predictions</h5>
+                  </Col>
+                </Row>
+              </TabPane>
+              <TabPane tabId="4">
+                <Row>
+                  <Col sm="12">
+                    <h5>Pratharashtakvarga</h5>
+                  </Col>
+                </Row>
+              </TabPane>
+              <TabPane tabId="5">
+                <Row>
+                  <Col sm="12">
+                    <h5>Shodashvarga</h5>
+                  </Col>
+                </Row>
+              </TabPane>
+              <TabPane tabId="6">
+                <Row>
+                  <Col sm="12">
+                    <h5>Fivefold Friendship</h5>
+                  </Col>
+                </Row>
+              </TabPane>
+              <TabPane tabId="7">
+                <Row>
+                  <Col sm="12">
+                    <h5>Ashtakvarga</h5>
+                  </Col>
+                </Row>
+              </TabPane>
+              <TabPane tabId="8">
+                <Row>
+                  <Col sm="12">
+                    <h5>Vimshottari Dasha</h5>
+                  </Col>
+                </Row>
+              </TabPane>
+              <TabPane tabId="9">
+                <Row>
+                  <Col sm="12">
+                    <h5>Yogini Dasha</h5>
+                  </Col>
+                </Row>
+              </TabPane>
+            </TabContent>
+          </div>
         </CardBody>
       </Card>
     </div>
