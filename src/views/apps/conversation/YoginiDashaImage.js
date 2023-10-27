@@ -133,7 +133,7 @@ function YoginiDashaImage(props) {
     if (currentActiveTab !== tab) setCurrentActiveTab(tab);
   };
   useEffect(() => {
-    console.log(props?.history.location?.state?.date_of_time);
+    console.log(props?.history.location?.state);
     const lat = props?.latitude;
     const long = props?.longitude;
     const arr = props?.history.location?.state?.date_of_time?.split(":");

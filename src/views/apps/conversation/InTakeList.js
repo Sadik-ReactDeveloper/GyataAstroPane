@@ -228,6 +228,7 @@ class InTakeList extends React.Component {
     await axiosConfig
       .get(`/admin/intekListByastro/${astroId}`)
       .then((response) => {
+        console.log(response.data.data);
         let rowData = response.data.data;
         this.setState({ rowData });
       });
@@ -253,25 +254,29 @@ class InTakeList extends React.Component {
   };
   handleLang = (params) => {
     console.log(params?.data);
-    axiosConfig
-      .post(`/user/geo_detail`, {
-        place: params.data.birthPlace,
-      })
-      .then(() => {
-        this.setState({
-          latitude: params?.data?.longitude,
-          longitude: params?.data?.latitude,
-        });
-        this.props.history.push({
-          pathname: `/app/conversation/yoginiDasha/${params.data?._id}`,
-          state: params.data,
-          // anotherParam: this.state.latitude,
-          // anotherParam2: this.state.longitude,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    this.props.history.push({
+      pathname: `/app/conversation/yoginiDasha/${params.data?._id}`,
+      state: params.data,
+    });
+    // axiosConfig
+    //   .post(`/user/geo_detail`, {
+    //     place: params.data.birthPlace,
+    //   })
+    //   .then(() => {
+    //     this.setState({
+    //       latitude: params?.data?.longitude,
+    //       longitude: params?.data?.latitude,
+    //     });
+    //     this.props.history.push({
+    //       pathname: `/app/conversation/yoginiDasha/${params.data?._id}`,
+    //       state: params.data,
+    //       // anotherParam: this.state.latitude,
+    //       // anotherParam2: this.state.longitude,
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
 
     // console.log(params.data);
     // const { astroid, userid, date_of_time, dob } = params.data;
