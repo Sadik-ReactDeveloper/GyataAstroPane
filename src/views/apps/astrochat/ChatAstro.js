@@ -204,6 +204,7 @@ class ChatApp extends React.Component {
             await axiosConfig
               .get(`/user/allchatwithAstro/${this.state.astroId}`)
               .then((response1) => {
+                console.log(response1);
                 if (response1.data.status === true) {
                   let filteredArray = response1?.data?.data.filter(function (
                     item
@@ -317,9 +318,7 @@ class ChatApp extends React.Component {
                             }}
                             value={this.state.msg}
                           />
-                          <button
-                          // onClick={(e) => swal("Select User to full screen")}
-                          >
+                          <button>
                             <i class="material-icons">Send</i>
                           </button>
                         </form>

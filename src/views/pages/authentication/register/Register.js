@@ -44,7 +44,7 @@ class Register extends React.Component {
       min_earning_expe: "",
       max_earning_expe: "",
       long_bio: "",
-      status: "Active",
+      status: "offline",
       callCharge: "",
       fullname: "",
       img: {},
@@ -99,6 +99,7 @@ class Register extends React.Component {
     if (this.state.password === this.state.cnfmPassword) {
       let astroId = localStorage.getItem("astroId");
       console.log("astroId", astroId);
+      console.log(this.state.status);
       const data = new FormData();
       data.append("_id", astroId);
       data.append("gender", this.state.gender);
@@ -166,25 +167,26 @@ class Register extends React.Component {
 
   stepperFirst = () => {
     const { email, mobile, fullname } = this.state;
-    axiosConfig
-      .post("/user/signup", {
-        mobile: parseInt(mobile) !== isNaN ? parseInt(mobile) : "null",
-        email: email,
-        fullname: fullname,
-        moblie: mobile,
-      })
-      .then((response) => {
-        this.stepper.next();
-        console.log("UserDetails", response.data);
-        let userInfo = response.data.user;
-        localStorage.setItem("astroId", response.data._id);
-        localStorage.setItem("userInfo", JSON.stringify(userInfo));
-      })
-      .catch((error) => {
-        console.log(error);
-        console.log(error.response);
-        swal("Error!", " Wrong details", "error");
-      });
+    if (email && mobile && fullname) {
+      axiosConfig
+        .post("/user/signup", {
+          mobile: parseInt(mobile) !== isNaN ? parseInt(mobile) : "null",
+          email: email,
+          fullname: fullname,
+          moblie: mobile,
+        })
+        .then((response) => {
+          this.stepper.next();
+          console.log("UserDetails", response.data);
+          let userInfo = response.data.user;
+          localStorage.setItem("astroId", response.data._id);
+          localStorage.setItem("userInfo", JSON.stringify(userInfo));
+        })
+        .catch((error) => {
+          console.log(error.response);
+          swal("Error!", " Wrong details", "error");
+        });
+    }
   };
   stepperSecond = () => {
     const { otp, mobile } = this.state;
@@ -206,8 +208,6 @@ class Register extends React.Component {
         }
       })
       .catch((error) => {
-        console.log(error);
-        console.log(error.response);
         swal("Error!", " Wrong UserName or Password", "error");
       });
   };
@@ -290,6 +290,7 @@ class Register extends React.Component {
                         <div className="form-group mtb-10">
                           <Label>Mobile Number*</Label>
                           <PhoneInput
+                            required
                             countryCodeEditable={false}
                             className="mob-int"
                             country={"in"}
